@@ -1,0 +1,7 @@
+<app-header (start)="onStart($event)"></app-header>
+<main>
+    <app-sidebar></app-sidebar>
+    <app-main [parentData]="run"></app-main>
+</main>
+
+<router-outlet></router-outlet>
