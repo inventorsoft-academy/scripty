@@ -2,6 +2,7 @@ import { Component, ViewChild, ElementRef, Input } from '@angular/core';
 
 import { fromEvent } from 'rxjs'
 import { debounceTime } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-main',
@@ -24,15 +25,17 @@ export class MainComponent {
   getValueFromArea(panel, where) {
     fromEvent(panel.nativeElement, "keyup")
       .pipe(
-        debounceTime(500)
+        map((event: any) => { return event.target.value; })
+      ).pipe(
+      debounceTime(500)
       )
       .subscribe(ch => {
         if (where === "html") {
-          this.htmlPanelValue = "<html>" + ch.target.value + "</html>"
+          this.htmlPanelValue = "<html>" + ch + "</html>"
         } else if (where === "style") {
-          this.cssPanelValue = "<style>" + ch.target.value + "</style>"
+          this.cssPanelValue = "<style>" + ch + "</style>"
         } else if (where === "script") {
-          this.jsPanelValue = "<script>" + ch.target.value + "</script>"
+          this.jsPanelValue = "<script>" + ch + "</script>"
         }
 
         let doc = this.iframePanel.nativeElement.contentDocument
