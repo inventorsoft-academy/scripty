@@ -34,5 +34,18 @@
             resize: none;
             caret-color: yellow;
         }
+        iframe{
+            height: 100%;
+        }
+    }
+       
+    .iframe-show{
+        p{
+            display: none;
+        }
+        iframe{
+            display: block;
+            background-color: white;
+        }
     }
 }
