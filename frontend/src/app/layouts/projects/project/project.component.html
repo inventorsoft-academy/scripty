@@ -1,7 +1,7 @@
 <section>
     <nav>
         <ul>
-            <li>1n</li>
+            <li (click)="run()">1n</li>
             <li>2n</li>
             <li>3n</li>
             <li>4n</li>
@@ -9,9 +9,11 @@
         </ul>
     </nav>
     <section class="wrap-code">
-        <div class="html">html</div>
-        <div class="style">style</div>
-        <div class="script">scripty</div>
-        <div class="result">result</div>
+        <div class="html"><textarea [(ngModel)]="html" placeholder="html"></textarea></div>
+        <div class="style"><textarea placeholder="style" [(ngModel)]="style"></textarea></div>
+        <div class="script"><textarea placeholder="script" [(ngModel)]="script"></textarea></div>
+        <div class="result">
+            <iframe [src]="result | safe"></iframe>
+        </div>
     </section>
 </section>

@@ -43,7 +43,7 @@ html {
     }
 
     input, textarea {
-      background: transparent;
+      background: $primary-color;
       border: 1px solid $border-color;
       font-family: 'Roboto', sans-serif;
       width: 100%;
@@ -51,7 +51,7 @@ html {
       font-size: 16px;
       padding: 10px;
       margin: 10px 0;
-      color: white;
+      color: #fff;
       resize: none;
     }
 

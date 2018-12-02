@@ -3,17 +3,17 @@
 $tablet-screen: 768px;
 $mobile-screen: 320px;
 $grid-area-html: html;
-$grid-area-js: js;
-$grid-area-css: css;
+$grid-area-style: style;
+$grid-area-script: script;
 $grid-area-view: view;
-$grid-areas: $grid-area-html, $grid-area-js, $grid-area-css, $grid-area-view;
+$grid-areas: $grid-area-html, $grid-area-style, $grid-area-script, $grid-area-view;
 
 .wrap-code {
   display: grid;
-  grid-template-areas: "#{$grid-area-html} #{$grid-area-js} #{$grid-area-css}" "#{$grid-area-view} #{$grid-area-view} #{$grid-area-view}";
+  grid-template-areas: "#{$grid-area-html} #{$grid-area-style} #{$grid-area-script}" "#{$grid-area-view} #{$grid-area-view} #{$grid-area-view}";
   grid-gap: 10px;
+  padding: 0 10px;
   div {
-    padding: 20px;
     font-size: 14px;
     @for $i from 1 through length($grid-areas) {
       &:nth-child(#{$i}) {
@@ -26,12 +26,12 @@ $grid-areas: $grid-area-html, $grid-area-js, $grid-area-css, $grid-area-view;
 
 @media screen and (max-width: $tablet-screen) {
   .wrap-code {
-    grid-template-areas: "#{$grid-area-html} #{$grid-area-js}" "#{$grid-area-css} #{$grid-area-view}";
+    grid-template-areas: "#{$grid-area-html} #{$grid-area-style}" "#{$grid-area-script} #{$grid-area-view}";
   }
 }
 
 @media screen and (max-width: $mobile-screen) {
   .wrap-code {
-    grid-template-areas: "#{$grid-area-html}" "#{$grid-area-js}" "#{$grid-area-css}" "#{$grid-area-view}";
+    grid-template-areas: "#{$grid-area-html}" "#{$grid-area-style}" "#{$grid-area-script}" "#{$grid-area-view}";
   }
 }

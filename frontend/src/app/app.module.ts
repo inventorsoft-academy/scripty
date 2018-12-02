@@ -8,7 +8,7 @@ import {TitleService} from './title.service';
 
 @NgModule({
     declarations: [
-        AppComponent,
+        AppComponent
     ],
     imports: [
         BrowserModule,
