@@ -5,6 +5,21 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {MaterialModule} from './material-module';
 import {TitleService} from './title.service';
+import {HighlightModule} from 'ngx-highlightjs';
+
+import xml from 'highlight.js/lib/languages/xml';
+import scss from 'highlight.js/lib/languages/scss';
+import typescript from 'highlight.js/lib/languages/typescript';
+import javascript from 'highlight.js/lib/languages/javascript';
+
+export function HLLanguages() {
+    return [
+        {name: 'typescript', func: typescript},
+        {name: 'javascript', func: javascript},
+        {name: 'scss', func: scss},
+        {name: 'xml', func: xml}
+    ];
+}
 
 @NgModule({
     declarations: [
@@ -13,7 +28,10 @@ import {TitleService} from './title.service';
     imports: [
         BrowserModule,
         AppRoutingModule,
-        MaterialModule
+        MaterialModule,
+        HighlightModule.forRoot({
+            languages: HLLanguages
+        })
     ],
     providers: [
         TitleService

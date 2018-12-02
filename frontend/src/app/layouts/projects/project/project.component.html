@@ -8,10 +8,23 @@
             <li>5n</li>
         </ul>
     </nav>
+    <!--<div highlightChildren>-->
+    <!--<pre><code [textContent]="html"></code></pre>-->
+    <!--<pre><code [textContent]="script"></code></pre>-->
+    <!--<pre><code [textContent]="style"></code></pre>-->
+    <!--</div>-->
     <section class="wrap-code">
-        <div class="html"><textarea [(ngModel)]="html" placeholder="html"></textarea></div>
-        <div class="style"><textarea placeholder="style" [(ngModel)]="style"></textarea></div>
-        <div class="script"><textarea placeholder="script" [(ngModel)]="script"></textarea></div>
+        <div class="html">
+            <pre><code contenteditable="true" (highlighted)="onHighlight($event)"
+                       (input)="onInputCode($event, 'html')"
+                       [highlight]="htmlCode"></code></pre>
+        </div>
+        <div class="style">
+            <pre><code contenteditable="true" [highlight]="style"></code></pre>
+        </div>
+        <div class="script">
+            <pre><code contenteditable="true" [highlight]="script"></code></pre>
+        </div>
         <div class="result">
             <iframe [src]="result | safe"></iframe>
         </div>
