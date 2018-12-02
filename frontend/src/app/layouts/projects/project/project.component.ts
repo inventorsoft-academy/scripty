@@ -29,8 +29,17 @@ export class ProjectComponent implements OnInit {
 
     onInputCode(e: any, type: string) {
         console.log(e, type);
-        this[type] = e.target.innerText;
+        if (this.hasOwnProperty(type)) {
+            this[type] = e.target.innerText;
+        }
     }
+
+    onBlurCode(type: string) {
+        if (this.hasOwnProperty(`${type}Code`)) {
+            this[`${type}Code`] = this[type];
+        }
+    }
+
 
     onHighlight(e: any) {
         console.log(e, this.htmlCode);
@@ -40,16 +49,19 @@ export class ProjectComponent implements OnInit {
         this.htmlCode = this.html;
         this.scriptCode = this.style;
         this.scriptCode = this.script;
-        this.result = `data:text/html;charset=utf-8,
-<html>
-  <head>
-      <style>${this.style}</style>
-  </head>
-  <body>
-    ${this.html}
-    <script>${this.script}</script>
-  </body>
-</html>`;
+        this.result = `
+            data:text / html;
+            charset = utf - 8,
+            <html>
+                <head>
+                    <style>${this.style}</style>
+            < /head>
+            < body >
+            ${this.html}
+            <script>${this.script}</script>
+            < /body>
+            < /html>`;
+        ;
     }
 
 }

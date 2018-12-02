@@ -8,25 +8,32 @@
             <li>5n</li>
         </ul>
     </nav>
-    <!--<div highlightChildren>-->
-    <!--<pre><code [textContent]="html"></code></pre>-->
-    <!--<pre><code [textContent]="script"></code></pre>-->
-    <!--<pre><code [textContent]="style"></code></pre>-->
-    <!--</div>-->
     <section class="wrap-code">
         <div class="html">
-            <pre><code contenteditable="true" (highlighted)="onHighlight($event)"
-                       (input)="onInputCode($event, 'html')"
-                       [highlight]="htmlCode"></code></pre>
+            <div>
+                <input placeholder="html" [(ngModel)]="html">
+                <pre><code (highlighted)="onHighlight($event)"
+                           [highlight]="html"></code></pre>
+            </div>
         </div>
         <div class="style">
-            <pre><code contenteditable="true" [highlight]="style"></code></pre>
+            <div>
+            <pre><code contenteditable="true" (highlighted)="onHighlight($event)"
+                       (input)="onInputCode($event, 'style')"
+                       (blur)="onBlurCode('style')"
+                       [highlight]="styleCode"></code></pre>
+            </div>
         </div>
         <div class="script">
-            <pre><code contenteditable="true" [highlight]="script"></code></pre>
+            <div>
+            <pre><code contenteditable="true" (highlighted)="onHighlight($event)"
+                       (input)="onInputCode($event, 'script')"
+                       (blur)="onBlurCode('script')"
+                       [highlight]="scriptCode"></code></pre>
+            </div>
         </div>
-        <div class="result">
-            <iframe [src]="result | safe"></iframe>
-        </div>
+        <!--<div class="result">-->
+        <!--<iframe [src]="result | safe"></iframe>-->
+        <!--</div>-->
     </section>
 </section>
