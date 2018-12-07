@@ -47,21 +47,17 @@ export class ProjectComponent implements OnInit {
 
     run() {
         this.htmlCode = this.html;
-        this.scriptCode = this.style;
+        this.styleCode = this.style;
         this.scriptCode = this.script;
-        this.result = `
-            data:text / html;
-            charset = utf - 8,
-            <html>
+        this.result = `data:text/html;charset = utf - 8,<html>
                 <head>
                     <style>${this.style}</style>
-            < /head>
-            < body >
+                </head>
+            <body>
             ${this.html}
             <script>${this.script}</script>
-            < /body>
-            < /html>`;
-        ;
+            </body>
+            </html>`;
     }
 
 }
