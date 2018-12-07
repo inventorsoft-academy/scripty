@@ -1,10 +1,14 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
-import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from './material-module';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import {RoleGuardService} from "./services/role-guard.service";
+import {AuthGuardService} from "./services/auth-guard.service";
+import {AdminPageModule} from "./layouts/admin-page/admin-page.module";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
 	declarations: [
@@ -15,8 +19,10 @@ import {MaterialModule} from './material-module';
 		AppRoutingModule,
 		BrowserAnimationsModule,
 		MaterialModule,
+		AdminPageModule,
+		HttpClientModule,
 	],
-	providers: [],
+	providers: [AuthGuardService, RoleGuardService],
 	bootstrap: [AppComponent]
 })
 export class AppModule {

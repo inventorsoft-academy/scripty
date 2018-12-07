@@ -1,4 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
     selector: 'app-header',
@@ -10,7 +11,7 @@ export class HeaderComponent implements OnInit {
     isOpen: boolean;
     @Output() sidebarIsOpen = new EventEmitter<boolean>();
 
-    constructor() {
+    constructor(public _authService: AuthService) {
     }
 
     ngOnInit() {
@@ -21,10 +22,12 @@ export class HeaderComponent implements OnInit {
 
     signIn() {
         this.isAuthorized = true;
+        this._authService.loginAdmin();
     }
 
     logOut() {
         this.isAuthorized = false;
+        this._authService.logout();
     }
 
     openNav() {

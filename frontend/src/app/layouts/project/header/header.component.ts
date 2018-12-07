@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
 	selector: 'app-header',
@@ -9,7 +10,7 @@ export class HeaderComponent implements OnInit {
 	authorized: boolean;
 	isOpen: boolean;
 
-	constructor() {
+	constructor(private _authService: AuthService) {
 	}
 
 	ngOnInit() {
@@ -19,10 +20,12 @@ export class HeaderComponent implements OnInit {
 
 	singIn() {
 		this.authorized = true;
+		this._authService.login();
 	}
 
 	logOut() {
 		this.authorized = false;
+		// this._authService.logout();
 	}
 
 	openNav() {
