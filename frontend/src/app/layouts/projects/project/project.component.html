@@ -11,29 +11,31 @@
     <section class="wrap-code">
         <div class="html">
             <div>
-                <input placeholder="html" [(ngModel)]="html">
+                <textarea placeholder="html" [(ngModel)]="html"></textarea>
                 <pre><code (highlighted)="onHighlight($event)"
                            [highlight]="html"></code></pre>
             </div>
         </div>
         <div class="style">
             <div>
-            <pre><code contenteditable="true" (highlighted)="onHighlight($event)"
-                       (input)="onInputCode($event, 'style')"
-                       (blur)="onBlurCode('style')"
-                       [highlight]="styleCode"></code></pre>
+                <textarea placeholder="style" [(ngModel)]="style"></textarea>
+                <pre><code contenteditable="true" (highlighted)="onHighlight($event)"
+                           (input)="onInputCode($event, 'style')"
+                           (blur)="onBlurCode('style')"
+                           [highlight]="style"></code></pre>
             </div>
         </div>
         <div class="script">
             <div>
-            <pre><code contenteditable="true" (highlighted)="onHighlight($event)"
-                       (input)="onInputCode($event, 'script')"
-                       (blur)="onBlurCode('script')"
-                       [highlight]="scriptCode"></code></pre>
+                <textarea placeholder="script" [(ngModel)]="script"></textarea>
+                <pre><code contenteditable="true" (highlighted)="onHighlight($event)"
+                           (input)="onInputCode($event, 'script')"
+                           (blur)="onBlurCode('script')"
+                           [highlight]="script"></code></pre>
             </div>
         </div>
-        <!--<div class="result">-->
-        <!--<iframe [src]="result | safe"></iframe>-->
-        <!--</div>-->
+        <div class="result">
+            <iframe [src]="result | safe"></iframe>
+        </div>
     </section>
 </section>
