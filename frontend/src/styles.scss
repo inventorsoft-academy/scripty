@@ -42,7 +42,9 @@ html {
       font-family: 'Roboto', sans-serif;
       font-size: 16px;
     }
-
+    img {
+      max-width: 100%;
+    }
     input, textarea {
       background: $primary-color;
       border: 1px solid $border-color;
