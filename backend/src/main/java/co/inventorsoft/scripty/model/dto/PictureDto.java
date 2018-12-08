@@ -10,8 +10,8 @@ import org.springframework.http.MediaType;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PictureDto {
-    byte[] content;
+    String content;
 
-    MediaType contentType;
+    String extension;
 
 }

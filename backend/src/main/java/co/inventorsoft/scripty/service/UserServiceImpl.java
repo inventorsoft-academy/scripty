@@ -104,12 +104,12 @@ public class UserServiceImpl implements UserService{
 
     public void setPicture(String email, MultipartFile picture) {
         Optional<User> user = userRepository.findByEmail(email);
-        if (!ImageTypes.contains(Files.getFileExtension(picture.getOriginalFilename()))) throw new ApplicationException("Invalid file extension", HttpStatus.BAD_REQUEST);
+        if (!ImageTypes.contains(Files.getFileExtension(picture.getOriginalFilename()))) throw new ApplicationException("Incorrect file extension", HttpStatus.BAD_REQUEST);
         if (user.isPresent()) {
             Picture userPic = new Picture();
             try {
                 userPic.setContent(picture.getBytes());
-                userPic.setContentType(picture.getContentType());
+                userPic.setExtension(picture.getContentType());
                 user.get().setPicture(userPic);
             } catch (IOException e) {
                 throw new ApplicationException("File's empty. Please, try to use another one!", HttpStatus.BAD_REQUEST);
@@ -125,8 +125,8 @@ public class UserServiceImpl implements UserService{
 
         if(user.isPresent()) {
             if (!(user.get().getPicture() == null)) {
-                image.setContentType(MediaType.parseMediaType(user.get().getPicture().getContentType()));
-                image.setContent(user.get().getPicture().getContent());
+                image.setExtension((user.get().getPicture().getExtension()));
+                image.setContent(Base64.getEncoder().encodeToString(user.get().getPicture().getContent()));
             } else
                 throw new ApplicationException("User has no profile picture.", HttpStatus.NOT_FOUND);
         } else

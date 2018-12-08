@@ -1,10 +1,12 @@
 package co.inventorsoft.scripty.model.entity;
 
-import com.mysql.cj.jdbc.Blob;
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.*;
+
+/**
+ * @author A1lexen
+ */
 
 @Entity
 @Getter
@@ -21,7 +23,7 @@ public class Picture {
     byte[] content;
 
     @Column
-    String contentType;
+    String extension;
 
     public boolean isEmpty() {
         return content.length == 0;
