@@ -1,5 +1,4 @@
 package co.inventorsoft.scripty.service;
-
 import co.inventorsoft.scripty.model.dto.EmailDto;
 import co.inventorsoft.scripty.model.dto.PictureDto;
 import co.inventorsoft.scripty.model.dto.UserDto;
