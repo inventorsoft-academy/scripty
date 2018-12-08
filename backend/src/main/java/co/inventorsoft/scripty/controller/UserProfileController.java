@@ -8,12 +8,14 @@ import org.apache.tomcat.util.http.fileupload.FileUploadBase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 /**
  * @author A1lexen
@@ -30,8 +32,9 @@ public class UserProfileController {
     }
 
     @PostMapping("/users/picture")
-    public ResponseEntity setProfilePicture(@RequestParam MultipartFile picture) {
-        userService.setPicture("alex30030@gmail.com", picture);
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    public ResponseEntity setProfilePicture(Principal user, @RequestParam MultipartFile picture) {
+        userService.setPicture(user.getName(), picture);
         return ResponseEntity.ok().build();
     }
 
