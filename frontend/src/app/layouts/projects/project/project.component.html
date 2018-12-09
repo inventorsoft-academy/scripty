@@ -14,9 +14,12 @@
     <section class="wrap-code">
         <div class="html">
             <div>
-                <textarea placeholder="html" [(ngModel)]="html"></textarea>
+                <textarea placeholder="html" [value]="html"
+                          (keyup)="onInputCode($event, 'html')"
+                          (mousedown)="onMouseDown($event, 'html')"
+                ></textarea>
                 <pre><code (highlighted)="onHighlight($event)"
-                           [highlight]="html"></code></pre>
+                           [highlight]="htmlCode"></code></pre>
             </div>
         </div>
         <div class="style">

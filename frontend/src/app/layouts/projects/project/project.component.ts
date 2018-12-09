@@ -28,11 +28,34 @@ export class ProjectComponent implements OnInit {
     }
 
     onInputCode(e: any, type: string) {
-        console.log(e, type);
+        console.log(e, type, e.target.value);
         if (this.hasOwnProperty(type)) {
-            this[type] = e.target.innerText;
+            console.log(e.target.selectionStart, e.target.selectionEnd);
+            const cursor = '▏',
+                value = e.target.value.replace(new RegExp(cursor, 'g'), '');
+            let cursorPosition = 0;
+            if (e.target.selectionStart === e.target.selectionEnd) {
+                cursorPosition = e.target.selectionStart;
+            }
+            this[type] = value;
+            this[`${type}Code`] = `${value.substring(0, cursorPosition)}${cursor}${value.substring(cursorPosition)}`;
         }
     }
+    onMouseDown(e: any, type: string) {
+        console.log(e, type, e.target.value);
+        if (this.hasOwnProperty(type)) {
+            console.log(e.target.selectionStart, e.target.selectionEnd);
+            const cursor = '▏',
+                value = this.html.replace(new RegExp(cursor, 'g'), '');
+            let cursorPosition = 0;
+            if (e.target.selectionStart === e.target.selectionEnd) {
+                cursorPosition = e.target.selectionStart;
+            }
+            this[type] = value;
+            this[`${type}Code`] = `${value.substring(0, cursorPosition)}${cursor}${value.substring(cursorPosition)}`;
+        }
+    }
+
 
     onBlurCode(type: string) {
         if (this.hasOwnProperty(`${type}Code`)) {
