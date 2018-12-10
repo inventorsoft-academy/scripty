@@ -1,6 +1,8 @@
 package co.inventorsoft.scripty.service;
+
 import co.inventorsoft.scripty.exception.ApplicationException;
 import co.inventorsoft.scripty.model.dto.EmailDto;
+import co.inventorsoft.scripty.model.dto.UpdatePasswordDto;
 import co.inventorsoft.scripty.model.entity.PasswordToken;
 import co.inventorsoft.scripty.model.entity.User;
 import co.inventorsoft.scripty.model.entity.VerificationToken;
@@ -92,6 +94,18 @@ public class UserServiceImpl implements UserService{
         user.setEnabled(true);
         userRepository.save(user);
         tokenRepository.delete(verificationToken);
+    }
+
+    public void updatePassword(String email, UpdatePasswordDto updatePasswordDto) {
+        Optional<User> user = userRepository.findByEmail(email);
+        if(user.isPresent()){
+            if(passwordEncoder.matches(updatePasswordDto.getOldPassword(), user.get().getPassword())) {
+                user.get().setPassword(passwordEncoder.encode(updatePasswordDto.getNewPassword().getPassword()));
+                userRepository.save(user.get());
+            } else
+                throw new ApplicationException("The password you've entered doesn't match your current one", HttpStatus.BAD_REQUEST);
+        } else
+            throw new ApplicationException("User not found.", HttpStatus.NOT_FOUND);
     }
 
     private void createVerificationTokenForUser(final User user, final String token) {
