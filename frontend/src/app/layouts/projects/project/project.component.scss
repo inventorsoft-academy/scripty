@@ -1,8 +1,10 @@
 @import "variables";
-section{
+
+section {
   background: $primary-color;
   height: 100%;
 }
+
 .nav-box {
   display: flex;
   justify-content: flex-start;
@@ -28,8 +30,8 @@ $grid-areas: $grid-area-html, $grid-area-style, $grid-area-script, $grid-area-vi
 
 .wrap-code {
   display: grid;
-  grid-template-rows:  1fr 1fr ;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   grid-template-areas: "#{$grid-area-html} #{$grid-area-style} #{$grid-area-script}" "#{$grid-area-view} #{$grid-area-view} #{$grid-area-view}";
   div {
     font-size: 14px;
