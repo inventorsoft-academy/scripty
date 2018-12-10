@@ -24,9 +24,5 @@ public class Picture {
 
     @Column
     String extension;
-
-    public boolean isEmpty() {
-        return content.length == 0;
-    }
 }
 

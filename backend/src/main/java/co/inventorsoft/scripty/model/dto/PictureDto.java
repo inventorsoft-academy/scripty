@@ -13,5 +13,4 @@ public class PictureDto {
     String content;
 
     String extension;
-
 }

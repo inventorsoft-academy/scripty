@@ -31,7 +31,7 @@ public class UserProfileController {
         this.userService = userService;
     }
 
-
+    @ApiOperation(value = "Upload picture for current user")
     @PostMapping("/users/picture")
     @PreAuthorize("hasAuthority('ROLE_USER')")
     public ResponseEntity setProfilePicture(Principal user, @RequestParam MultipartFile picture) {
@@ -39,6 +39,7 @@ public class UserProfileController {
         return ResponseEntity.ok().build();
     }
 
+    @ApiOperation(value = "Get base64 users's picture by id in base64 string")
     @GetMapping(value = "/users/{id}/picture", produces = "application/json")
     public ResponseEntity getProfilePicture(@PathVariable Long id) {
         PictureDto picture = userService.getPicture(id);
