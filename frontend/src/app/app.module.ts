@@ -15,7 +15,7 @@ import {TitleService} from './title.service';
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
-        MaterialModule
+        MaterialModule,
     ],
     providers: [
         TitleService
