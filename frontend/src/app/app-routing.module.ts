@@ -18,6 +18,11 @@ const routes: Routes = [
         data: {title: 'Admin page'}
     },
     {
+        path: 'login',
+        loadChildren: './layouts/login/login.module#LoginModule', pathMatch: 'full',
+        data: {title: 'Login'}
+    },
+    {
         path: '**', redirectTo: '/projects'
     }
 ];
