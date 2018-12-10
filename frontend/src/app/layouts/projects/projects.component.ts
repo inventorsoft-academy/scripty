@@ -11,7 +11,8 @@ export class ProjectsComponent implements OnInit {
     constructor() {
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+    }
 
     onSidebarIsOpen(isOpen: boolean) {
         this.isOpen = isOpen;
