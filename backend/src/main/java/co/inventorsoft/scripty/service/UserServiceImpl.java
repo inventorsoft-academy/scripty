@@ -1,8 +1,10 @@
 package co.inventorsoft.scripty.service;
+
 import co.inventorsoft.scripty.exception.ApplicationException;
 import co.inventorsoft.scripty.model.dto.EmailDto;
 import co.inventorsoft.scripty.model.dto.ImageTypes;
 import co.inventorsoft.scripty.model.dto.PictureDto;
+import co.inventorsoft.scripty.model.dto.UpdatePasswordDto;
 import co.inventorsoft.scripty.model.entity.PasswordToken;
 import co.inventorsoft.scripty.model.entity.Picture;
 import co.inventorsoft.scripty.model.entity.User;
@@ -14,16 +16,15 @@ import co.inventorsoft.scripty.repository.VerificationTokenRepository;
 import com.google.common.io.Files;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.time.Clock;
 import java.time.Instant;
 import java.util.*;
+
 /**
  *
  * @author Symyniuk
@@ -31,7 +32,7 @@ import java.util.*;
  */
 @Service
 @Transactional
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private VerificationTokenRepository tokenRepository;
     private PasswordEncoder passwordEncoder;
@@ -123,7 +124,7 @@ public class UserServiceImpl implements UserService{
         Optional<User> user = userRepository.findById(id);
         PictureDto image = new PictureDto();
 
-        if(user.isPresent()) {
+        if (user.isPresent()) {
             if (!(user.get().getPicture() == null)) {
                 image.setExtension((user.get().getPicture().getExtension()));
                 image.setContent(Base64.getEncoder().encodeToString(user.get().getPicture().getContent()));
@@ -132,6 +133,18 @@ public class UserServiceImpl implements UserService{
         } else
             throw new ApplicationException("User not found.", HttpStatus.NOT_FOUND);
         return image;
+    }
+
+    public void updatePassword(String email, UpdatePasswordDto updatePasswordDto) {
+        Optional<User> user = userRepository.findByEmail(email);
+        if(user.isPresent()){
+            if(passwordEncoder.matches(updatePasswordDto.getOldPassword(), user.get().getPassword())) {
+                user.get().setPassword(passwordEncoder.encode(updatePasswordDto.getNewPassword().getPassword()));
+                userRepository.save(user.get());
+            } else
+                throw new ApplicationException("The password you've entered doesn't match your current one", HttpStatus.BAD_REQUEST);
+        } else
+            throw new ApplicationException("User not found.", HttpStatus.NOT_FOUND);
     }
 
     private void createVerificationTokenForUser(final User user, final String token) {
