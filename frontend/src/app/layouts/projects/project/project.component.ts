@@ -38,7 +38,8 @@ export class ProjectComponent implements OnInit {
                 cursorPosition = e.target.selectionStart;
             }
             this[type] = value;
-            this[`${type}Code`] = `${value.substring(0, cursorPosition)}${cursor}${value.substring(cursorPosition)}`;
+            // this[`${type}Code`] = `${value.substring(0, cursorPosition)}${cursor}${value.substring(cursorPosition)}`;
+            this[`${type}Code`] = `${value.substring(0, cursorPosition)}${value.substring(cursorPosition)}`;
         }
     }
     onMouseDown(e: any, type: string) {
@@ -52,7 +53,8 @@ export class ProjectComponent implements OnInit {
                 cursorPosition = e.target.selectionStart;
             }
             this[type] = value;
-            this[`${type}Code`] = `${value.substring(0, cursorPosition)}${cursor}${value.substring(cursorPosition)}`;
+            // this[`${type}Code`] = `${value.substring(0, cursorPosition)}${cursor}${value.substring(cursorPosition)}`;
+            this[`${type}Code`] = `${value.substring(0, cursorPosition)}${value.substring(cursorPosition)}`;
         }
     }
 

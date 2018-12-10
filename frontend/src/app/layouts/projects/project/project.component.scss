@@ -47,16 +47,29 @@ $grid-areas: $grid-area-html, $grid-area-style, $grid-area-script, $grid-area-vi
       * {
         margin: 0;
         width: 100%;
-        height: 64px;
+        height: 200px;
         position: absolute;
+
+        font-size: 16px;
+        letter-spacing: 0.1em;
+
         code {
           padding: 0;
-          width: calc(100% - 10px);
+          width: 100%
         }
       }
       textarea {
+        padding: 0;
         z-index: 10;
-        opacity: 0;
+        //opacity: 0;
+        background: transparent;
+        //color: #ffffffaa;
+        //caret-color: red;
+
+        color: #ffffff;
+        text-shadow: none;
+        -webkit-text-fill-color: transparent;
+
       }
     }
   }
