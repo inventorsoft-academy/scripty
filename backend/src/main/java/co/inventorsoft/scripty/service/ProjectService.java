@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 
 import javax.transaction.Transactional;
 
@@ -44,8 +45,8 @@ public class ProjectService {
 	String directorySeparator;
 
 	public long saveProject(ProjectDto project, String username) {
-		User user = userRepository.findByEmail(username).get();
-		if (projectRepository.findByNameAndUser(project.getName(), user) != null) {
+		User user = userRepository.findByEmail(username).orElseThrow(() -> new ApplicationException("There is no " + username, HttpStatus.NOT_FOUND));
+		if (projectRepository.findByNameAndUser(project.getName(), user).isPresent()) {
 			throw new ApplicationException("Project with name " + project.getName() + " already exist for " + username, HttpStatus.CONFLICT);
 		}
 
@@ -67,36 +68,18 @@ public class ProjectService {
 		createProjectPath(projectPath);
 		newProject.setPath(projectPath);
 		newProject.setUser(user);
+		newProject.setCreateDate(LocalDateTime.now());
 		
 		return projectRepository.save(newProject).getId();
 	}
 
-	public long getProjectId(String projectName, String username) {
-		User user = userRepository.findByEmail(username).get();
-		long projectId = getProjectId(projectName, user);
-		if (projectId > 0) {
-			return projectId;
-		} else {
-			throw new ApplicationException("Project with name " + projectName + " does not exist for " + username, HttpStatus.NOT_FOUND);
-		}
-	}
-
-	public long getProjectId(String projectName, User user) {
-		Project project = projectRepository.findByNameAndUser(projectName, user);
-		if (project == null) {
-			return 0;
-		} else {
-			return project.getId();
-		}
-	}
-	
 	private void createProjectPath(String projectPath) {
 		Path path = Paths.get(projectPath);
 		if(!Files.exists(path)) {
 			try {
 				Files.createDirectories(path);
 			} catch (IOException e) {
-				throw new ApplicationException("Error creating " + projectPath, HttpStatus.FAILED_DEPENDENCY);
+				throw new ApplicationException("Error repo creating " + projectPath, HttpStatus.FAILED_DEPENDENCY);
 			}
 		}
 	}

@@ -60,8 +60,8 @@ public class ProjectControllerTest {
 	}
 
 	public void createNewTestProject() throws Exception {
-		String jsonString = new ObjectMapper().writeValueAsString(new ProjectDto("project3","Test Project",false));
-		mockMvc.perform(post("/users/user@test.co/projects")
+		String jsonString = new ObjectMapper().writeValueAsString(new ProjectDto("project0","Test Project",false));
+		mockMvc.perform(post("/projects")
 				.header("Authorization", "Bearer  " + accessToken)
 				.contentType(JWTSecurity.CONTENT_TYPE)
 				.content(jsonString));
@@ -69,21 +69,21 @@ public class ProjectControllerTest {
 
 	@Test
 	public void createShouldNotCreateNewProjectWhenProjectExist() throws Exception {
-		String jsonString = new ObjectMapper().writeValueAsString(new ProjectDto("project3","Test Project",false));
-		mockMvc.perform(post("/users/user@test.co/projects")
+		String jsonString = new ObjectMapper().writeValueAsString(new ProjectDto("project0","Test Project",false));
+		mockMvc.perform(post("/projects")
 				.header("Authorization", "Bearer  " + accessToken)
 				.contentType(JWTSecurity.CONTENT_TYPE)
 				.content(jsonString))
 				.andExpect(status().isConflict())
 				.andExpect(content().contentType(JWTSecurity.CONTENT_TYPE))
-				.andExpect(content().string(Matchers.containsString("Project with name project3 already exist")));
+				.andExpect(content().string(Matchers.containsString("Project with name project0 already exist")));
 	}
 
 	@Test
-	public void createShouldNotCreateNewProjectWhenUserIsNotOwner() throws Exception {
-		String jsonString = new ObjectMapper().writeValueAsString(new ProjectDto("project3","Test Project",false));
-		mockMvc.perform(post("/users/user2@test.co/projects")
-				.header("Authorization", "Bearer  " + accessToken)
+	public void createShouldNotCreateNewProjectWhenRoleIsNotUser() throws Exception {
+		String jsonString = new ObjectMapper().writeValueAsString(new ProjectDto("project1","Test Project",false));
+		mockMvc.perform(post("/projects")
+				.header("Authorization", "Bearer  " + accessTokenAdmin)
 				.contentType(JWTSecurity.CONTENT_TYPE)
 				.content(jsonString))
 				.andExpect(status().isForbidden());

@@ -1,5 +1,7 @@
 package co.inventorsoft.scripty.model.entity;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -38,5 +40,8 @@ public class Project {
 	Boolean archive;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	User user;	
+	User user;
+	
+	LocalDateTime createDate;
+	
 }
