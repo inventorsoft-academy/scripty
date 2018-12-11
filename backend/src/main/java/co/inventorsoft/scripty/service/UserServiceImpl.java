@@ -104,34 +104,21 @@ public class UserServiceImpl implements UserService {
     }
 
     public void setPicture(String email, MultipartFile picture) {
-        Optional<User> user = userRepository.findByEmail(email);
         if (!ImageTypes.contains(Files.getFileExtension(picture.getOriginalFilename()))) throw new ApplicationException("Incorrect file extension", HttpStatus.BAD_REQUEST);
-        if (user.isPresent()) {
-            Picture userPic = new Picture();
+        userRepository.findByEmail(email).ifPresent(u -> {
             try {
-                userPic.setContent(picture.getBytes());
-                userPic.setExtension(picture.getContentType());
-                user.get().setPicture(userPic);
+                u.setPicture(new Picture(picture.getBytes(), picture.getContentType()));
             } catch (IOException e) {
                 throw new ApplicationException("File's empty. Please, try to use another one!", HttpStatus.BAD_REQUEST);
             }
-        } else
-            throw new ApplicationException("User not found", HttpStatus.BAD_REQUEST);
-        userRepository.save(user.get());
+            userRepository.save(u);
+        });
     }
 
     public PictureDto getPicture(Long id) {
-        Optional<User> user = userRepository.findById(id);
-        PictureDto image = new PictureDto();
-
-        if (user.isPresent()) {
-            if (!(user.get().getPicture() == null)) {
-                image.setExtension((user.get().getPicture().getExtension()));
-                image.setContent(Base64.getEncoder().encodeToString(user.get().getPicture().getContent()));
-            } else
-                throw new ApplicationException("User has no profile picture.", HttpStatus.NOT_FOUND);
-        } else
-            throw new ApplicationException("User not found.", HttpStatus.NOT_FOUND);
+        PictureDto image = userRepository.findById(id).flatMap(o_user -> Optional.ofNullable(o_user.getPicture()))
+                .map(picture -> new PictureDto(Base64.getEncoder().encodeToString(picture.getContent()), picture.getExtension()))
+                .orElseThrow(() -> new ApplicationException("Picture not found for user " + id, HttpStatus.NOT_FOUND));
         return image;
     }
 
