@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
 
     signIn() {
         this.isAuthorized = true;
-        this._authService.loginAdmin();
+        this._authService.login();
     }
 
     logOut() {

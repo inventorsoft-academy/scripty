@@ -21,7 +21,7 @@ export class RoleGuardService implements CanActivate {
             return true;
         }
 
-        this._router.navigate(['/404']);
+        this._router.navigate(['/projects']);
         return false;
     }
 }
