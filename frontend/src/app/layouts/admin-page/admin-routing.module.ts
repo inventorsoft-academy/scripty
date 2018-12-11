@@ -10,7 +10,7 @@ const routes: Routes = [
         path: '',
         component: AdminPageComponent,
         canActivate: [RoleGuardService],
-        data: {role: 'Admin'},
+        data: {role: 'Admin'}, //Edit role for using any admin page's
 		children: [
 			{
 				path: '', component: AdminSidebarComponent
