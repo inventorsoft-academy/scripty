@@ -1,5 +1,10 @@
 package co.inventorsoft.scripty.controller;
 
+import co.inventorsoft.scripty.model.dto.PictureDto;
+import co.inventorsoft.scripty.model.dto.StringResponse;
+import co.inventorsoft.scripty.service.UserService;
+import io.swagger.annotations.Api;
+import org.apache.tomcat.util.http.fileupload.FileUploadBase;
 import co.inventorsoft.scripty.model.dto.UpdatePasswordDto;
 import co.inventorsoft.scripty.service.UserService;
 import io.swagger.annotations.Api;
@@ -13,9 +18,17 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.multipart.MultipartException;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.security.Principal;
+
+/**
+ * @author A1lexen
+ */
 
 @Api(description = "Operations for updating user data")
 @RestController
@@ -35,4 +48,19 @@ public class UserProfileController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    @PostMapping("/users/picture")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    public ResponseEntity setProfilePicture(Principal user, @RequestParam MultipartFile picture) {
+        userService.setPicture(user.getName(), picture);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping(value = "/users/{id}/picture", produces = "application/json")
+    public ResponseEntity getProfilePicture(@PathVariable Long id) {
+        PictureDto picture = userService.getPicture(id);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(picture);
+    }
 }
