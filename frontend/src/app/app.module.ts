@@ -21,7 +21,7 @@ import {HttpClientModule} from "@angular/common/http";
 		MaterialModule,
 		AdminPageModule,
 		HttpClientModule,
-	],
+    ],
 	providers: [AuthGuardService, RoleGuardService],
 	bootstrap: [AppComponent]
 })

@@ -4,6 +4,7 @@ import {AdminPageComponent} from './admin-page.component';
 import {AdminSidebarComponent} from './sidebar/sidebar.component';
 import { AdminFooterComponent} from './footer/footer.component';
 import {RoleGuardService} from "../../services/role-guard.service";
+import {ReportComponent} from "./reports/report.component";
 
 const routes: Routes = [
 	{
@@ -16,10 +17,10 @@ const routes: Routes = [
 				path: '', component: AdminSidebarComponent
 			},
 			{
-				path: 'users', component: AdminFooterComponent,
+				path: 'users', component: AdminFooterComponent
 			},
 			{
-				path: 'reports', component: AdminFooterComponent
+				path: 'reports', component: ReportComponent
 			},
 		],
 	},
