@@ -30,23 +30,26 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProjectService {
 
-	@Autowired
-	ProjectRepository projectRepository;
-
-	@Autowired
-	UserRepository userRepository;
-
 	final static String DEFAULT_DESCRIPTION = "";
 	final static boolean DEFAULT_VISIBILITY = true;
 
-	@Value("${path.local.repo}")
+	ProjectRepository projectRepository;
+	UserRepository userRepository;
+
 	String pathLocalRepo;
-	@Value("${directory.separator}")
 	String directorySeparator;
+	
+	@Autowired
+	public ProjectService(ProjectRepository projectRepository, UserRepository userRepository, @Value("${path.local.repo}") String pathLocalRepo, @Value("${directory.separator}") String directorySeparator) {
+		this.projectRepository = projectRepository;
+		this.userRepository = userRepository;
+		this.pathLocalRepo = pathLocalRepo;
+		this.directorySeparator = directorySeparator;
+	}
 
 	public long saveProject(ProjectDto project, String username) {
 		User user = userRepository.findByEmail(username).orElseThrow(() -> new ApplicationException("There is no " + username, HttpStatus.NOT_FOUND));
-		if (projectRepository.findByNameAndUser(project.getName(), user).isPresent()) {
+		if (projectRepository.existsByNameAndUser(project.getName(), user)) {
 			throw new ApplicationException("Project with name " + project.getName() + " already exist for " + username, HttpStatus.CONFLICT);
 		}
 
@@ -79,7 +82,7 @@ public class ProjectService {
 			try {
 				Files.createDirectories(path);
 			} catch (IOException e) {
-				throw new ApplicationException("Error repo creating " + projectPath, HttpStatus.FAILED_DEPENDENCY);
+				throw new ApplicationException("Error repo creating " + projectPath, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		}
 	}

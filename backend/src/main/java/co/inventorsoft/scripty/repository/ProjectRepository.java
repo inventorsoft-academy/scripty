@@ -24,5 +24,6 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 	List<Project> findByUserAndVisibility(User user, Boolean visibility);
 	List<Project> findByUserAndVisibilityAndArchive(User user, Boolean visibility, Boolean archive);
 	Optional<Project> findByNameAndUser(String name, User user);
+	boolean existsByNameAndUser(String name, User user);
 
 }
