@@ -1,12 +1,9 @@
 package co.inventorsoft.scripty.service;
-
 import co.inventorsoft.scripty.exception.ApplicationException;
-import co.inventorsoft.scripty.model.dto.EmailDto;
-import co.inventorsoft.scripty.model.dto.UpdatePasswordDto;
+import co.inventorsoft.scripty.model.dto.*;
 import co.inventorsoft.scripty.model.entity.PasswordToken;
 import co.inventorsoft.scripty.model.entity.User;
 import co.inventorsoft.scripty.model.entity.VerificationToken;
-import co.inventorsoft.scripty.model.dto.UserDto;
 import co.inventorsoft.scripty.repository.PasswordTokenRepository;
 import co.inventorsoft.scripty.repository.UserRepository;
 import co.inventorsoft.scripty.repository.VerificationTokenRepository;
@@ -121,8 +118,10 @@ public class UserServiceImpl implements UserService{
     }
 
     private void createResetPasswordToken(final User user, final String passwordToken){
-        final PasswordToken resetPasswordToken = new PasswordToken(passwordToken, user);
-        passwordTokenRepository.save(resetPasswordToken);
+        Optional<PasswordToken> passwordTokenOptional = passwordTokenRepository.findByUser(user);
+        PasswordToken token = passwordTokenOptional.map(passToken -> passToken.updatePasswordToken(passwordToken))
+                .orElseGet(() -> new PasswordToken(passwordToken, user));
+        passwordTokenRepository.save(token);
     }
 
     public void sendResetPasswordToken(final EmailDto emailDto){
@@ -133,5 +132,27 @@ public class UserServiceImpl implements UserService{
             createResetPasswordToken(user, resetPasswordToken);
             emailService.sendEmailWithResetPasswordToken(user, resetPasswordToken);
         }
+    }
+
+    private void validateResetPasswordToken(final String token){
+        Optional<PasswordToken> passwordTokenOptional = passwordTokenRepository.findByPasswordToken(token);
+        Instant tokenExpiryDate = passwordTokenOptional.map(passwordToken -> passwordToken.getExpiryDate())
+                .orElseThrow(()-> new ApplicationException("Wrong link", HttpStatus.BAD_REQUEST));
+        Instant now = Clock.systemDefaultZone().instant();
+        if(tokenExpiryDate.isBefore(now)){
+            throw new ApplicationException("Your password reset link has expired, please reset your password again", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public void updateForgottenPassword(final String token, final ResetPasswordDto resetPasswordDto){
+        final User user = findByEmail(resetPasswordDto.getEmail());
+        if(!user.isEnabled()){
+            throw new ApplicationException("Please confirm your registration first", HttpStatus.BAD_REQUEST);
+        }
+        validateResetPasswordToken(token);
+        final PasswordToken passwordToken = passwordTokenRepository.findByPasswordToken(token).get();
+        user.setPassword(passwordEncoder.encode(resetPasswordDto.getValidPassword()));
+        userRepository.save(user);
+        passwordTokenRepository.delete(passwordToken);
     }
 }

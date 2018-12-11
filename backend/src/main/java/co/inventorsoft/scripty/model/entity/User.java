@@ -4,7 +4,10 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
+import java.time.Instant;
+
 /**
  *
  * @author Symyniuk
@@ -21,14 +24,15 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name = "first_name", length = 60)
+    @Column(name = "first_name", length = 20)
     String firstName;
 
-    @Column(name = "last_name", length = 60)
+    @Column(name = "last_name", length = 20)
     String lastName;
 
     @Column(nullable = false, unique = true)
     String email;
+
     @Column(length = 60)
     String password;
 
@@ -40,4 +44,7 @@ public class User {
 
     @Column(nullable = false, length = 10)
     String role;
+
+    @CreationTimestamp
+    private Instant createDate;
 }
