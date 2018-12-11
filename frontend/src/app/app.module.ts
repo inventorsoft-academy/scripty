@@ -9,6 +9,7 @@ import {RoleGuardService} from "./services/role-guard.service";
 import {AuthGuardService} from "./services/auth-guard.service";
 import {AdminPageModule} from "./layouts/admin-page/admin-page.module";
 import {HttpClientModule} from "@angular/common/http";
+import {TitleService} from './title.service';
 
 @NgModule({
 	declarations: [
@@ -22,8 +23,11 @@ import {HttpClientModule} from "@angular/common/http";
 		AdminPageModule,
 		HttpClientModule,
 	],
-	providers: [AuthGuardService, RoleGuardService],
+	providers: [TitleService, AuthGuardService, RoleGuardService],
 	bootstrap: [AppComponent]
 })
 export class AppModule {
+    constructor(titleService: TitleService) {
+        titleService.init();
+    }
 }
