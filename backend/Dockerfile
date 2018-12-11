@@ -13,4 +13,4 @@ ADD target/scripty-0.0.1-SNAPSHOT.jar scripty.jar
 
 EXPOSE 8080
 
-ENTRYPOINT ["java","-jar","scripty.jar"]
+ENTRYPOINT ["java","-jar","-Dspring.profiles.active=default,dev,docker","scripty.jar"]

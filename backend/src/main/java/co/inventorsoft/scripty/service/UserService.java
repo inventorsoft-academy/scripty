@@ -1,5 +1,6 @@
 package co.inventorsoft.scripty.service;
 import co.inventorsoft.scripty.model.dto.EmailDto;
+import co.inventorsoft.scripty.model.dto.ResetPasswordDto;
 import co.inventorsoft.scripty.model.dto.UpdatePasswordDto;
 import co.inventorsoft.scripty.model.dto.UserDto;
 import co.inventorsoft.scripty.model.entity.User;
@@ -11,4 +12,5 @@ public interface UserService {
     User findByEmail(String email);
     void updatePassword(String email, UpdatePasswordDto updatePasswordDto);
     void sendResetPasswordToken(EmailDto emailDto);
+    void updateForgottenPassword(String token, ResetPasswordDto resetPasswordDto);
 }
