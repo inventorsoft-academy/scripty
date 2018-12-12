@@ -3,6 +3,7 @@
 section {
   background: $primary-color;
   height: 100%;
+  flex-grow: 1;
 }
 
 .nav-box {
@@ -13,7 +14,6 @@ section {
   li {
     display: flex;
     align-items: center;
-
     color: white;
     padding: 10px;
     cursor: pointer;
