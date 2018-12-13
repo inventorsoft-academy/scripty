@@ -92,11 +92,14 @@ section {
     &.result {
       width: 25%;
     }
+    &.script{
+      border-bottom: none;
+    }
   }
 }
 
 @media (max-width: 768px) {
-  .wrap-code ~ div {
+  .wrap-code > div {
     width: 50%;
     &.result {
       width: 50%;
@@ -105,7 +108,7 @@ section {
 }
 
 @media (max-width: 500px) {
-  .wrap-code ~ div {
+  .wrap-code > div {
     width: 100%;
     &.result {
       width: 100%;
