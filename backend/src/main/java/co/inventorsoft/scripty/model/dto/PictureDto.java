@@ -1,17 +1,18 @@
 package co.inventorsoft.scripty.model.dto;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.springframework.http.MediaType;
+
+import javax.persistence.Embeddable;
 
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@AllArgsConstructor
+@NoArgsConstructor
+@Embeddable
 public class PictureDto {
     String content;
 
     String extension;
-
 }

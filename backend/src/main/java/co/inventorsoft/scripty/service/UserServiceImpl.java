@@ -1,11 +1,8 @@
 package co.inventorsoft.scripty.service;
+
 import co.inventorsoft.scripty.exception.ApplicationException;
 import co.inventorsoft.scripty.model.dto.*;
-import co.inventorsoft.scripty.model.dto.EmailDto;
-import co.inventorsoft.scripty.model.dto.ImageTypes;
-import co.inventorsoft.scripty.model.dto.PictureDto;
 import co.inventorsoft.scripty.model.entity.PasswordToken;
-import co.inventorsoft.scripty.model.entity.Picture;
 import co.inventorsoft.scripty.model.entity.User;
 import co.inventorsoft.scripty.model.entity.VerificationToken;
 import co.inventorsoft.scripty.repository.PasswordTokenRepository;
@@ -14,16 +11,15 @@ import co.inventorsoft.scripty.repository.VerificationTokenRepository;
 import com.google.common.io.Files;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.time.Clock;
 import java.time.Instant;
 import java.util.*;
+
 /**
  *
  * @author Symyniuk
@@ -31,7 +27,7 @@ import java.util.*;
  */
 @Service
 @Transactional
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private VerificationTokenRepository tokenRepository;
     private PasswordEncoder passwordEncoder;
@@ -102,6 +98,25 @@ public class UserServiceImpl implements UserService{
         tokenRepository.delete(verificationToken);
     }
 
+    public void setPicture(String email, MultipartFile picture) {
+        if (!ImageTypes.contains(Files.getFileExtension(picture.getOriginalFilename()))) throw new ApplicationException("Incorrect file extension", HttpStatus.BAD_REQUEST);
+        userRepository.findByEmail(email).ifPresent(u -> {
+            try {
+                u.setPicture(new PictureDto(Base64.getEncoder().encodeToString(picture.getBytes()), picture.getContentType()));
+            } catch (IOException e) {
+                throw new ApplicationException("File's empty. Please, try to use another one!", HttpStatus.BAD_REQUEST);
+            }
+            userRepository.save(u);
+        });
+    }
+
+    public PictureDto getPicture(Long id) {
+        PictureDto image = userRepository.findById(id).flatMap(o_user -> Optional.ofNullable(o_user.getPicture()))
+                .map(picture -> new PictureDto(picture.getContent(), picture.getExtension()))
+                .orElseThrow(() -> new ApplicationException("Picture not found for user " + id, HttpStatus.NOT_FOUND));
+        return image;
+    }
+
     public void updatePassword(String email, UpdatePasswordDto updatePasswordDto) {
         Optional<User> user = userRepository.findByEmail(email);
         if(user.isPresent()){
@@ -114,38 +129,6 @@ public class UserServiceImpl implements UserService{
             throw new ApplicationException("User not found.", HttpStatus.NOT_FOUND);
     }
 
-    public void setPicture(String email, MultipartFile picture) {
-        Optional<User> user = userRepository.findByEmail(email);
-        if (!ImageTypes.contains(Files.getFileExtension(picture.getOriginalFilename()))) throw new ApplicationException("Incorrect file extension", HttpStatus.BAD_REQUEST);
-        if (user.isPresent()) {
-            Picture userPic = new Picture();
-            try {
-                userPic.setContent(picture.getBytes());
-                userPic.setExtension(picture.getContentType());
-                user.get().setPicture(userPic);
-            } catch (IOException e) {
-                throw new ApplicationException("File's empty. Please, try to use another one!", HttpStatus.BAD_REQUEST);
-            }
-        } else
-            throw new ApplicationException("User not found", HttpStatus.BAD_REQUEST);
-        userRepository.save(user.get());
-    }
-
-    public PictureDto getPicture(Long id) {
-        Optional<User> user = userRepository.findById(id);
-        PictureDto image = new PictureDto();
-
-        if(user.isPresent()) {
-            if (!(user.get().getPicture() == null)) {
-                image.setExtension((user.get().getPicture().getExtension()));
-                image.setContent(Base64.getEncoder().encodeToString(user.get().getPicture().getContent()));
-            } else
-                throw new ApplicationException("User has no profile picture.", HttpStatus.NOT_FOUND);
-        } else
-            throw new ApplicationException("User not found.", HttpStatus.NOT_FOUND);
-        return image;
-    }
-
     private void createVerificationTokenForUser(final User user, final String token) {
         final VerificationToken myToken = new VerificationToken(token, user);
         tokenRepository.save(myToken);
@@ -153,9 +136,9 @@ public class UserServiceImpl implements UserService{
 
     private VerificationToken generateNewVerificationToken(final User user) {
         return tokenRepository.findByUser(user)
-               .map(token -> token.updateToken(UUID.randomUUID().toString()))
-               .map(tokenRepository::save)
-               .orElseThrow(()-> new ApplicationException("Token not found", HttpStatus.OK));
+                .map(token -> token.updateToken(UUID.randomUUID().toString()))
+                .map(tokenRepository::save)
+                .orElseThrow(()-> new ApplicationException("Token not found", HttpStatus.OK));
     }
 
     private void createResetPasswordToken(final User user, final String passwordToken){
