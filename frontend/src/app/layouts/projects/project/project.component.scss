@@ -4,6 +4,8 @@ section {
   background: $primary-color;
   height: 100%;
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .nav-box {
@@ -20,52 +22,55 @@ section {
   }
 }
 
-$tablet-screen: 768px;
-$mobile-screen: 320px;
-$grid-area-html: html;
-$grid-area-style: style;
-$grid-area-script: script;
-$grid-area-view: view;
-$grid-areas: $grid-area-html, $grid-area-style, $grid-area-script, $grid-area-view;
-
 .wrap-code {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-areas: "#{$grid-area-html} #{$grid-area-style} #{$grid-area-script}" "#{$grid-area-view} #{$grid-area-view} #{$grid-area-view}";
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 1;
   div {
+    width: 33.33%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
     font-size: 14px;
     border-right: 2px solid $border-color;
     border-bottom: 2px solid $border-color;
-    @for $i from 1 through length($grid-areas) {
-      &:nth-child(#{$i}) {
-        grid-area: nth($grid-areas, $i);
+    color: white;
+    h3{
+      padding: 5px;
+      font-weight: bold;
+    }
+    &.result {
+      border-bottom: 0;
+      width: 100%;
+      background: white;
+      iframe {
+        width: 100%;
       }
     }
     div {
+      flex-grow: 1;
       position: relative;
+      width: 100%;
+      border: none;
       * {
+        box-sizing: border-box;
         margin: 0;
         width: 100%;
-        height: 200px;
+        height: 100%;
         position: absolute;
-
         font-size: 16px;
         letter-spacing: 0.1em;
-
         code {
-          padding: 0;
-          width: 100%
+          padding: 5px;
+          width: 100%;
+          height: 100%;
         }
       }
       textarea {
-        padding: 0;
+        height: 100%;
+        padding: 5px;
         z-index: 10;
-        //opacity: 0;
         background: transparent;
-        //color: #ffffffaa;
-        //caret-color: red;
-
         color: #ffffff;
         text-shadow: none;
         -webkit-text-fill-color: transparent;
@@ -73,18 +78,8 @@ $grid-areas: $grid-area-html, $grid-area-style, $grid-area-script, $grid-area-vi
       }
     }
   }
-
 }
 
-@media screen and (max-width: $tablet-screen) {
-  .wrap-code {
-    grid-template-areas: "#{$grid-area-html} #{$grid-area-style}" "#{$grid-area-script} #{$grid-area-view}";
-  }
-}
 
-@media screen and (max-width: $mobile-screen) {
-  .wrap-code {
-    grid-template-areas: "#{$grid-area-html}" "#{$grid-area-style}" "#{$grid-area-script}" "#{$grid-area-view}";
-  }
-}
+
 
