@@ -1,4 +1,5 @@
 package co.inventorsoft.scripty.model.entity;
+import co.inventorsoft.scripty.model.dto.PictureDto;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -36,10 +37,9 @@ public class User {
     @Column(length = 60)
     String password;
 
-    @Lob
-    @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name="PICTURE_ID")
-    Picture picture;
+    @Column(columnDefinition = "TEXT")
+    @Convert(converter = PictureConverter.class)
+    PictureDto picture;
 
     @Column(nullable = false)
     boolean enabled;

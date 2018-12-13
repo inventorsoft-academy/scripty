@@ -3,7 +3,6 @@ package co.inventorsoft.scripty.service;
 import co.inventorsoft.scripty.exception.ApplicationException;
 import co.inventorsoft.scripty.model.dto.*;
 import co.inventorsoft.scripty.model.entity.PasswordToken;
-import co.inventorsoft.scripty.model.entity.Picture;
 import co.inventorsoft.scripty.model.entity.User;
 import co.inventorsoft.scripty.model.entity.VerificationToken;
 import co.inventorsoft.scripty.repository.PasswordTokenRepository;
@@ -103,7 +102,7 @@ public class UserServiceImpl implements UserService {
         if (!ImageTypes.contains(Files.getFileExtension(picture.getOriginalFilename()))) throw new ApplicationException("Incorrect file extension", HttpStatus.BAD_REQUEST);
         userRepository.findByEmail(email).ifPresent(u -> {
             try {
-                u.setPicture(new Picture(picture.getBytes(), picture.getContentType()));
+                u.setPicture(new PictureDto(Base64.getEncoder().encodeToString(picture.getBytes()), picture.getContentType()));
             } catch (IOException e) {
                 throw new ApplicationException("File's empty. Please, try to use another one!", HttpStatus.BAD_REQUEST);
             }
@@ -113,7 +112,7 @@ public class UserServiceImpl implements UserService {
 
     public PictureDto getPicture(Long id) {
         PictureDto image = userRepository.findById(id).flatMap(o_user -> Optional.ofNullable(o_user.getPicture()))
-                .map(picture -> new PictureDto(Base64.getEncoder().encodeToString(picture.getContent()), picture.getExtension()))
+                .map(picture -> new PictureDto(picture.getContent(), picture.getExtension()))
                 .orElseThrow(() -> new ApplicationException("Picture not found for user " + id, HttpStatus.NOT_FOUND));
         return image;
     }
