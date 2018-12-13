@@ -43,5 +43,4 @@ export class ProjectComponent implements OnInit {
             </body>
             </html>`;
     }
-
 }
