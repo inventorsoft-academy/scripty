@@ -37,8 +37,13 @@ public class User {
     @Column(length = 60)
     String password;
 
-    @Column(columnDefinition = "TEXT")
-    @Convert(converter = PictureConverter.class)
+    @Embedded
+    @AttributeOverrides(value = {
+            @AttributeOverride(name = "content",
+                    column = @Column(name = "p_content", columnDefinition = "LONGTEXT")),
+            @AttributeOverride(name = "extension",
+                    column = @Column(name = "p_extension", length = 25))
+    })
     PictureDto picture;
 
     @Column(nullable = false)
