@@ -8,9 +8,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import co.inventorsoft.scripty.model.dto.DirectoryNode;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -43,5 +45,8 @@ public class Project {
 	User user;
 	
 	LocalDateTime createDate;
+
+	@Lob
+	DirectoryNode filesMetadata;
 	
 }
