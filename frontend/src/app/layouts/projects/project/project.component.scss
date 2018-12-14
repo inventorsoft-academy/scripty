@@ -1,5 +1,123 @@
 @import "variables";
 
+section {
+  background: $primary-color;
+  height: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-box {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 2px solid $border-color;
+  li {
+    display: flex;
+    align-items: center;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+  }
+}
+
+.wrap-code {
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  div {
+    width: 33.33%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    border-right: 2px solid $border-color;
+    border-bottom: 2px solid $border-color;
+    color: white;
+    h3 {
+      padding: 5px;
+      font-weight: bold;
+
+    }
+    .hljs {
+      background: transparent;
+      border: none;
+      border-top: 1px solid $border-color;
+    }
+    &.result {
+      border-bottom: 0;
+      width: 100%;
+      background: white;
+      iframe {
+        width: 100%;
+      }
+    }
+    div {
+      flex-grow: 1;
+      position: relative;
+      width: 100%;
+      border: none;
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        font-size: 16px;
+        letter-spacing: 0.1em;
+        code {
+          padding: 5px;
+          width: 100%;
+          height: 100%;
+        }
+      }
+      textarea {
+        height: 100%;
+        padding: 5px;
+        z-index: 10;
+        background: transparent;
+        color: #ffffff;
+        text-shadow: none;
+        -webkit-text-fill-color: transparent;
+        border: none;
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .wrap-code ~ div {
+    width: 25%;
+    &.result {
+      width: 25%;
+    }
+    &.script{
+      border-bottom: none;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .wrap-code > div {
+    width: 50%;
+    &.result {
+      width: 50%;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .wrap-code > div {
+    width: 100%;
+    &.result {
+      width: 100%;
+    }
+  }
+}
+
+
+
 .main-container {
   background: $primary-color;
   min-height: 100%;

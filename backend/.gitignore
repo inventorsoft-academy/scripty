@@ -1,3 +1,4 @@
+bin/
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 
@@ -17,6 +18,7 @@
 *.ipr
 *.DS_Store
 *../.DS_Store
+*./.DS_Store
 
 
 

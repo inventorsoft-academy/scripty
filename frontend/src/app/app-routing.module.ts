@@ -5,6 +5,7 @@ const routes: Routes = [
     {
         path: 'projects',
         loadChildren: './layouts/projects/projects.module#ProjectsModule',
+        data: {title: 'Projects'}
     },
     {
         path: '',
@@ -13,7 +14,8 @@ const routes: Routes = [
     },
     {
         path: 'admin',
-        loadChildren: './layouts/admin-page/admin-page.module#AdminPageModule'
+        loadChildren: './layouts/admin-page/admin-page.module#AdminPageModule',
+        data: {title: 'Admin page'}
     },
     {
         path: '**',

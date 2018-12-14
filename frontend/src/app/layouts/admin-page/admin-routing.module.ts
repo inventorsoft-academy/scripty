@@ -14,13 +14,16 @@ const routes: Routes = [
         data: {role: 'Admin'}, //Edit role for using any admin page's
 		children: [
 			{
-				path: '', component: AdminSidebarComponent
+				path: '', component: AdminSidebarComponent,
+                data: {title: 'Admin page'}
 			},
 			{
-				path: 'users', component: AdminFooterComponent
+				path: 'users', component: AdminFooterComponent,
+                data: {title: 'User list'}
 			},
 			{
-				path: 'reports', component: ReportComponent
+				path: 'reports', component: ReportComponent,
+                data: {title: 'Reports'}
 			},
 		],
 	},
@@ -30,9 +33,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-	declarations: [],
-	imports: [RouterModule.forChild(routes)],
-	exports: [RouterModule]
+    declarations: [],
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule]
 })
 export class AdminRoutingModule {
 }

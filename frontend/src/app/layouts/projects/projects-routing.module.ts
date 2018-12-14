@@ -9,20 +9,22 @@ import {AuthGuardService} from "../../services/auth-guard.service";
 
 
 const projectRoutes: Routes = [
-	{
-		path: '',
-		component: ProjectsComponent,
-		children: [
-			{
-				path: '',
-				component: ProjectComponent
-			},
-			{
-				path: 'project',
-				component: ProjectComponent
-			},
-		]
-	}
+    {
+        path: '',
+        component: ProjectsComponent,
+        children: [
+            {
+                path: '',
+                component: ProjectComponent,
+                data: {title: 'Your project'}
+            },
+            {
+                path: 'project',
+                component: ProjectComponent,
+                data: {title: 'Your project'}
+            }
+        ]
+    }
 ];
 
 @NgModule({
