@@ -1,26 +1,24 @@
 import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
-import { GoogleChartComponent } from 'ng2-google-charts';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-// import {UpdateComponent} from './update/update.component';
-import {MatDialog} from '@angular/material';
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.scss']
 })
+
 export class ReportComponent implements OnInit {
+
+    users = [
+        ['User', 'Registered Users'],
+    ];
+
+    key = null;
 
     userChartData = {
         chartType: 'LineChart',
-        dataTable: [
-            ['User', 'Registered Users'],
-            ['28.07.2018', 11],
-            ['01.08.2018', 9],
-            ['02.08.2018', 10],
-            ['02.08.2018', 5],
-            ['05.08.2018', 7]
-        ],
+        dataTable: this.users,
         options: {'title': 'Users'},
         chartArea: {left: 0, top: 0}
     };
@@ -58,17 +56,25 @@ export class ReportComponent implements OnInit {
     arrayOfCharts = [
         this.userChartData,
         this.projectChartData,
+        // this.otherChartData
     ];
-  constructor() { }
+
+  constructor(private http: HttpClient) { }
 
     drop($event: CdkDragDrop<String[]>) {
-        const tmp = this.arrayOfCharts[$event.currentIndex];
-        this.arrayOfCharts[$event.currentIndex] = this.arrayOfCharts[$event.previousIndex];
-        this.arrayOfCharts[$event.previousIndex] = tmp;
+        // const tmp = this.arrayOfCharts[$event.currentIndex];
+        // this.arrayOfCharts[$event.currentIndex] = this.arrayOfCharts[$event.previousIndex];
+        // this.arrayOfCharts[$event.previousIndex] = tmp;
         moveItemInArray(this.arrayOfCharts, $event.currentIndex, $event.previousIndex);
     }
 
   ngOnInit() {
+      this.http.get('https://api.github.com/users').subscribe(req => {
+          this.key = req;
+          this.key.forEach(data => {
+              this.users.push(['28.12.2018', data.id]);
+              console.log(this.users);
+          });
+      });
   }
-
 }
