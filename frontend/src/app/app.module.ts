@@ -16,6 +16,7 @@ import xml from 'highlight.js/lib/languages/xml';
 import scss from 'highlight.js/lib/languages/scss';
 import typescript from 'highlight.js/lib/languages/typescript';
 import javascript from 'highlight.js/lib/languages/javascript';
+import {Ng2GoogleChartsModule} from "ng2-google-charts";
 
 export function HLLanguages() {
     return [
