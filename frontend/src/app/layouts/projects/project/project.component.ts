@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ProjectsService} from './projects.service';
-import {Project} from './models/Project';
+
 
 @Component({
     selector: 'app-project',
@@ -8,36 +7,41 @@ import {Project} from './models/Project';
     styleUrls: ['./project.component.scss']
 })
 export class ProjectComponent implements OnInit {
-    projects: Array<Project>;
-    activeProjects: Array<Project>;
-    searchStr = '';
-    onlyMyProjects = true;
+    result: string;
+    html: string;
+    style: string;
+    script: string;
 
-    constructor(private projectService: ProjectsService) {
+    public constructor() {
+        this.html = localStorage.getItem('html') || '';
+        this.script = localStorage.getItem('script') || '';
+        this.style = localStorage.getItem('style') || '';
+        this.run();
     }
 
     ngOnInit() {
-        localStorage.setItem('userId', '1');
-        this.projectService.getProjects()
-            .subscribe((projects: Array<Project>) => {
-                this.projects = projects;
-                this.activeProjects = this.projects;
-            });
     }
 
-    onSearch(e: string) {
-        this.searchStr = e;
+    onBlurCode(type: string) {
+        localStorage.setItem(type, this[type]);
     }
 
-    showMyProjects(e: boolean) {
-        this.onlyMyProjects = e;
+    onInputCode(e: any, type: string) {
+        if (this.hasOwnProperty(type)) {
+            this[type] = e.target.value;
+        }
     }
 
-    showMore() {
-        this.projectService.getMoreProjects()
-            .subscribe((projects: Array<Project>) => {
-                this.projects = this.projects.concat(projects);
-                this.activeProjects = this.projects;
-            });
+    run() {
+        this.result = `data:text/html;charset = utf - 8,<html>
+                <head>
+                    <style>${this.style}</style>
+                </head>
+            <body>
+            ${this.html}
+            <script>${this.script}</script>
+            </body>
+            </html>`;
     }
+
 }

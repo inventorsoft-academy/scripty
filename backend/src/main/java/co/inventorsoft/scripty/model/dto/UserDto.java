@@ -5,28 +5,38 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  *
  * @author Symyniuk
  *
  */
+
 @Getter
 @Setter
-@EqualsAndHashCode(of="id")
-@PasswordMatches
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserDto {
-
-    @NotBlank(message = "Please provide your last name")
+    @Pattern(regexp = "^[a-zA-Z]*", message = "Only letters are allowed")
+    @Size(min = 2, max = 20)
+    @NotBlank(message = "Please provide your first name")
     String firstName;
+
+    @Pattern(regexp = "^[a-zA-Z]*", message = "Only letters are allowed")
+    @Size(min = 2, max = 20)
     @NotBlank(message = "Please provide your last name")
     String lastName;
+
     @ValidPassword
-    String password;
-    @NotNull
-    String matchingPassword;
-    @Email(message = "Please provide your email")
+    @PasswordMatches
+    Password password;
+
+    @Email
+    @NotBlank(message = "Please provide your email")
     String email;
+
+    public String getValidPassword(){
+        return password.getPassword();
+    }
 }

@@ -1,7 +1,46 @@
-<div class="projects">
-    <app-projects-search (search)="onSearch($event)" (myProjectsCheck)="showMyProjects($event)"></app-projects-search>
-    <app-projects-list [projects]="activeProjects"
-                       [searchStr]="searchStr"
-                       [onlyMyProjects]="onlyMyProjects"></app-projects-list>
-    <button class="btn" id="showMoreBtn" (click)="showMore()">Show more</button>
-</div>
+<section>
+    <nav>
+        <ul class="nav-box">
+            <li (click)="run()">
+                <i class="material-icons">play_arrow</i>
+                Run
+            </li>
+            <li>
+                <i class="material-icons">save</i>
+                Save
+            </li>
+        </ul>
+    </nav>
+    <div class="wrap-code">
+        <div class="html">
+            <h3>HTML</h3>
+            <div>
+                <textarea placeholder="html" [value]="html"
+                          (keyup)="onInputCode($event, 'html')"
+                          (blur)="onBlurCode('html')"></textarea>
+                <pre><code [highlight]="html"></code></pre>
+            </div>
+        </div>
+        <div class="style">
+            <h3>CSS</h3>
+            <div>
+                <textarea placeholder="style" [value]="style"
+                          (keyup)="onInputCode($event, 'style')"
+                          (blur)="onBlurCode('style')"></textarea>
+                <pre><code [highlight]="style"></code></pre>
+            </div>
+        </div>
+        <div class="script">
+            <h3>JavaScript</h3>
+            <div>
+                <textarea placeholder="script" [value]="script"
+                          (keyup)="onInputCode($event, 'script')"
+                          (blur)="onBlurCode('script')"></textarea>
+                <pre><code [highlight]="script"></code></pre>
+            </div>
+        </div>
+        <div class="result">
+            <iframe [src]="result | safe"></iframe>
+        </div>
+    </div>
+</section>
