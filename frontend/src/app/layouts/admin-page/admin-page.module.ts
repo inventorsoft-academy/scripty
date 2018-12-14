@@ -9,25 +9,24 @@ import {AdminSidebarComponent} from './sidebar/sidebar.component';
 import {AdminContentComponent} from './content/content.component';
 import {AdminFooterComponent} from './footer/footer.component';
 import { ReportComponent } from './reports/report.component';
-import {DragDropModule} from "@angular/cdk/drag-drop";
 import {Ng2GoogleChartsModule} from "ng2-google-charts";
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 @NgModule({
-	declarations: [
-		AdminPageComponent,
-		AdminHeaderComponent,
-		AdminSidebarComponent,
-		AdminContentComponent,
-		AdminFooterComponent,
-		ReportComponent,
-		Ng2GoogleChartsModule,
-	],
-	imports: [
-		CommonModule,
+    declarations: [
+        AdminPageComponent,
+        AdminHeaderComponent,
+        AdminSidebarComponent,
+        AdminContentComponent,
+        AdminFooterComponent,
+        ReportComponent,
+    ],
+    imports: [
+        CommonModule,
         Ng2GoogleChartsModule,
         DragDropModule,
-		AdminRoutingModule,
-	]
+        AdminRoutingModule,
+    ]
 })
 export class AdminPageModule {
 }
