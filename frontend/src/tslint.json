@@ -1,7 +1,6 @@
 {
     "extends": "../tslint.json",
     "rules": {
-        "indent": [false, "tabs", 2],
         "directive-selector": [
             true,
             "attribute",

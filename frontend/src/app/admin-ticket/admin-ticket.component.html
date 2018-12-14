@@ -17,7 +17,8 @@
         >Max length is 255 symbols.
         </small>
         <div class="file-row">
-            <label class="btn" for="fileInput">Choose file</label>
+            <label class="mat-raised-button"
+                   for="fileInput">Choose file</label>
             <input type="file" id="fileInput"
                    (change)="onFileChange($event)"
                    accept=".gif, .jpg, .png"
@@ -25,7 +26,7 @@
             <p class="file-name" #fileName>No file chosen</p>
         </div>
         <small class="mat-small">Max file size is 5Mb. Supported formats: PNG, GIF, JPG.</small>
-        <button class="btn"
+        <button mat-raised-button
                 type="button"
                 (click)="onSubmit()"
                 [disabled]="form.invalid || form.pristine">Submit
