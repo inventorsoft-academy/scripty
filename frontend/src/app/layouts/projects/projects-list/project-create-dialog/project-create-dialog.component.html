@@ -1,0 +1,39 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <h1 mat-dialog-title>Create project</h1>
+    <div mat-dialog-content>
+        <div class="form-row">
+            <label for="nameInput">Name:</label>
+            <input class="form-row__input" id="nameInput" type="text" formControlName="name">
+        </div>
+        <div class="form-row">
+            <label for="typeInput">Type:</label>
+            <select class="form-row__input" id="typeInput" formControlName="type">
+                <option
+                        *ngFor="let type of projectTypes"
+                        [value]="type"
+                >{{ type }}
+                </option>
+            </select>
+        </div>
+        <div class="form-row">
+            <label for="visibilityInput">Visibility:</label>
+            <select class="form-row__input" id="visibilityInput" formControlName="isPrivate">
+                <option value="false">Public</option>
+                <option value="true">Private</option>
+            </select>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-raised-button
+                class="btn-cancel"
+                type="button"
+                (click)="onNoClick()"
+        >Cancel
+        </button>
+        <button mat-raised-button
+                [disabled]="form.invalid"
+                type="submit"
+                cdkFocusInitial>Create
+        </button>
+    </div>
+</form>

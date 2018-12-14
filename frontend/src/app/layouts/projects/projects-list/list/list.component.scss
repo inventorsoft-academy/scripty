@@ -1,0 +1,11 @@
+@import "variables";
+
+table {
+  width: 100%;
+  background-color: $primary-color;
+  th, td {
+    vertical-align: middle;
+    color: #fff;
+    border-color: #fff;
+  }
+}
