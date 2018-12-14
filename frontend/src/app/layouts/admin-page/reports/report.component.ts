@@ -69,12 +69,14 @@ export class ReportComponent implements OnInit {
     }
 
   ngOnInit() {
-      this.http.get('https://api.github.com/users').subscribe(req => {
+      let url = 'https://api.github.com/users';
+      this.http.get('/api/error').subscribe(req => {
           this.key = req;
-          this.key.forEach(data => {
-              this.users.push(['28.12.2018', data.id]);
-              console.log(this.users);
-          });
+          // this.key.forEach(data => {
+          //     this.users.push(['28.12.2018', data.id]);
+          //     console.log(this.users);
+          // });
+          console.log(this.key);
       });
   }
 }
