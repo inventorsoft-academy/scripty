@@ -10,6 +10,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import {MaterialModule} from '../../../material-module';
 import {ListComponent} from './list/list.component';
 import {ProjectsListComponent} from './projects-list.component';
+import { GitImportDialogComponent } from './git-import-dialog/git-import-dialog.component';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import {ProjectsListComponent} from './projects-list.component';
         ProjectEditDialogComponent,
         ProjectLikeComponent,
         ProjectCreateDialogComponent,
-        ConfirmDialogComponent
+        ConfirmDialogComponent,
+        GitImportDialogComponent
     ],
     imports: [
         CommonModule,
@@ -31,7 +33,8 @@ import {ProjectsListComponent} from './projects-list.component';
     entryComponents: [
         ProjectEditDialogComponent,
         ProjectCreateDialogComponent,
-        ConfirmDialogComponent
+        ConfirmDialogComponent,
+        GitImportDialogComponent
     ]
 })
 export class ProjectsListModule {

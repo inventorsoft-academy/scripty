@@ -15,7 +15,7 @@ export class FilterPipe implements PipeTransform {
         });
         if (onlyMyProjects) {
             items = items.filter((it: Project) => {
-                return it.author === localStorage.getItem('userName');
+                return it.author_id === +localStorage.getItem('userId');
             });
         }
         return items;

@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {ProjectCreateDialogComponent} from '../project-create-dialog/project-create-dialog.component';
+import {GitImportDialogComponent} from '../git-import-dialog/git-import-dialog.component';
 
 @Component({
     selector: 'app-projects-search',
@@ -31,4 +32,7 @@ export class ProjectsSearchComponent implements OnInit {
         this.dialog.open(ProjectCreateDialogComponent, {});
     }
 
+    openImportDialog() {
+        this.dialog.open(GitImportDialogComponent, {});
+    }
 }

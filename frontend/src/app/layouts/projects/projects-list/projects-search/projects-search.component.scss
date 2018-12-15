@@ -6,11 +6,11 @@
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
-  &__input{
+  &__input {
     max-width: 250px;
   }
   &__group {
-    input{
+    input {
       margin: 0 5px;
       width: auto;
     }
@@ -18,5 +18,20 @@
     display: flex;
     align-items: center;
     width: 170px;
+  }
+  .buttons {
+    .margin-right {
+      margin-right: 10px;
+    }
+    .material-icons {
+      padding-right: 5px;
+    }
+  }
+}
+
+@media screen and (max-width: 498px){
+  .search__group {
+    margin-left: 0;
+    margin-bottom: 10px;
   }
 }

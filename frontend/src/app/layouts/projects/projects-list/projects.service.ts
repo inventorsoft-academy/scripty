@@ -37,6 +37,12 @@ export class ProjectsService {
         // return this.httpClient.
     }
 
+    importFromGitHub(url: string) {
+        return this.httpClient.post('/api/url', {
+            url: url
+        });
+    }
+
     constructor(private httpClient: HttpClient) {
     }
 }
