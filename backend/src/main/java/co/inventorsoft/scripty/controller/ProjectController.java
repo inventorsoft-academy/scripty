@@ -2,13 +2,12 @@ package co.inventorsoft.scripty.controller;
 
 import javax.validation.Valid;
 
+import co.inventorsoft.scripty.model.entity.Project;
+import co.inventorsoft.scripty.service.ProjectServiceInterface;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import co.inventorsoft.scripty.model.dto.ProjectDto;
 import co.inventorsoft.scripty.model.dto.StringResponse;
@@ -19,6 +18,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
+
+import java.util.List;
 
 /**
  * @author lzabidovsky 
@@ -32,6 +33,7 @@ public class ProjectController {
 
 	ProjectService projectService;
 	SecurityService securityService;
+	ProjectServiceInterface projectServiceInterface;
 
 	@ApiOperation(value = "Endpoint to create new projects. The endpoint consumes fields: name(required), description(optional), visibility: public(true) or private(false).")
 	@PostMapping(consumes = "application/json")
@@ -41,4 +43,10 @@ public class ProjectController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(new StringResponse("New project was created with ID = " + projectId));
 	}
 
+	@RequestMapping("/projectsByUserId")
+	List<Project> getProjectsUserId(@RequestParam("userId") Long id) {
+
+		return projectServiceInterface.getProjectsByUser(id);
+	}
 }
+

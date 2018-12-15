@@ -179,4 +179,16 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
         passwordTokenRepository.delete(passwordToken);
     }
+
+    @Override
+    public List<User> getAllUsers() {
+
+        return userRepository.findAll();
+    }
+
+    @Override
+    public User findByUserName(String name) {
+        return userRepository.findByUserName(name);
+    }
+
 }

@@ -8,6 +8,8 @@ import co.inventorsoft.scripty.model.dto.UserDto;
 import co.inventorsoft.scripty.model.entity.User;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 public interface UserService {
     void registerNewUserAccount(UserDto userDto);
     void resendRegistrationToken(EmailDto emailDto);
@@ -18,5 +20,7 @@ public interface UserService {
     void setPicture(String email, MultipartFile picture);
     PictureDto getPicture(Long id);
     void updateForgottenPassword(String token, ResetPasswordDto resetPasswordDto);
+    List<User> getAllUsers();
+    User findByUserName(String name);
 
 }

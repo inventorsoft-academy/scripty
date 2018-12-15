@@ -1,5 +1,6 @@
 package co.inventorsoft.scripty.model.entity;
 import co.inventorsoft.scripty.model.dto.PictureDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -8,6 +9,8 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -27,6 +30,14 @@ public class User {
 
     @Column(name = "first_name", length = 20)
     String firstName;
+
+    @Column(name = "user_name", length = 50)
+    @JsonIgnore
+    String userName ;
+
+    public void setUserName(String firstName) {
+        this.userName = getFirstName();
+    }
 
     @Column(name = "last_name", length = 20)
     String lastName;
@@ -54,4 +65,14 @@ public class User {
 
     @CreationTimestamp
     private Instant createDate;
+
+    @OneToMany(mappedBy="user")
+    @JsonIgnore
+    private List<Project> projects = new ArrayList<>();
+
+    @OneToMany(mappedBy="user")
+    @JsonIgnore
+    private List<Comment> comments = new ArrayList<>();
+
+
 }

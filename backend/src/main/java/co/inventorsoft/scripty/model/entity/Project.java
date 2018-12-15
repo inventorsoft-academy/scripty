@@ -1,16 +1,12 @@
 package co.inventorsoft.scripty.model.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -25,10 +21,10 @@ import lombok.experimental.FieldDefaults;
 public class Project {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(unique = true, nullable = false)
+	@Column(name = "project_id", unique = true, nullable = false)
 	Long id;
 	
-	@Column(nullable = false, length = 50)
+	@Column(name="name", nullable = false, length = 50)
 	String name;
 
 	String description;
@@ -40,8 +36,14 @@ public class Project {
 	Boolean archive;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "id")
+	@JsonIgnore
 	User user;
 	
 	LocalDateTime createDate;
+
+	@OneToMany(mappedBy = "project")
+	@JsonIgnore
+	private List<Comment> comments = new ArrayList<>();
 	
 }
