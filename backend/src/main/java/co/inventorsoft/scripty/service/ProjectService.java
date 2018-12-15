@@ -76,6 +76,16 @@ public class ProjectService {
 		return projectRepository.save(newProject).getId();
 	}
 
+	public void updateProject(Project project, ProjectDto projectDto) {
+		if(projectDto.getDescription() != null) {
+			project.setDescription(projectDto.getDescription());
+		}
+		if(projectDto.getVisibility() != null) {
+			project.setVisibility(projectDto.getVisibility());
+		} 
+		projectRepository.save(project);
+	}
+
 	private void createProjectPath(String projectPath) {
 		Path path = Paths.get(projectPath);
 		if(!Files.exists(path)) {
