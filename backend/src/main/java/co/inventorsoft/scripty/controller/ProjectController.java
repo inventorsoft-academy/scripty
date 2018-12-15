@@ -6,7 +6,15 @@ import co.inventorsoft.scripty.model.dto.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import co.inventorsoft.scripty.model.dto.ProjectDto;
+import co.inventorsoft.scripty.model.dto.StringResponse;
 import co.inventorsoft.scripty.model.entity.Project;
 import co.inventorsoft.scripty.service.ProjectService;
 import co.inventorsoft.scripty.service.SecurityService;
@@ -35,6 +43,14 @@ public class ProjectController {
 		securityService.authenticationHasRoleUser(authentication);
 		long projectId = projectService.saveProject(project, authentication.getName());
 		return ResponseEntity.status(HttpStatus.CREATED).body(new StringResponse("New project was created with ID = " + projectId));
+	}
+
+	@ApiOperation(value = "Endpoint to update project. It consumes project description and visibility.")
+	@PutMapping(value = "/{projectId}", produces = "application/json", consumes = "application/json")
+	public ResponseEntity<StringResponse> updateProject(Authentication authentication, @PathVariable Long projectId, @Valid @RequestBody ProjectDto projectDto) {
+		Project project = securityService.projectUserIsOwner(projectId, authentication);
+		projectService.updateProject(project, projectDto);
+		return ResponseEntity.ok(new StringResponse("Project with ID = " + projectId + " was updated"));
 	}
 
 	@ApiOperation(value = "Endpoint to clone GitHub project. The endpoint consumes field: githubURL(required).")
