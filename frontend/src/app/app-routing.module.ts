@@ -22,8 +22,8 @@ const routes: Routes = [
         data: {title: 'Admin page'}
     },
     {
-        path: 'registrationConfirm',
-        loadChildren: './reg-confirm/reg-confirm.module#RegConfirmModule',
+        path: 'registrationConfirmation',
+        loadChildren: './layouts/reg-confirmation/reg-confirmation.module#RegConfirmationModule',
         data: {title: 'Registration confirmation'}
     },
     {
