@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 
 import co.inventorsoft.scripty.exception.ApplicationException;
 
+/**
+ * @author lzabidovsky 
+ */
 @Component
 public class ProjectGithubService {
 
