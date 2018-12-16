@@ -39,13 +39,8 @@
         right: 0;
       }
     }
-    .mat-small {
-      &__error {
-        margin-left: 100px;
-        margin-top: -5px;
-        color: red;
-      }
-      font-size: 11px;
+    .mat-error {
+      margin-left: 100px;
     }
     &-row {
       &__input {

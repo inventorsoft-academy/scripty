@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {AlertDialogComponent} from './alert-dialog/alert-dialog.component';
+import {AdminTicketService} from './admin-ticket.service';
 
 @Component({
     selector: 'app-admin-ticket',
@@ -14,7 +15,8 @@ export class AdminTicketComponent implements OnInit {
     alertDialogRef: MatDialogRef<AlertDialogComponent>;
     form: FormGroup;
 
-    constructor(private cd: ChangeDetectorRef, private router: Router, private dialog: MatDialog) {
+    constructor(private cd: ChangeDetectorRef, private router: Router, private dialog: MatDialog,
+                private adminTicketService: AdminTicketService) {
         this.form = new FormGroup({
             title: new FormControl(null, [Validators.required,
                 Validators.maxLength(50)]),
@@ -56,8 +58,19 @@ export class AdminTicketComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log(this.form.value);
-        this.openDialog();
+        this.adminTicketService.sendReport(
+            this.form.get('title').value,
+            this.form.get('description').value,
+            this.form.get('file').value,
+        ).subscribe(
+            (response: Response) => {
+                console.log(response);
+                this.openDialog();
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
     }
 
     openDialog() {

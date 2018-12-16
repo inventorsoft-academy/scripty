@@ -4,7 +4,6 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {AdminTicketModule} from './admin-ticket/admin-ticket.module';
 import {MaterialModule} from './material-module';
 import {TitleService} from './title.service';
 import {HighlightModule} from 'ngx-highlightjs';
@@ -33,7 +32,6 @@ export function HLLanguages() {
         AppRoutingModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        AdminTicketModule,
         MaterialModule,
         HighlightModule.forRoot({
             languages: HLLanguages
