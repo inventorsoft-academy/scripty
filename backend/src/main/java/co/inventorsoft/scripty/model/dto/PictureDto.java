@@ -1,13 +1,18 @@
 package co.inventorsoft.scripty.model.dto;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import javax.persistence.Embeddable;
 
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
-public class Password {
+@NoArgsConstructor
+@Embeddable
+public class PictureDto {
+    String content;
 
-    String password;
-    String matchingPassword;
+    String extension;
 }
