@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 
 
 @Component({
@@ -12,7 +13,9 @@ export class ProjectComponent implements OnInit {
     style: string;
     script: string;
 
-    public constructor() {
+    key = null;
+
+    public constructor(private http: HttpClient) {
         this.html = localStorage.getItem('html') || '';
         this.script = localStorage.getItem('script') || '';
         this.style = localStorage.getItem('style') || '';
@@ -20,6 +23,10 @@ export class ProjectComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.http.get('/api/test').subscribe(req => {
+            this.key = req;
+            console.log(this.key);
+        });
     }
 
     onBlurCode(type: string) {

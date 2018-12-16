@@ -70,7 +70,7 @@ export class ReportComponent implements OnInit {
 
   ngOnInit() {
       let url = 'https://api.github.com/users';
-      this.http.get('/api/test/admin').subscribe(req => {
+      this.http.get('/api/test/user').subscribe(req => {
           this.key = req;
           // this.key.forEach(data => {
           //     this.users.push(['28.12.2018', data.id]);
