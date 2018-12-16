@@ -1,4 +1,5 @@
 package co.inventorsoft.scripty.model.entity;
+import co.inventorsoft.scripty.model.dto.PictureDto;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -36,8 +37,14 @@ public class User {
     @Column(length = 60)
     String password;
 
-    @Lob
-    Byte picture;
+    @Embedded
+    @AttributeOverrides(value = {
+            @AttributeOverride(name = "content",
+                    column = @Column(name = "p_content", columnDefinition = "LONGTEXT")),
+            @AttributeOverride(name = "extension",
+                    column = @Column(name = "p_extension", length = 25))
+    })
+    PictureDto picture;
 
     @Column(nullable = false)
     boolean enabled;
