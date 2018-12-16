@@ -14,8 +14,6 @@ export class ReportComponent implements OnInit {
         ['User', 'Registered Users'],
     ];
 
-    key = null;
-
     userChartData = {
         chartType: 'LineChart',
         dataTable: this.users,
@@ -54,29 +52,17 @@ export class ReportComponent implements OnInit {
     };
 
     arrayOfCharts = [
-        this.userChartData,
+        // this.userChartData,
         this.projectChartData,
-        // this.otherChartData
+        this.otherChartData,
     ];
 
   constructor(private http: HttpClient) { }
 
     drop($event: CdkDragDrop<String[]>) {
-        // const tmp = this.arrayOfCharts[$event.currentIndex];
-        // this.arrayOfCharts[$event.currentIndex] = this.arrayOfCharts[$event.previousIndex];
-        // this.arrayOfCharts[$event.previousIndex] = tmp;
         moveItemInArray(this.arrayOfCharts, $event.currentIndex, $event.previousIndex);
     }
 
   ngOnInit() {
-      let url = 'https://api.github.com/users';
-      this.http.get('/api/test/user').subscribe(req => {
-          this.key = req;
-          // this.key.forEach(data => {
-          //     this.users.push(['28.12.2018', data.id]);
-          //     console.log(this.users);
-          // });
-          console.log(this.key);
-      });
   }
 }
