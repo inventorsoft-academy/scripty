@@ -11,6 +11,8 @@ import { FormsModule } from '@angular/forms';
 import { EventsComponent } from './components/events/events.component';
 import { SpecialEventsComponent } from './components/special-events/special-events.component';
 import {AuthService} from './services/auth.service';
+import { HTTP_INTERCEPTORS  } from '@angular/common/http';
+import { TokenInterceptorService} from './services/token-interceptor.service';
 
 @NgModule({
     declarations: [
@@ -28,7 +30,13 @@ import {AuthService} from './services/auth.service';
     ],
     providers: [
         AuthService,
-        TitleService
+        TitleService,
+        {
+            provide: HTTP_INTERCEPTORS ,
+            useClass: TokenInterceptorService,
+            multi: true
+        }
+
     ],
     bootstrap: [AppComponent]
 })
