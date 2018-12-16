@@ -1,10 +1,13 @@
 package co.inventorsoft.scripty.controller;
 
 import co.inventorsoft.scripty.model.dto.PictureDto;
+import co.inventorsoft.scripty.model.dto.StringResponse;
+import co.inventorsoft.scripty.model.dto.UpdateUserDto;
 import co.inventorsoft.scripty.service.UserService;
 import io.swagger.annotations.Api;
 import co.inventorsoft.scripty.model.dto.UpdatePasswordDto;
 import io.swagger.annotations.ApiOperation;
+import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,6 +57,14 @@ public class UserProfileController {
     @PreAuthorize("hasAuthority('ROLE_USER')")
     public ResponseEntity updatePassword(Principal user, @RequestBody @Valid UpdatePasswordDto updatePasswordDto){
         userService.updatePassword(user.getName(), updatePasswordDto);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @ApiOperation(value = "Updates user's profile info (first name, last name)")
+    @PutMapping(value="/users/info")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    public ResponseEntity updateProfile(Principal user, @RequestBody @Valid UpdateUserDto updateDto){
+        userService.updateProfile(user.getName(), updateDto);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
