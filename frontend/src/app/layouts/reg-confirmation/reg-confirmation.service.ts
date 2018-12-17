@@ -9,8 +9,8 @@ export class RegConfirmationService {
     constructor(private httpClient: HttpClient) { }
 
     activateUser(token: string) {
-        // return this.httpClient.get('/api/registrationConfirm?token=' + token);
-        return this.httpClient.get('http://www.mocky.io/v2/5c14f9f33400005e1cb8e98d');
+        return this.httpClient.get('/api/registrationConfirm?token=' + token);
+        // return this.httpClient.get('http://www.mocky.io/v2/5c14f9f33400005e1cb8e98d');
     }
 
     resendEmail(email: string) {

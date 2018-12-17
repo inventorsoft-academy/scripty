@@ -28,6 +28,7 @@ export class RegConfirmComponent implements OnInit {
         this.regConfirmationService.activateUser(token)
             .subscribe((data) => {
                     console.log(data, 'Redirecting to login page...');
+                    this.router.navigate(['login']);
                     // redirect to login page
                 },
                 (error) => {
@@ -38,7 +39,7 @@ export class RegConfirmComponent implements OnInit {
                     }
                     if (error.status === 400 && error.error.response === 'Time of user verification link has expired') {
                         console.log('Resend token');
-                        this.router.navigate(['registrationConfirmation/resend']);
+                        this.router.navigate(['userActivation/resend']);
                     }
                 });
     }
