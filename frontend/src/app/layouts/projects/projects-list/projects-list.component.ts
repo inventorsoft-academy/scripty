@@ -23,6 +23,7 @@ export class ProjectsListComponent implements OnInit {
             .subscribe((projects: Array<Project>) => {
                 this.projects = projects;
                 this.activeProjects = this.projects;
+                console.log(this.projects);
             });
     }
 

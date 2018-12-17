@@ -15,7 +15,8 @@ export class ListComponent implements OnInit {
     @Input() onlyMyProjects: boolean;
     @Input() likedProjects: Array<number>;
     confirmDialogRef: MatDialogRef<ConfirmDialogComponent>;
-    displayedColumns: string[] = ['name', 'type', 'author', 'like', 'edit'];
+    // displayedColumns: string[] = ['name', 'type', 'author', 'like', 'edit'];
+    displayedColumns: string[] = ['name', 'like', 'edit'];
     userId: number;
 
     constructor(private dialog: MatDialog) {

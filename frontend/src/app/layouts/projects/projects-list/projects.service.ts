@@ -7,7 +7,12 @@ import {Project} from './models/Project';
 })
 export class ProjectsService {
     getProjects() {
-        return this.httpClient.get('http://www.mocky.io/v2/5c1776c82f00006900b086f9');
+        // return this.httpClient.get('http://www.mocky.io/v2/5c1776c82f00006900b086f9');
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiand0cmVzb3VyY2VpZCJdLCJ1c2VyX25hbWUiOiJ1c2VyQHRlc3QuY28iLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNTQ1MDUwNTkyLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiN2Y2OGQzOWItMTA3YS00OTMwLWJjZGMtZDA1MmI4ZWNmNTRmIiwiY2xpZW50X2lkIjoiand0Y2xpZW50aWQifQ.Y2wr7f0FsXGcAnoh7Ylx6eqts5tfr2D2_K-XAV1COoQ' });
+        const options = { headers: headers };
+        return this.httpClient.get('/api/projects', options);
     }
 
     getMoreProjects() {
