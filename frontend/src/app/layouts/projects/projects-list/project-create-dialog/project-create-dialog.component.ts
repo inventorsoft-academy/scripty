@@ -3,6 +3,7 @@ import {MatDialogRef} from '@angular/material';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProjectsService} from '../projects.service';
 import {Project} from '../models/Project';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-project-create-dialog',
@@ -14,7 +15,8 @@ export class ProjectCreateDialogComponent implements OnInit {
     projectTypes = ['JavaScript', 'JQuery', 'Vue'];
 
     constructor(public dialogRef: MatDialogRef<ProjectCreateDialogComponent>,
-                private projectService: ProjectsService) {
+                private projectService: ProjectsService,
+                private router: Router) {
         this.form = new FormGroup({
             name: new FormControl('Project Name', [Validators.required,
                 Validators.minLength(2),
@@ -40,6 +42,9 @@ export class ProjectCreateDialogComponent implements OnInit {
                 },
                 error => {
                     console.log(error);
+                    if (error.status === 401) {
+                        this.router.navigate(['login']);
+                    }
                     // show toast with error
                 }
             );

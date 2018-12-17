@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ProjectsService} from './projects.service';
 import {Project} from './models/Project';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-project',
@@ -12,9 +13,11 @@ export class ProjectsListComponent implements OnInit {
     activeProjects: Array<Project>;
     searchStr = '';
     onlyMyProjects = true;
-    likedProjects = [1, 3, 5, 7, 12];
+    // likedProjects = [1, 3, 5, 7, 12];
+    likedProjects = [];
 
-    constructor(private projectsService: ProjectsService) {
+    constructor(private projectsService: ProjectsService,
+                private router: Router) {
     }
 
     ngOnInit() {
@@ -23,7 +26,6 @@ export class ProjectsListComponent implements OnInit {
             .subscribe((projects: Array<Project>) => {
                 this.projects = projects;
                 this.activeProjects = this.projects;
-                console.log(this.projects);
             });
     }
 
