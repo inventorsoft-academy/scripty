@@ -5,14 +5,18 @@ import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.inventorsoft.scripty.model.dto.DirectoryNode;
 import co.inventorsoft.scripty.model.dto.ProjectDto;
 import co.inventorsoft.scripty.model.dto.ProjectGithub;
 import co.inventorsoft.scripty.model.dto.StringResponse;
+import co.inventorsoft.scripty.model.entity.Project;
 import co.inventorsoft.scripty.service.ProjectService;
 import co.inventorsoft.scripty.service.SecurityService;
 import io.swagger.annotations.Api;
@@ -48,6 +52,13 @@ public class ProjectController {
 		securityService.authenticationHasRoleUser(authentication);
 		long projectId = projectService.saveGithubProject(project, authentication.getName());
 		return ResponseEntity.status(HttpStatus.CREATED).body(new StringResponse("GitHub project was cloned with ID = " + projectId));
+	}
+
+	@ApiOperation(value = "Endpoint to get project's filesMetadata.")
+	@GetMapping(value = "/{projectId}/files", produces = "application/json")
+	public ResponseEntity<DirectoryNode> getProjectFilesMetadata(Authentication authentication, @PathVariable Long projectId) {
+		Project project = securityService.projectHasPublicVisibilityOrUserIsOwner(projectId, authentication);
+		return ResponseEntity.ok(project.getFilesMetadata());
 	}
 
 }
