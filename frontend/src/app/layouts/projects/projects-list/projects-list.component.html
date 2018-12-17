@@ -1,7 +1,8 @@
 <div class="projects">
     <app-projects-search (search)="onSearch($event)" (myProjectsCheck)="showMyProjects($event)"></app-projects-search>
     <app-list [projects]="activeProjects"
-                       [searchStr]="searchStr"
-                       [onlyMyProjects]="onlyMyProjects"></app-list>
+              [likedProjects]="likedProjects"
+              [searchStr]="searchStr"
+              [onlyMyProjects]="onlyMyProjects"></app-list>
     <button mat-raised-button id="showMoreBtn" (click)="showMore()">Show more</button>
 </div>

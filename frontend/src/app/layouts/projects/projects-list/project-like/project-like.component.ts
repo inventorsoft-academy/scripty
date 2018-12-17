@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
     selector: 'app-project-like',
@@ -6,7 +6,7 @@ import {Component, OnInit} from '@angular/core';
     styleUrls: ['./project-like.component.scss']
 })
 export class ProjectLikeComponent implements OnInit {
-    isLiked = false;
+    @Input() isLiked;
 
     constructor() {
     }

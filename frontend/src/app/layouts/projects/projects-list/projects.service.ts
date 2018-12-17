@@ -7,18 +7,18 @@ import {Project} from './models/Project';
 })
 export class ProjectsService {
     getProjects() {
-        return this.httpClient.get('http://www.mocky.io/v2/5c069ae53300006300ef2b26');
+        return this.httpClient.get('http://www.mocky.io/v2/5c1776c82f00006900b086f9');
     }
 
     getMoreProjects() {
-        return this.httpClient.get('http://www.mocky.io/v2/5c069cbb3300006c00ef2b30');
+        return this.httpClient.get('http://www.mocky.io/v2/5c1776df2f00005200b086fa');
     }
 
     createProject(project: Project) {
         const body = {
             'name': project.name,
             'description': project.type,
-            'visibility': !project.isPrivate
+            'visibility': project.visibility
         };
         /*const headers = new HttpHeaders({
             'Content-Type': 'application/json',

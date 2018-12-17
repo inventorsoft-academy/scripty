@@ -20,7 +20,7 @@ export class ProjectCreateDialogComponent implements OnInit {
                 Validators.minLength(2),
                 Validators.maxLength(50)]),
             type: new FormControl(this.projectTypes[0], [Validators.required]),
-            isPrivate: new FormControl('false', [Validators.required])
+            visibility: new FormControl('true', [Validators.required])
         });
     }
 

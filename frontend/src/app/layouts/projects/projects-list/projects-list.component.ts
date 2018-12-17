@@ -12,6 +12,7 @@ export class ProjectsListComponent implements OnInit {
     activeProjects: Array<Project>;
     searchStr = '';
     onlyMyProjects = true;
+    likedProjects = [1, 3, 5, 7, 12];
 
     constructor(private projectsService: ProjectsService) {
     }

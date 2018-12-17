@@ -4,33 +4,33 @@ import {Project} from '../models/Project';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
-  selector: 'app-project-edit-dialog',
-  templateUrl: './project-edit-dialog.component.html',
-  styleUrls: ['./project-edit-dialog.component.scss']
+    selector: 'app-project-edit-dialog',
+    templateUrl: './project-edit-dialog.component.html',
+    styleUrls: ['./project-edit-dialog.component.scss']
 })
 export class ProjectEditDialogComponent {
-  form: FormGroup;
-  projectTypes = ['JavaScript', 'JQuery', 'Vue'];
+    form: FormGroup;
+    projectTypes = ['JavaScript', 'JQuery', 'Vue'];
 
-  constructor(
-    public dialogRef: MatDialogRef<ProjectEditDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private project: Project) {
-    this.form = new FormGroup({
-      name: new FormControl(this.project.name, [Validators.required]),
-      type: new FormControl(this.project.type, [Validators.required]),
-      isPrivate: new FormControl(this.project.isPrivate ? 'true' : 'false', [Validators.required])
-    });
-  }
+    constructor(
+        public dialogRef: MatDialogRef<ProjectEditDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) private project: Project) {
+        this.form = new FormGroup({
+            name: new FormControl(this.project.name, [Validators.required]),
+            type: new FormControl(this.project.type, [Validators.required]),
+            visibility: new FormControl(this.project.visibility ? 'true' : 'false', [Validators.required])
+        });
+    }
 
-  onNoClick() {
-    this.dialogRef.close();
-  }
+    onNoClick() {
+        this.dialogRef.close();
+    }
 
-  submit() {
-    this.project.name = this.form.value.name;
-    this.project.type = this.form.value.type;
-    this.project.isPrivate = this.form.value.isPrivate;
-    this.dialogRef.close();
-  }
+    submit() {
+        this.project.name = this.form.value.name;
+        this.project.type = this.form.value.type;
+        this.project.visibility = this.form.value.visibility;
+        this.dialogRef.close();
+    }
 
 }
