@@ -161,10 +161,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateProfile(String email, UpdateUserDto updateDto) {
         userRepository.findByEmail(email).ifPresent(user -> {
-            if (!updateDto.getFirstName().isEmpty())
-                user.setFirstName(updateDto.getFirstName());
-            if (!updateDto.getLastName().isEmpty())
-                user.setLastName(updateDto.getLastName());
+            user.setFirstName(updateDto.getFirstName());
+            user.setLastName(updateDto.getLastName());
             userRepository.save(user);
         });
     }
