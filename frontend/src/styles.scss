@@ -73,6 +73,42 @@ html {
     .mob-bars {
       display: flex;
     }
+    //login-registration form container
+    .form-container {
+      width: 300px;
+      .form-card {
+        background: transparent;
+        box-shadow: unset;
+        .mat-card-header .mat-card-title {
+          color: white;
+        }
+        input.mat-input-element {
+          color: white;
+          &::placeholder {
+            color: white;
+          }
+        }
+        .mat-form-field-label {
+          color: white;
+        }
+        .mat-form-field-ripple {
+          //background-color: white;
+        }
+        .mat-form-field-appearance-legacy .mat-form-field-underline {
+          background-color: rgba(255,255,255, .42);
+        }
+      }
+    }
+    //login-registration submit button
+    .submit-from-btn {
+      display: block;
+      margin: 0 auto !important;
+      background-color: #e6e6e6;
+      color: #a1a1a1;
+      width: 234px;
+      height: 44px;
+      border-radius: 4px;
+    }
     @media (min-width: 769px) {
       header {
         .mob-bars {

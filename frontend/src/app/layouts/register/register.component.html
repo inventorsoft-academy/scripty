@@ -1,59 +1,70 @@
 <div class="page">
-  <!--<div class="container">-->
-  <mat-card class="example-card">
+  <div class="form-container">
+  <mat-card class="form-card">
     <mat-card-header>
-      <mat-card-title>Register</mat-card-title>
+      <mat-card-title>Register to  < scripty /> </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form class="example-form">
-        <table class="full-width" cellspacing="0">
-          <tr>
-            <td>
-              <mat-form-field class="full-width">
-                <input matInput placeholder="Email" [(ngModel)]="registerUserData.email" name="email"
-                       autocomplete="email" required>
+      <form class="signup-form" [formGroup]="registrationForm">
+              <mat-form-field class="full-width-field">
+                <input matInput placeholder="Email"
+                       formControlName="email"
+                       autocomplete="off"
+                       required>
+                  <!--<mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>-->
               </mat-form-field>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <mat-form-field class="full-width">
-                <input matInput placeholder="First Name" [(ngModel)]="registerUserData.firstName" type="text"
-                       name="firstName" required>
+              <mat-form-field class="full-width-field">
+                <input matInput
+                       placeholder="First Name"
+                       formControlName="firstName"
+                       type="text"
+                       required
+                       autocomplete="off"
+                       minlength="4">
+
               </mat-form-field>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <mat-form-field class="full-width">
-                <input matInput placeholder="Last Name" [(ngModel)]="registerUserData.lastName" type="text"
-                       name="lastName" required>
+
+              <mat-form-field class="full-width-field">
+                <input matInput
+                       placeholder="Last Name"
+                       formControlName="lastName"
+                       type="text"
+                      required>
               </mat-form-field>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <mat-form-field class="full-width">
-                <input matInput placeholder="Password" [(ngModel)]="registerUserData.password" type="password"
-                       name="password" autocomplete="new-password" required>
-              </mat-form-field>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <mat-form-field class="full-width">
-                <input matInput placeholder="Repeat Password" [(ngModel)]="registerUserData.repeatPassword" type="password"
-                       name="repeatPassword" autocomplete="new-password" required>
-              </mat-form-field>
-            </td>
-          </tr>
-        </table>
+
+                <div class="formGroupName" formGroupName="password">
+                    <mat-form-field class="full-width-field">
+                        <input matInput
+                               placeholder="Password"
+
+                               type="password"
+                               autocomplete="new-password"
+                               required>
+                    </mat-form-field>
+                    <!--formControlName="password"-->
+                    <mat-form-field class="full-width-field">
+                        <input matInput
+                               placeholder="Repeat Password"
+
+                        type="password"
+                               name="repeatPassword"
+                               autocomplete="new-password"
+                               required>
+                    </mat-form-field>
+                    <!--formControlName="matchingPassword"-->
+                </div>
+
       </form>
-      <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+      <!--<mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>-->
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button (click)="registerUser()" color="primary">Register</button>
+      <button mat-raised-button
+              (click)="registerUser()"
+              class="submit-from-btn"
+              [disabled]="!registrationForm.valid"
+      >Register</button>
+      <!--/*/[disabled]="!ownerForm.valid"-->
     </mat-card-actions>
   </mat-card>
-  <!--</div>-->
+  </div>
 </div>

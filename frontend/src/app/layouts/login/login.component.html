@@ -1,35 +1,33 @@
 <div class="page">
-    <!--<div class="container">-->
-        <mat-card class="example-card">
+    <div class="form-container">
+        <mat-card class="form-card">
             <mat-card-header>
-                <mat-card-title>Login</mat-card-title>
+                <mat-card-title>Login to scripty</mat-card-title>
             </mat-card-header>
             <mat-card-content>
-                <form class="example-form">
-                    <table class="example-full-width" cellspacing="0">
-                        <tr>
-                            <td>
-                                <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Username" [(ngModel)]="username" name="username"
-                                           required>
-                                </mat-form-field>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Password" [(ngModel)]="password" type="password"
-                                           name="password" required>
-                                </mat-form-field>
-                            </td>
-                        </tr>
-                    </table>
+                <form class="login-form" [formGroup]="loginForm">
+                    <mat-form-field class="full-width-field">
+                        <input matInput
+                               placeholder="Username"
+                               formControlName="username"
+                               required>
+                    </mat-form-field>
+                    <mat-form-field class="full-width-field">
+                        <input matInput
+                               placeholder="Password"
+                               formControlName="password"
+                               type="password"
+                               required>
+                    </mat-form-field>
                 </form>
-                <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
             </mat-card-content>
             <mat-card-actions>
-                <button mat-raised-button (click)="loginUser()" color="primary">Login</button>
+                <button
+                        mat-raised-button
+                        (click)="authUser()"
+                        class="submit-from-btn"
+                >Login</button>
             </mat-card-actions>
         </mat-card>
-    <!--</div>-->
+    </div>
 </div>

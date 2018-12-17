@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {AuthService} from '../../services/auth.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -7,26 +9,33 @@ import {AuthService} from '../../services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-    credentials = {
-      username: 'user@test.co',
-        password: 'jwtpass',
-        grant_type: 'password'
-    };
+    loginForm: FormGroup;
 
-  constructor(private _auth: AuthService) { }
+
+
+  constructor(
+      private _formBuilder: FormBuilder,
+      private router: Router,
+      private _auth: AuthService) { }
 
   ngOnInit() {
+      this.loginForm = this._formBuilder.group({
+          username: ['', Validators.required],
+          password: ['', Validators.required],
+          grant_type: 'password'
+      });
   }
-    loginUser() {
-        this._auth.loginUser(this.credentials)
+    authUser() {
+        this._auth.authUser(this.loginForm.value)
             .subscribe(
                 res => {
-                  console.log(res);
                   localStorage.setItem('access_token', res.access_token);
                   localStorage.setItem('refresh_token', res.refresh_token);
+                  localStorage.setItem('user', this.loginForm.value.username);
+                  this.router.navigate(['/projects']);
+                  console.log(localStorage.getItem('user'));
                 },
-                err => console.log(err)
+                err => console.log(err, this.loginForm.value)
             );
     }
-
 }

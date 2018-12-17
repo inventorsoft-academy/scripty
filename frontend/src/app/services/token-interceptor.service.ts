@@ -18,11 +18,11 @@ export class TokenInterceptorService implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-      req = req.clone({
-          setHeaders: {
-              Authorization: `Bearer ${this.auth.getToken()}`
-          }
-      });
+      // req = req.clone({
+      //     setHeaders: {
+      //         Authorization: `Bearer ${this.auth.getToken()}`
+      //     }
+      // });
         return next.handle(req);
     }
 }

@@ -8,3 +8,7 @@
 .container {
   max-width: 535px;
 }
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
