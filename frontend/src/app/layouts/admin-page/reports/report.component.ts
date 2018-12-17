@@ -1,4 +1,6 @@
 import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 
 @Component({
   selector: 'app-report',
@@ -7,9 +9,13 @@ import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
 })
 
 export class ReportComponent implements OnInit {
-
-  constructor() { }
+  res = null;
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    this.http.get('api/test/user').subscribe(req => {
+      this.res = req;
+      console.log(this.res);
+    });
   }
 }
