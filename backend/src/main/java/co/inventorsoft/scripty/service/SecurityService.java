@@ -28,13 +28,12 @@ public class SecurityService {
 		}
 	}
 
-	public Project projectUserIsOwner(Long projectId, Authentication auth) {
+	public void projectUserIsOwner(Long projectId, Authentication auth) {
 		Project project = projectRepository.findById(projectId).orElseThrow(() -> new ApplicationException("Project with ID="+projectId+" does not exist" , HttpStatus.NOT_FOUND));
 		String username = auth==null ? "Anonymous" : auth.getName();
 		if(!project.getUser().getEmail().equals(username)) {
 			throw new ApplicationException(username+" has no access to project "+projectId, HttpStatus.FORBIDDEN);
 		}
-		return project;
 	}
 
 }

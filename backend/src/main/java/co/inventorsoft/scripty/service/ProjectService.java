@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import co.inventorsoft.scripty.exception.ApplicationException;
 import co.inventorsoft.scripty.model.dto.ProjectDto;
+import co.inventorsoft.scripty.model.dto.ProjectUpdateDto;
 import co.inventorsoft.scripty.model.entity.Project;
 import co.inventorsoft.scripty.model.entity.User;
 import co.inventorsoft.scripty.repository.ProjectRepository;
@@ -76,13 +77,14 @@ public class ProjectService {
 		return projectRepository.save(newProject).getId();
 	}
 
-	public void updateProject(Project project, ProjectDto projectDto) {
-		if(projectDto.getDescription() != null) {
-			project.setDescription(projectDto.getDescription());
-		}
-		if(projectDto.getVisibility() != null) {
-			project.setVisibility(projectDto.getVisibility());
-		} 
+	public Project getProject(Long projectId) {
+		return projectRepository.findById(projectId).orElseThrow(() -> new ApplicationException("Project with ID="+projectId+" does not exist" , HttpStatus.NOT_FOUND));
+	}
+
+	public void updateProject(Long projectId, ProjectUpdateDto projectUpdateDto) {
+		Project project = getProject(projectId);
+		project.setDescription(projectUpdateDto.getDescription());
+		project.setVisibility(projectUpdateDto.getVisibility());
 		projectRepository.save(project);
 	}
 
