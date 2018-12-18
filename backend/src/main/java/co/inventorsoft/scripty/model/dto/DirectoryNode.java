@@ -2,7 +2,6 @@ package co.inventorsoft.scripty.model.dto;
 
 import java.io.Serializable;
 import java.util.LinkedList;
-import java.util.List;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -20,7 +19,7 @@ import lombok.experimental.FieldDefaults;
 public class DirectoryNode extends Node implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	List<Node> children;
+	LinkedList<Node> children;
 
 	public DirectoryNode(String parent, String path, String name) {
 		super(parent, path, name, "directory");

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.inventorsoft.scripty.model.dto.DirectoryNode;
 import co.inventorsoft.scripty.model.dto.ProjectDto;
+import co.inventorsoft.scripty.model.dto.ProjectGithub;
 import co.inventorsoft.scripty.model.dto.StringResponse;
 import co.inventorsoft.scripty.service.ProjectService;
 import co.inventorsoft.scripty.service.SecurityService;
@@ -42,6 +43,14 @@ public class ProjectController {
 		securityService.authenticationHasRoleUser(authentication);
 		long projectId = projectService.saveProject(project, authentication.getName());
 		return ResponseEntity.status(HttpStatus.CREATED).body(new StringResponse("New project was created with ID = " + projectId));
+	}
+
+	@ApiOperation(value = "Endpoint to clone GitHub project. The endpoint consumes field: githubURL(required).")
+	@PostMapping(value = "/github", consumes = "application/json")
+	public ResponseEntity<StringResponse> saveGithubProject(Authentication authentication, @Valid @RequestBody ProjectGithub project) {
+		securityService.authenticationHasRoleUser(authentication);
+		long projectId = projectService.saveGithubProject(project, authentication.getName());
+		return ResponseEntity.status(HttpStatus.CREATED).body(new StringResponse("GitHub project was cloned with ID = " + projectId));
 	}
 
 	@ApiOperation(value = "Endpoint to get project's filesMetadata.")
