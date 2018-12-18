@@ -15,7 +15,7 @@ export class GitImportDialogComponent implements OnInit {
                 private projectsService: ProjectsService) {
         this.form = new FormGroup({
             url: new FormControl(null, [Validators.required,
-                Validators.pattern('(https:\\/\\/)?github.com\\/\\S+.git$')])
+                Validators.pattern('^https:\\/\\/github.com\\/.+?\\/(.+?).git$')])
         });
     }
 
@@ -27,6 +27,7 @@ export class GitImportDialogComponent implements OnInit {
             .subscribe(
                 (data) => {
                     console.log(data);
+                    this.dialogRef.close();
                 },
                 (error) => {
                     console.log(error);

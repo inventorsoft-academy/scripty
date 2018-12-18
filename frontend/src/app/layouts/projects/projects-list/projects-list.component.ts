@@ -13,8 +13,8 @@ export class ProjectsListComponent implements OnInit {
     activeProjects: Array<Project>;
     searchStr = '';
     onlyMyProjects = true;
-    // likedProjects = [1, 3, 5, 7, 12];
-    likedProjects = [];
+    likedProjects = [1, 3, 5, 7, 12];
+    // likedProjects = [];
 
     constructor(private projectsService: ProjectsService,
                 private router: Router) {
