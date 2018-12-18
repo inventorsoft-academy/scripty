@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import co.inventorsoft.scripty.exception.ApplicationException;
 import co.inventorsoft.scripty.model.dto.ProjectDto;
+import co.inventorsoft.scripty.model.dto.ProjectUpdateDto;
 import co.inventorsoft.scripty.repository.ProjectRepository;
 import co.inventorsoft.scripty.security.JWTSecurity;
 import co.inventorsoft.scripty.service.ProjectService;
@@ -103,7 +104,7 @@ public class ProjectControllerTest {
 
 	@Test
 	public void updateShouldUpdateProject() throws Exception {
-		String jsonString = new ObjectMapper().writeValueAsString(new ProjectDto("project0","Test Project Updated",false));
+		String jsonString = new ObjectMapper().writeValueAsString(new ProjectUpdateDto("Test Project Updated",false));
 		mockMvc.perform(put("/projects/"+projectId)
 				.header("Authorization", "Bearer  " + accessToken)
 				.contentType(JWTSecurity.CONTENT_TYPE)
@@ -115,7 +116,7 @@ public class ProjectControllerTest {
 
 	@Test
 	public void updateShouldNotUpdateProjectWhenUserIsNotOwner() throws Exception {
-		String jsonString = new ObjectMapper().writeValueAsString(new ProjectDto("project0","Test Project Updated",false));
+		String jsonString = new ObjectMapper().writeValueAsString(new ProjectUpdateDto("Test Project Updated",false));
 		mockMvc.perform(put("/projects/"+projectId)
 				.header("Authorization", "Bearer  " + accessTokenAdmin)
 				.contentType(JWTSecurity.CONTENT_TYPE)
@@ -127,7 +128,7 @@ public class ProjectControllerTest {
 
 	@Test
 	public void updateShouldNotUpdateProjectWhenProjectDoesNotExist() throws Exception {
-		String jsonString = new ObjectMapper().writeValueAsString(new ProjectDto("project999","Test Project Updated",false));
+		String jsonString = new ObjectMapper().writeValueAsString(new ProjectUpdateDto("Test Project Updated",false));
 		mockMvc.perform(put("/projects/999")
 				.header("Authorization", "Bearer  " + accessToken)
 				.contentType(JWTSecurity.CONTENT_TYPE)

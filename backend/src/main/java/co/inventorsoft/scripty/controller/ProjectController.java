@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.inventorsoft.scripty.model.dto.ProjectDto;
+import co.inventorsoft.scripty.model.dto.ProjectUpdateDto;
 import co.inventorsoft.scripty.model.dto.StringResponse;
-import co.inventorsoft.scripty.model.entity.Project;
 import co.inventorsoft.scripty.service.ProjectService;
 import co.inventorsoft.scripty.service.SecurityService;
 import io.swagger.annotations.Api;
@@ -47,9 +47,9 @@ public class ProjectController {
 
 	@ApiOperation(value = "Endpoint to update project. It consumes project description and visibility.")
 	@PutMapping(value = "/{projectId}", produces = "application/json", consumes = "application/json")
-	public ResponseEntity<StringResponse> updateProject(Authentication authentication, @PathVariable Long projectId, @Valid @RequestBody ProjectDto projectDto) {
-		Project project = securityService.projectUserIsOwner(projectId, authentication);
-		projectService.updateProject(project, projectDto);
+	public ResponseEntity<StringResponse> updateProject(Authentication authentication, @PathVariable Long projectId, @Valid @RequestBody ProjectUpdateDto projectUpdateDto) {
+		securityService.projectUserIsOwner(projectId, authentication);
+		projectService.updateProject(projectId, projectUpdateDto);
 		return ResponseEntity.ok(new StringResponse("Project with ID = " + projectId + " was updated"));
 	}
 
