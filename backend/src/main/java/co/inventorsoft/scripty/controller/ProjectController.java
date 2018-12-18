@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import co.inventorsoft.scripty.model.dto.DirectoryNode;
 import co.inventorsoft.scripty.model.dto.ProjectDto;
 import co.inventorsoft.scripty.model.dto.StringResponse;
-import co.inventorsoft.scripty.model.entity.Project;
 import co.inventorsoft.scripty.service.ProjectService;
 import co.inventorsoft.scripty.service.SecurityService;
 import io.swagger.annotations.Api;
@@ -48,8 +47,8 @@ public class ProjectController {
 	@ApiOperation(value = "Endpoint to get project's filesMetadata.")
 	@GetMapping(value = "/{projectId}/files", produces = "application/json")
 	public ResponseEntity<DirectoryNode> getProjectFilesMetadata(Authentication authentication, @PathVariable Long projectId) {
-		Project project = securityService.projectHasPublicVisibilityOrUserIsOwner(projectId, authentication);
-		return ResponseEntity.ok(project.getFilesMetadata());
+		securityService.projectHasPublicVisibilityOrUserIsOwner(projectId, authentication);
+		return ResponseEntity.ok(projectService.getProject(projectId).getFilesMetadata());
 	}
 
 }

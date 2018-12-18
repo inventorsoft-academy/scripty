@@ -79,6 +79,10 @@ public class ProjectService {
 		return projectRepository.save(newProject).getId();
 	}
 
+	public Project getProject(Long projectId) {
+		return projectRepository.findById(projectId).orElseThrow(() -> new ApplicationException("Project with ID="+projectId+" does not exist" , HttpStatus.NOT_FOUND));
+	}
+	
 	private void createProjectPath(String projectPath) {
 		Path path = Paths.get(projectPath);
 		if(!Files.exists(path)) {
