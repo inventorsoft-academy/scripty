@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import co.inventorsoft.scripty.exception.ApplicationException;
 import co.inventorsoft.scripty.model.dto.ProjectDto;
 import co.inventorsoft.scripty.model.dto.ProjectUpdateDto;
+import co.inventorsoft.scripty.model.dto.ProjectGithub;
 import co.inventorsoft.scripty.model.entity.Project;
 import co.inventorsoft.scripty.model.entity.User;
 import co.inventorsoft.scripty.repository.ProjectRepository;
@@ -36,14 +37,16 @@ public class ProjectService {
 
 	ProjectRepository projectRepository;
 	UserRepository userRepository;
+	ProjectGithubService projectGithubService;
 
 	String pathLocalRepo;
 	String directorySeparator;
 	
 	@Autowired
-	public ProjectService(ProjectRepository projectRepository, UserRepository userRepository, @Value("${path.local.repo}") String pathLocalRepo, @Value("${directory.separator}") String directorySeparator) {
+	public ProjectService(ProjectRepository projectRepository, UserRepository userRepository, ProjectGithubService projectGithubService, @Value("${path.local.repo}") String pathLocalRepo, @Value("${directory.separator}") String directorySeparator) {
 		this.projectRepository = projectRepository;
 		this.userRepository = userRepository;
+		this.projectGithubService = projectGithubService;
 		this.pathLocalRepo = pathLocalRepo;
 		this.directorySeparator = directorySeparator;
 	}
@@ -86,6 +89,28 @@ public class ProjectService {
 		project.setDescription(projectUpdateDto.getDescription());
 		project.setVisibility(projectUpdateDto.getVisibility());
 		projectRepository.save(project);
+	}
+
+	public long saveGithubProject(ProjectGithub project, String username) {
+		User user = userRepository.findByEmail(username).orElseThrow(() -> new ApplicationException("There is no " + username, HttpStatus.NOT_FOUND));
+		String reponame = projectGithubService.getGithubRepoName(project.getGithubURL());
+		if (projectRepository.existsByNameAndUser(reponame, user)) {
+			throw new ApplicationException("Project with name " + reponame + " already exist for " + username, HttpStatus.CONFLICT);
+		}
+
+		Project newProject = new Project();
+		newProject.setName(reponame);
+		newProject.setDescription(project.getGithubURL());
+		newProject.setVisibility(DEFAULT_VISIBILITY);
+		newProject.setArchive(false);
+
+		String projectPath = pathLocalRepo + username + directorySeparator + reponame;
+		projectGithubService.cloneGithubRepo(project.getGithubURL(), projectPath);
+		newProject.setPath(projectPath);
+		newProject.setUser(user);
+		newProject.setCreateDate(LocalDateTime.now());
+		
+		return projectRepository.save(newProject).getId();
 	}
 
 	private void createProjectPath(String projectPath) {
