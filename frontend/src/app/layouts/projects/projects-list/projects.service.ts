@@ -22,7 +22,15 @@ export class ProjectsService {
         };
 
         return this.httpClient.post('/api/projects', body);
-        // return this.httpClient.post('/api/projects', body);
+    }
+
+    updateProject(id: number, description: string, visibility: string) {
+        const body = {
+            'description': description,
+            'visibility': visibility
+        };
+
+        return this.httpClient.put(`/api/projects/${id}`, body);
     }
 
     deleteProject(projectId: number) {

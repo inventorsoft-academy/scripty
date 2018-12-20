@@ -2,6 +2,7 @@ import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Project} from '../models/Project';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ProjectsService} from '../projects.service';
 
 @Component({
     selector: 'app-project-edit-dialog',
@@ -14,9 +15,9 @@ export class ProjectEditDialogComponent {
 
     constructor(
         public dialogRef: MatDialogRef<ProjectEditDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) private project: Project) {
+        @Inject(MAT_DIALOG_DATA) private project: Project,
+        private projectsService: ProjectsService) {
         this.form = new FormGroup({
-            name: new FormControl(this.project.name, [Validators.required]),
             type: new FormControl(this.project.type, [Validators.required]),
             visibility: new FormControl(this.project.visibility ? 'true' : 'false', [Validators.required])
         });
@@ -30,6 +31,17 @@ export class ProjectEditDialogComponent {
         this.project.name = this.form.value.name;
         this.project.type = this.form.value.type;
         this.project.visibility = this.form.value.visibility;
+        this.projectsService.updateProject(
+            this.project.id,
+            this.form.value.type,
+            this.form.value.visibility).subscribe(
+            (response) => {
+                console.log(`\'${this.project.name}\' project updated.`);
+            },
+            (error) => {
+                // show error
+            }
+        );
         this.dialogRef.close();
     }
 

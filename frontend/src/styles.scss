@@ -93,6 +93,11 @@ html {
 .mat-raised-button {
   background-color: $hover-color;
   color: #fff;
+  &:disabled {
+    .mat-button-wrapper {
+      color: #555;
+    }
+  }
 }
 
 .btn-cancel{
