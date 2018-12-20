@@ -13,7 +13,6 @@ export class ListComponent implements OnInit {
     @Input() projects: Project[];
     @Input() searchStr: string;
     @Input() onlyMyProjects: boolean;
-    @Input() likedProjects: Array<number>;
     confirmDialogRef: MatDialogRef<ConfirmDialogComponent>;
     // displayedColumns: string[] = ['name', 'type', 'author', 'like', 'edit'];
     displayedColumns: string[] = ['name', 'description', 'edit'];

@@ -11,16 +11,10 @@ import {GitImportDialogComponent} from '../git-import-dialog/git-import-dialog.c
 export class ProjectsSearchComponent implements OnInit {
     searchStr = '';
     @Output() search = new EventEmitter<string>();
-    /*onlyMyProjects = true;
-    @Output() myProjectsCheck = new EventEmitter<boolean>();*/
 
     onChange() {
         this.search.emit(this.searchStr);
     }
-
-    /*showMyProjects() {
-        this.myProjectsCheck.emit(this.onlyMyProjects);
-    }*/
 
     constructor(private dialog: MatDialog) {
     }

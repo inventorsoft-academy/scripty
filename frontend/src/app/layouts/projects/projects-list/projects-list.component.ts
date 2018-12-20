@@ -12,12 +12,8 @@ export class ProjectsListComponent implements OnInit {
     projects: Array<Project>;
     activeProjects: Array<Project>;
     searchStr = '';
-    // onlyMyProjects = true;
-    likedProjects = [1, 3, 5, 7, 12];
-    // likedProjects = [];
 
-    constructor(private projectsService: ProjectsService,
-                private router: Router) {
+    constructor(private projectsService: ProjectsService) {
     }
 
     ngOnInit() {
@@ -32,10 +28,6 @@ export class ProjectsListComponent implements OnInit {
     onSearch(e: string) {
         this.searchStr = e;
     }
-
-    /*showMyProjects(e: boolean) {
-        this.onlyMyProjects = e;
-    }*/
 
     showMore() {
         this.projectsService.getMoreProjects()
