@@ -17,14 +17,14 @@ export class ProjectsService {
     createProject(project: Project) {
         const body = {
             'name': project.name,
-            'description': project.type,
+            'description': project.description,
             'visibility': project.visibility
         };
 
         return this.httpClient.post('/api/projects', body);
     }
 
-    updateProject(id: number, description: string, visibility: string) {
+    updateProject(id: number, description: string, visibility: boolean) {
         const body = {
             'description': description,
             'visibility': visibility
@@ -34,7 +34,7 @@ export class ProjectsService {
     }
 
     deleteProject(projectId: number) {
-        return this.httpClient.delete('url' + projectId);
+        return this.httpClient.delete('/api/url/' + projectId);
     }
 
     archiveProject(projectId: number) {

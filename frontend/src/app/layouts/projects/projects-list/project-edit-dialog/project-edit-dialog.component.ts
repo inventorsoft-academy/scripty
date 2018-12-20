@@ -11,14 +11,15 @@ import {ProjectsService} from '../projects.service';
 })
 export class ProjectEditDialogComponent {
     form: FormGroup;
-    projectTypes = ['JavaScript', 'JQuery', 'Vue'];
+    projectTypes = ['JavaScript', 'JQuery', 'Vue', 'GitHub'];
 
     constructor(
         public dialogRef: MatDialogRef<ProjectEditDialogComponent>,
         @Inject(MAT_DIALOG_DATA) private project: Project,
         private projectsService: ProjectsService) {
         this.form = new FormGroup({
-            type: new FormControl(this.project.type, [Validators.required]),
+            description: new FormControl(this.project.description.includes('github.com') ? 'GitHub' : this.project.description,
+                [Validators.required]),
             visibility: new FormControl(this.project.visibility ? 'true' : 'false', [Validators.required])
         });
     }
@@ -28,17 +29,17 @@ export class ProjectEditDialogComponent {
     }
 
     submit() {
-        this.project.name = this.form.value.name;
-        this.project.type = this.form.value.type;
-        this.project.visibility = this.form.value.visibility;
         this.projectsService.updateProject(
             this.project.id,
-            this.form.value.type,
+            this.form.value.description,
             this.form.value.visibility).subscribe(
             (response) => {
+                console.log(response);
                 console.log(`\'${this.project.name}\' project updated.`);
+                // refresh project page
             },
             (error) => {
+                console.log(error);
                 // show error
             }
         );

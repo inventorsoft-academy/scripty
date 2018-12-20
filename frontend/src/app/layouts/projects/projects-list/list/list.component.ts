@@ -16,7 +16,7 @@ export class ListComponent implements OnInit {
     @Input() likedProjects: Array<number>;
     confirmDialogRef: MatDialogRef<ConfirmDialogComponent>;
     // displayedColumns: string[] = ['name', 'type', 'author', 'like', 'edit'];
-    displayedColumns: string[] = ['name', 'like', 'edit'];
+    displayedColumns: string[] = ['name', 'description', 'edit'];
     userId: number;
 
     constructor(private dialog: MatDialog) {
@@ -32,9 +32,9 @@ export class ListComponent implements OnInit {
         });
     }
 
-    openArchiveDialog() {
+    openArchiveDialog(name: string) {
         this.confirmDialogRef = this.dialog.open(ConfirmDialogComponent, {});
-        this.confirmDialogRef.componentInstance.confirmMessage = 'Do you want to archive this project?';
+        this.confirmDialogRef.componentInstance.confirmMessage = `Do you want to archive '${name}'?`;
         this.confirmDialogRef.afterClosed()
             .subscribe(result => {
                 if (result) {
@@ -44,9 +44,9 @@ export class ListComponent implements OnInit {
             });
     }
 
-    openDeleteDialog() {
+    openDeleteDialog(name: string) {
         this.confirmDialogRef = this.dialog.open(ConfirmDialogComponent, {});
-        this.confirmDialogRef.componentInstance.confirmMessage = 'Do you want to delete this project?';
+        this.confirmDialogRef.componentInstance.confirmMessage = `Do you want to delete '${name}'?`;
         this.confirmDialogRef.afterClosed()
             .subscribe(result => {
                 if (result) {

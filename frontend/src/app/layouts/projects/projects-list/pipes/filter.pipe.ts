@@ -5,19 +5,13 @@ import {Project} from '../models/Project';
     name: 'filter'
 })
 export class FilterPipe implements PipeTransform {
-    transform(items: Project[], searchText: string, onlyMyProjects: boolean): Project[] {
+    transform(items: Project[], searchText: string): Project[] {
         if (!items) {
             return [];
         }
         searchText = searchText.toLowerCase();
-        items = items.filter((it: Project) => {
+        return items.filter((it: Project) => {
             return it.name.toLowerCase().includes(searchText);
         });
-        if (onlyMyProjects) {
-            items = items.filter((it: Project) => {
-                return it.author_id === +localStorage.getItem('userId');
-            });
-        }
-        return items;
     }
 }

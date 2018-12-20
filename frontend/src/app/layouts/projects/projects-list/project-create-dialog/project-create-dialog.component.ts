@@ -21,7 +21,7 @@ export class ProjectCreateDialogComponent implements OnInit {
             name: new FormControl('Project Name', [Validators.required,
                 Validators.minLength(2),
                 Validators.maxLength(50)]),
-            type: new FormControl(this.projectTypes[0], [Validators.required]),
+            description: new FormControl(this.projectTypes[0], [Validators.required]),
             visibility: new FormControl('true', [Validators.required])
         });
     }

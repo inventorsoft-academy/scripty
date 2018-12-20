@@ -1,5 +1,7 @@
 <div class="projects">
-    <app-projects-search (search)="onSearch($event)" (myProjectsCheck)="showMyProjects($event)"></app-projects-search>
+    <!--<app-projects-search (search)="onSearch($event)" (myProjectsCheck)="showMyProjects($event)">-->
+    <app-projects-search (search)="onSearch($event)">
+    </app-projects-search>
     <app-list [projects]="activeProjects"
               [likedProjects]="likedProjects"
               [searchStr]="searchStr"

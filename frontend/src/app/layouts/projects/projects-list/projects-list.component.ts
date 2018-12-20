@@ -12,7 +12,7 @@ export class ProjectsListComponent implements OnInit {
     projects: Array<Project>;
     activeProjects: Array<Project>;
     searchStr = '';
-    onlyMyProjects = true;
+    // onlyMyProjects = true;
     likedProjects = [1, 3, 5, 7, 12];
     // likedProjects = [];
 
@@ -33,9 +33,9 @@ export class ProjectsListComponent implements OnInit {
         this.searchStr = e;
     }
 
-    showMyProjects(e: boolean) {
+    /*showMyProjects(e: boolean) {
         this.onlyMyProjects = e;
-    }
+    }*/
 
     showMore() {
         this.projectsService.getMoreProjects()
