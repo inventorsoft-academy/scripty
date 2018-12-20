@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {RegConfirmationService} from '../reg-confirmation.service';
+import {UserActivationService} from '../user-activation.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
 export class ResendEmailComponent implements OnInit {
     form: FormGroup;
 
-    constructor(private regConfirmationService: RegConfirmationService,
+    constructor(private userActivationService: UserActivationService,
                 private router: Router) {
         this.form = new FormGroup({
             email: new FormControl(null, [Validators.required, Validators.email])
@@ -22,21 +22,19 @@ export class ResendEmailComponent implements OnInit {
     }
 
     onSubmit() {
-        this.regConfirmationService.resendEmail(this.form.get('email').value)
+        this.userActivationService.resendEmail(this.form.get('email').value)
             .subscribe(
                 (response: Response) => {
                     if (response.response === 'Please complete the registration first!') {
                         console.log('Please complete the registration first!\nRedirecting to registration page...');
-                        this.router.navigate(['registration']);
-                        // redirect to registration page
+                        this.router.navigate(['signup']);
                     } else {
-                        console.log('Redirecting to login page...');
+                        console.log(response, 'Redirecting to login page...');
                         this.router.navigate(['login']);
-                        // redirect to login page
                     }
                 },
                 (error) => {
-                    console.log(error.error.response);
+                    console.log(error, error.error.response);
                 }
             );
     }

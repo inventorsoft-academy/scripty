@@ -23,7 +23,7 @@ const routes: Routes = [
     },
     {
         path: 'userActivation',
-        loadChildren: './layouts/reg-confirmation/reg-confirmation.module#RegConfirmationModule',
+        loadChildren: './layouts/user-activation/user-activation.module#UserActivationModule',
         data: {title: 'User activation'}
     },
     {

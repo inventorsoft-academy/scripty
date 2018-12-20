@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {RegConfirmationComponent} from './reg-confirmation.component';
+import {UserActivationComponent} from './user-activation.component';
 import {RouterModule, Routes} from '@angular/router';
 import {RegConfirmComponent} from './reg-confirm/reg-confirm.component';
 import {ResendEmailComponent} from './resend-email/resend-email.component';
@@ -9,7 +9,7 @@ import {MaterialModule} from '../../material-module';
 
 const routes: Routes = [
     {
-        path: '', component: RegConfirmationComponent, children: [
+        path: '', component: UserActivationComponent, children: [
             {path: '', redirectTo: '/projects', pathMatch: 'full'},
             {path: 'confirm', component: RegConfirmComponent, data: {title: 'Registration confirmation'}},
             {path: 'resend', component: ResendEmailComponent, data: {title: 'Resend activation link'}}
@@ -19,7 +19,7 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [
-        RegConfirmationComponent,
+        UserActivationComponent,
         RegConfirmComponent,
         ResendEmailComponent
     ],
@@ -34,5 +34,5 @@ const routes: Routes = [
         RouterModule
     ]
 })
-export class RegConfirmationModule {
+export class UserActivationModule {
 }
