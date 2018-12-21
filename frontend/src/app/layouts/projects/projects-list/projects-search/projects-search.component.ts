@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatDialogRef} from '@angular/material';
 import {ProjectCreateDialogComponent} from '../project-create-dialog/project-create-dialog.component';
 import {GitImportDialogComponent} from '../git-import-dialog/git-import-dialog.component';
 
@@ -11,6 +11,10 @@ import {GitImportDialogComponent} from '../git-import-dialog/git-import-dialog.c
 export class ProjectsSearchComponent implements OnInit {
     searchStr = '';
     @Output() search = new EventEmitter<string>();
+    @Output() changeList = new EventEmitter();
+
+    createDialogRef: MatDialogRef<ProjectCreateDialogComponent>;
+    importDialogRef: MatDialogRef<GitImportDialogComponent>;
 
     onChange() {
         this.search.emit(this.searchStr);
@@ -22,11 +26,25 @@ export class ProjectsSearchComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    openDialog() {
-        this.dialog.open(ProjectCreateDialogComponent, {});
+    openCreateDialog() {
+        this.createDialogRef = this.dialog.open(ProjectCreateDialogComponent, {});
+        this.createDialogRef.afterClosed()
+            .subscribe(result => {
+                if (result) {
+                    this.changeList.emit();
+                }
+                this.createDialogRef = null;
+            });
     }
 
     openImportDialog() {
-        this.dialog.open(GitImportDialogComponent, {});
+        this.importDialogRef = this.dialog.open(GitImportDialogComponent, {});
+        this.importDialogRef.afterClosed()
+            .subscribe(result => {
+                if (result) {
+                    this.changeList.emit();
+                }
+                this.importDialogRef = null;
+            });
     }
 }

@@ -11,7 +11,7 @@ import {ProjectsService} from '../projects.service';
 })
 export class ProjectEditDialogComponent {
     form: FormGroup;
-    projectTypes = ['JavaScript', 'JQuery', 'Vue', 'GitHub'];
+    projectTypes = ['JavaScript', 'jQuery', 'Vue', 'GitHub'];
 
     constructor(
         public dialogRef: MatDialogRef<ProjectEditDialogComponent>,
@@ -36,7 +36,8 @@ export class ProjectEditDialogComponent {
             (response) => {
                 console.log(response);
                 console.log(`\'${this.project.name}\' project updated.`);
-                // refresh project page
+                this.project.description = this.form.value.description;
+                this.project.visibility = this.form.value.visibility;
             },
             (error) => {
                 console.log(error);

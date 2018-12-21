@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
 })
 export class ProjectCreateDialogComponent implements OnInit {
     form: FormGroup;
-    projectTypes = ['JavaScript', 'JQuery', 'Vue'];
+    projectTypes = ['JavaScript', 'jQuery', 'Vue'];
 
     constructor(public dialogRef: MatDialogRef<ProjectCreateDialogComponent>,
                 private projectService: ProjectsService,
@@ -30,24 +30,26 @@ export class ProjectCreateDialogComponent implements OnInit {
     }
 
     onNoClick() {
-        this.dialogRef.close();
+        this.dialogRef.close(false);
     }
 
     submit() {
         this.projectService.createProject(this.form.value)
             .subscribe(
-                (data: Project) => {
+                (data) => {
                     console.log(data);
-                    // redirect to project page
+                    this.dialogRef.close(true);
                 },
                 error => {
                     console.log(error);
                     if (error.status === 401) {
                         this.router.navigate(['login']);
                     }
-                    // show toast with error
+                    if (error.status === 409) {
+                        console.log(`A project with name '${this.form.get('name').value}' already exists.`);
+                    }
+                    this.dialogRef.close(false);
                 }
             );
-        this.dialogRef.close();
     }
 }

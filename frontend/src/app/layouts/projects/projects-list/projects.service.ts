@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Project} from './models/Project';
 
 @Injectable({
@@ -20,7 +20,6 @@ export class ProjectsService {
             'description': project.description,
             'visibility': project.visibility
         };
-
         return this.httpClient.post('/api/projects', body);
     }
 
@@ -30,7 +29,7 @@ export class ProjectsService {
             'visibility': visibility
         };
 
-        return this.httpClient.put(`/api/projects/${id}`, body);
+        return this.httpClient.post(`/api/projects/${id}`, body);
     }
 
     deleteProject(projectId: number) {

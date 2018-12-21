@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
     styleUrls: ['./projects-list.component.scss']
 })
 export class ProjectsListComponent implements OnInit {
-    projects: Array<Project>;
+    // projects: Array<Project>;
     activeProjects: Array<Project>;
     searchStr = '';
 
@@ -17,12 +17,7 @@ export class ProjectsListComponent implements OnInit {
     }
 
     ngOnInit() {
-        localStorage.setItem('userId', '1');
-        this.projectsService.getProjects()
-            .subscribe((projects: Array<Project>) => {
-                this.projects = projects;
-                this.activeProjects = this.projects;
-            });
+        this.updateList();
     }
 
     onSearch(e: string) {
@@ -32,8 +27,15 @@ export class ProjectsListComponent implements OnInit {
     showMore() {
         this.projectsService.getMoreProjects()
             .subscribe((projects: Array<Project>) => {
-                this.projects = this.projects.concat(projects);
-                this.activeProjects = this.projects;
+                /*this.projects = this.projects.concat(projects);
+                this.activeProjects = this.projects;*/
+            });
+    }
+
+    updateList() {
+        this.projectsService.getProjects()
+            .subscribe((projects: Array<Project>) => {
+                this.activeProjects = projects;
             });
     }
 }

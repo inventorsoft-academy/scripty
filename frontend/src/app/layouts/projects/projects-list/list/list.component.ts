@@ -12,17 +12,16 @@ import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component
 export class ListComponent implements OnInit {
     @Input() projects: Project[];
     @Input() searchStr: string;
-    @Input() onlyMyProjects: boolean;
     confirmDialogRef: MatDialogRef<ConfirmDialogComponent>;
-    // displayedColumns: string[] = ['name', 'type', 'author', 'like', 'edit'];
-    displayedColumns: string[] = ['name', 'description', 'edit'];
-    userId: number;
+    displayedColumns: string[] = ['name', 'description', 'author', 'edit'];
+    userName: string;
 
     constructor(private dialog: MatDialog) {
     }
 
     ngOnInit() {
-        this.userId = +localStorage.getItem('userId');
+        // this.userName = localStorage.getItem('user');
+        this.userName = 'user@test.co';
     }
 
     openEditDialog(project) {
