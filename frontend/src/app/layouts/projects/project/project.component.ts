@@ -14,8 +14,10 @@ export class ProjectComponent implements OnInit {
     @ViewChild('htmlCode') htmlCode: ElementRef;
     @ViewChild('styleCode') styleCode: ElementRef;
     @ViewChild('scriptCode') scriptCode: ElementRef;
+    private readonly frameType: string;
 
     public constructor() {
+        this.frameType = 'data:text/html;charset = utf - 8,';
         this.html = localStorage.getItem('html') || '';
         this.script = localStorage.getItem('script') || '';
         this.style = localStorage.getItem('style') || '';
@@ -43,7 +45,9 @@ export class ProjectComponent implements OnInit {
     }
 
     run() {
-        this.result = `data:text/html;charset = utf - 8,<html>
+        this.result = `${this.frameType}`;
+        setTimeout(() => {
+            this.result = `${this.frameType}<html>
                 <head>
                     <style>${this.style}</style>
                 </head>
@@ -52,6 +56,7 @@ export class ProjectComponent implements OnInit {
             <script>${this.script}</script>
             </body>
             </html>`;
-    }
+        }, 0);
 
+    }
 }
