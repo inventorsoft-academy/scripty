@@ -45,10 +45,5 @@ public class ProjectController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(new StringResponse("GitHub project was cloned with ID = " + projectId));
 	}
 
-	@ApiOperation(value = "Endpoint to get project's filesMetadata.")
-	@GetMapping(value = "/{projectId}/files", produces = "application/json")
-	public ResponseEntity<DirectoryNode> getProjectFilesMetadata(Authentication authentication, @PathVariable Long projectId) {
-		Project project = securityService.projectHasPublicVisibilityOrUserIsOwner(projectId, authentication);
-		return ResponseEntity.ok(project.getFilesMetadata());
-	}
+
 }

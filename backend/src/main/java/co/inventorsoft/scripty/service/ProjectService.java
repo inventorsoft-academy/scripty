@@ -1,23 +1,12 @@
 package co.inventorsoft.scripty.service;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Stream;
-
 
 import javax.transaction.Transactional;
-
-import co.inventorsoft.scripty.model.dto.DirectoryNode;
-import co.inventorsoft.scripty.model.dto.FileNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -48,17 +37,15 @@ public class ProjectService {
     ProjectRepository projectRepository;
     UserRepository userRepository;
     ProjectGithubService projectGithubService;
-    DirectoryToObject directoryToObject;
 
     String pathLocalRepo;
     String directorySeparator;
 
     @Autowired
-    public ProjectService(ProjectRepository projectRepository, UserRepository userRepository, DirectoryToObject directoryToObject, @Value("${path.local.repo}") String pathLocalRepo, @Value("${directory.separator}") String directorySeparator) {
+    public ProjectService(ProjectRepository projectRepository, UserRepository userRepository, @Value("${path.local.repo}") String pathLocalRepo, @Value("${directory.separator}") String directorySeparator) {
         this.projectRepository = projectRepository;
         this.userRepository = userRepository;
         this.projectGithubService = projectGithubService;
-        this.directoryToObject = directoryToObject;
         this.pathLocalRepo = pathLocalRepo;
         this.directorySeparator = directorySeparator;
     }
@@ -88,7 +75,6 @@ public class ProjectService {
         newProject.setPath(projectPath);
         newProject.setUser(user);
         newProject.setCreateDate(LocalDateTime.now());
-        newProject.setFilesMetadata(directoryToObject.convert(projectPath));
 
         return projectRepository.save(newProject).getId();
     }
@@ -111,7 +97,6 @@ public class ProjectService {
         newProject.setPath(projectPath);
         newProject.setUser(user);
         newProject.setCreateDate(LocalDateTime.now());
-        newProject.setFilesMetadata(directoryToObject.convert(projectPath));
 
         return projectRepository.save(newProject).getId();
     }
