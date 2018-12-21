@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 
 import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -21,10 +22,9 @@ import co.inventorsoft.scripty.repository.ProjectRepository;
 import co.inventorsoft.scripty.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
- * @author lzabidovsky 
+ * @author lzabidovsky
  */
 @Service
 @Transactional
@@ -37,15 +37,17 @@ public class ProjectService {
     ProjectRepository projectRepository;
     UserRepository userRepository;
     ProjectGithubService projectGithubService;
+    DirectoryToObject directoryToObject;
 
     String pathLocalRepo;
     String directorySeparator;
 
     @Autowired
-    public ProjectService(ProjectRepository projectRepository, UserRepository userRepository, @Value("${path.local.repo}") String pathLocalRepo, @Value("${directory.separator}") String directorySeparator) {
+    public ProjectService(ProjectRepository projectRepository, UserRepository userRepository, ProjectGithubService projectGithubService, DirectoryToObject directoryToObject, @Value("${path.local.repo}") String pathLocalRepo, @Value("${directory.separator}") String directorySeparator) {
         this.projectRepository = projectRepository;
         this.userRepository = userRepository;
         this.projectGithubService = projectGithubService;
+        this.directoryToObject = directoryToObject;
         this.pathLocalRepo = pathLocalRepo;
         this.directorySeparator = directorySeparator;
     }
@@ -75,8 +77,13 @@ public class ProjectService {
         newProject.setPath(projectPath);
         newProject.setUser(user);
         newProject.setCreateDate(LocalDateTime.now());
+        newProject.setFilesMetadata(directoryToObject.convert(projectPath));
 
         return projectRepository.save(newProject).getId();
+    }
+
+    public Project getProject(Long projectId) {
+        return projectRepository.findById(projectId).orElseThrow(() -> new ApplicationException("Project with ID="+projectId+" does not exist" , HttpStatus.NOT_FOUND));
     }
 
     public long saveGithubProject(ProjectGithub project, String username) {
@@ -97,13 +104,14 @@ public class ProjectService {
         newProject.setPath(projectPath);
         newProject.setUser(user);
         newProject.setCreateDate(LocalDateTime.now());
+        newProject.setFilesMetadata(directoryToObject.convert(projectPath));
 
         return projectRepository.save(newProject).getId();
     }
 
     private void createProjectPath(String projectPath) {
         Path path = Paths.get(projectPath);
-        if (!Files.exists(path)) {
+        if(!Files.exists(path)) {
             try {
                 Files.createDirectories(path);
             } catch (IOException e) {
@@ -111,4 +119,5 @@ public class ProjectService {
             }
         }
     }
+
 }
