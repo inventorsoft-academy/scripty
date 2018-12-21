@@ -25,7 +25,7 @@ export class ResendEmailComponent implements OnInit {
         this.userActivationService.resendEmail(this.form.get('email').value)
             .subscribe(
                 (response: Response) => {
-                    if (response.response === 'Please complete the registration first!') {
+                    if (response && response.response === 'Please complete the registration first!') {
                         console.log('Please complete the registration first!\nRedirecting to registration page...');
                         this.router.navigate(['signup']);
                     } else {
