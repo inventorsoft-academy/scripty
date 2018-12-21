@@ -1,23 +1,13 @@
 package co.inventorsoft.scripty.service;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Stream;
-
 
 import javax.transaction.Transactional;
 
-import co.inventorsoft.scripty.model.dto.DirectoryNode;
-import co.inventorsoft.scripty.model.dto.FileNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -33,10 +23,9 @@ import co.inventorsoft.scripty.repository.ProjectRepository;
 import co.inventorsoft.scripty.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
- * @author lzabidovsky 
+ * @author lzabidovsky
  */
 @Service
 @Transactional
@@ -49,17 +38,15 @@ public class ProjectService {
     ProjectRepository projectRepository;
     UserRepository userRepository;
     ProjectGithubService projectGithubService;
-    DirectoryToObject directoryToObject;
 
     String pathLocalRepo;
     String directorySeparator;
 
     @Autowired
-    public ProjectService(ProjectRepository projectRepository, UserRepository userRepository, DirectoryToObject directoryToObject, @Value("${path.local.repo}") String pathLocalRepo, @Value("${directory.separator}") String directorySeparator) {
+    public ProjectService(ProjectRepository projectRepository, UserRepository userRepository, ProjectGithubService projectGithubService, @Value("${path.local.repo}") String pathLocalRepo, @Value("${directory.separator}") String directorySeparator) {
         this.projectRepository = projectRepository;
         this.userRepository = userRepository;
         this.projectGithubService = projectGithubService;
-        this.directoryToObject = directoryToObject;
         this.pathLocalRepo = pathLocalRepo;
         this.directorySeparator = directorySeparator;
     }
@@ -89,9 +76,19 @@ public class ProjectService {
         newProject.setPath(projectPath);
         newProject.setUser(user);
         newProject.setCreateDate(LocalDateTime.now());
-        newProject.setFilesMetadata(directoryToObject.convert(projectPath));
 
         return projectRepository.save(newProject).getId();
+    }
+
+    public Project getProject(Long projectId) {
+        return projectRepository.findById(projectId).orElseThrow(() -> new ApplicationException("Project with ID="+projectId+" does not exist" , HttpStatus.NOT_FOUND));
+    }
+
+    public void updateProject(Long projectId, ProjectUpdateDto projectUpdateDto) {
+        Project project = getProject(projectId);
+        project.setDescription(projectUpdateDto.getDescription());
+        project.setVisibility(projectUpdateDto.getVisibility());
+        projectRepository.save(project);
     }
 
     public long saveGithubProject(ProjectGithub project, String username) {
@@ -112,38 +109,19 @@ public class ProjectService {
         newProject.setPath(projectPath);
         newProject.setUser(user);
         newProject.setCreateDate(LocalDateTime.now());
-        newProject.setFilesMetadata(directoryToObject.convert(projectPath));
 
         return projectRepository.save(newProject).getId();
     }
 
-	public Project getProject(Long projectId) {
-		return projectRepository.findById(projectId).orElseThrow(() -> new ApplicationException("Project with ID="+projectId+" does not exist" , HttpStatus.NOT_FOUND));
-	}
-
-	public void updateProject(Long projectId, ProjectUpdateDto projectUpdateDto) {
-		Project project = getProject(projectId);
-		project.setDescription(projectUpdateDto.getDescription());
-		project.setVisibility(projectUpdateDto.getVisibility());
-	public void updateProject(Project project, ProjectDto projectDto) {
-		if(projectDto.getDescription() != null) {
-			project.setDescription(projectDto.getDescription());
-		}
-		if(projectDto.getVisibility() != null) {
-			project.setVisibility(projectDto.getVisibility());
-		}
-		projectRepository.save(project);
-	}
-
-	private void createProjectPath(String projectPath) {
-		Path path = Paths.get(projectPath);
-		if(!Files.exists(path)) {
-			try {
-				Files.createDirectories(path);
-			} catch (IOException e) {
-				throw new ApplicationException("Error repo creating " + projectPath, HttpStatus.INTERNAL_SERVER_ERROR);
-			}
-		}
-	}
+    private void createProjectPath(String projectPath) {
+        Path path = Paths.get(projectPath);
+        if(!Files.exists(path)) {
+            try {
+                Files.createDirectories(path);
+            } catch (IOException e) {
+                throw new ApplicationException("Error repo creating " + projectPath, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+    }
 
 }
