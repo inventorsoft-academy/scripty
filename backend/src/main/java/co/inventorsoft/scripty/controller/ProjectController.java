@@ -56,7 +56,7 @@ public class ProjectController {
 	@ApiOperation(value = "Endpoint to update project. It consumes project description and visibility.")
 	@PutMapping(value = "/{projectId}", produces = "application/json", consumes = "application/json")
 	public ResponseEntity<StringResponse> updateProject(Authentication authentication, @PathVariable Long projectId, @Valid @RequestBody ProjectUpdateDto projectUpdateDto) {
-		securityService.projectUserIsOwner(projectId, authentication);
+		securityService.projectUserIsOwner(projectService.getProject(projectId), authentication);
 		projectService.updateProject(projectId, projectUpdateDto);
 		return ResponseEntity.ok(new StringResponse("Project with ID = " + projectId + " was updated"));
 	}
