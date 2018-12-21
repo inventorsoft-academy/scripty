@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -32,14 +33,15 @@ public class Project {
 	String name;
 
 	String description;
-	
+
+	@JsonIgnore
 	String path;
 	
 	Boolean visibility;
 	
 	Boolean archive;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	User user;
 	
 	LocalDateTime createDate;
