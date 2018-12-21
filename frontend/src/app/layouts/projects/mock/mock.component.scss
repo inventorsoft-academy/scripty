@@ -1,0 +1,10 @@
+@import "variables";
+section{
+  background: $primary-color;
+}
+h1{
+  color: white;
+  font-size: 2em;
+  padding: 10px;
+  border-bottom: 1px solid $border-color;
+}

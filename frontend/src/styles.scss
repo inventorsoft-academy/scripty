@@ -30,7 +30,7 @@ html {
           height: 100%;
           box-sizing: border-box;
           width: 100%;
-          app-project {
+          app-project, app-mock{
             flex-grow: 1;
             display: flex;
             flex-direction: column;

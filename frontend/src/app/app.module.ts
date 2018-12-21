@@ -12,7 +12,6 @@ import xml from 'highlight.js/lib/languages/xml';
 import scss from 'highlight.js/lib/languages/scss';
 import typescript from 'highlight.js/lib/languages/typescript';
 import javascript from 'highlight.js/lib/languages/javascript';
-import { MockComponent } from './layouts/mock/mock.component';
 
 export function HLLanguages() {
     return [
@@ -26,7 +25,6 @@ export function HLLanguages() {
 @NgModule({
     declarations: [
         AppComponent,
-        MockComponent
     ],
     imports: [
         BrowserModule,

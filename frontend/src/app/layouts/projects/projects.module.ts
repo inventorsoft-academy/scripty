@@ -14,12 +14,15 @@ import {SafePipe} from './safe.pipe';
 import {HighlightModule} from 'ngx-highlightjs';
 
 import {HLLanguages} from '../../app.module';
+import {MockComponent} from './mock/mock.component';
+import {MaterialModule} from '../../material-module';
 
 @NgModule({
     imports: [
         CommonModule,
         ProjectsRoutingModule,
         FormsModule,
+        MaterialModule,
         HighlightModule.forRoot({
             languages: HLLanguages
         })
@@ -30,6 +33,7 @@ import {HLLanguages} from '../../app.module';
         HeaderComponent,
         SidebarComponent,
         ProjectComponent,
+        MockComponent,
         SafePipe
     ]
 })
