@@ -30,4 +30,11 @@ public class SecurityService {
 		}
 	}
 
+	public void projectUserIsOwner(Project project, Authentication auth) {
+		String username = auth==null ? "Anonymous" : auth.getName();
+		if(!project.getUser().getEmail().equals(username)) {
+			throw new ApplicationException(username+" has no access to project "+project.getId(), HttpStatus.FORBIDDEN);
+		}
+	}
+
 }

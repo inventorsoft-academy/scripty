@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import co.inventorsoft.scripty.exception.ApplicationException;
 import co.inventorsoft.scripty.model.dto.ProjectDto;
+import co.inventorsoft.scripty.model.dto.ProjectUpdateDto;
 import co.inventorsoft.scripty.model.dto.ProjectGithub;
 import co.inventorsoft.scripty.model.entity.Project;
 import co.inventorsoft.scripty.model.entity.User;
@@ -85,7 +86,14 @@ public class ProjectService {
 	public Project getProject(Long projectId) {
 		return projectRepository.findById(projectId).orElseThrow(() -> new ApplicationException("Project with ID="+projectId+" does not exist" , HttpStatus.NOT_FOUND));
 	}
-	
+
+	public void updateProject(Long projectId, ProjectUpdateDto projectUpdateDto) {
+		Project project = getProject(projectId);
+		project.setDescription(projectUpdateDto.getDescription());
+		project.setVisibility(projectUpdateDto.getVisibility());
+		projectRepository.save(project);
+	}
+
 	public long saveGithubProject(ProjectGithub project, String username) {
 		User user = userRepository.findByEmail(username).orElseThrow(() -> new ApplicationException("There is no " + username, HttpStatus.NOT_FOUND));
 		String reponame = projectGithubService.getGithubRepoName(project.getGithubURL());
