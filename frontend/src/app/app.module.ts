@@ -9,15 +9,12 @@ import {MaterialModule} from './material-module';
 import {TitleService} from './title.service';
 import { FormsModule } from '@angular/forms';
 import {AuthService} from './services/auth.service';
-import { HTTP_INTERCEPTORS  } from '@angular/common/http';
-import { TokenInterceptorService} from './services/token-interceptor.service';
 import {HighlightModule} from 'ngx-highlightjs';
 
 import xml from 'highlight.js/lib/languages/xml';
 import scss from 'highlight.js/lib/languages/scss';
 import typescript from 'highlight.js/lib/languages/typescript';
 import javascript from 'highlight.js/lib/languages/javascript';
-import { AlertComponent } from './components/alert/alert.component';
 
 export function HLLanguages() {
     return [
@@ -31,7 +28,6 @@ export function HLLanguages() {
 @NgModule({
     declarations: [
         AppComponent,
-        AlertComponent,
     ],
     imports: [
         BrowserModule,
@@ -48,12 +44,6 @@ export function HLLanguages() {
     providers: [
         AuthService,
         TitleService,
-        {
-            provide: HTTP_INTERCEPTORS ,
-            useClass: TokenInterceptorService,
-            multi: true
-        }
-
     ],
     bootstrap: [AppComponent]
 })

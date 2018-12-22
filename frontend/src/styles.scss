@@ -97,13 +97,17 @@ html {
         .mat-form-field-appearance-legacy .mat-form-field-underline {
           background-color: rgba(255,255,255, .42);
         }
+        .mat-raised-button[disabled][disabled] {
+          color: white;
+          background-color: #505050;
+        }
       }
     }
     //login-registration submit button
     .submit-from-btn {
       display: block;
       margin: 0 auto !important;
-      background-color: #e6e6e6;
+      //background-color: #e6e6e6;
       color: #a1a1a1;
       width: 234px;
       height: 44px;

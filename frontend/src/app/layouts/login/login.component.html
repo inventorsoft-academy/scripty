@@ -8,9 +8,10 @@
                 <form class="login-form" [formGroup]="loginForm">
                     <mat-form-field class="full-width-field">
                         <input matInput
-                               placeholder="Username"
+                               placeholder="Email"
                                formControlName="username"
                                required>
+                        <mat-error *ngIf="emailValidator()">{{emailError}}</mat-error>
                     </mat-form-field>
                     <mat-form-field class="full-width-field">
                         <input matInput
@@ -26,6 +27,7 @@
                         mat-raised-button
                         (click)="authUser()"
                         class="submit-from-btn"
+                        [disabled]="!loginForm.valid"
                 >Login</button>
             </mat-card-actions>
         </mat-card>

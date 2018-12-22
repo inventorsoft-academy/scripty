@@ -10,7 +10,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
-
+    emailError: string;
 
 
   constructor(
@@ -20,11 +20,22 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
       this.loginForm = this._formBuilder.group({
-          username: ['', Validators.required],
+          username: ['', [Validators.required, Validators.email]],
           password: ['', Validators.required],
           grant_type: 'password'
       });
   }
+    emailValidator() {
+        const _field = this.loginForm.get('username');
+        if (_field.hasError('required') && _field.touched) {
+            this.emailError = 'This field should not be blank!';
+            return true;
+        } else if (_field.hasError('email') && _field.touched) {
+            this.emailError = 'Please enter valid email';
+            return true;
+        }
+        return false;
+    }
     authUser() {
         this._auth.authUser(this.loginForm.value)
             .subscribe(
@@ -35,7 +46,9 @@ export class LoginComponent implements OnInit {
                   this.router.navigate(['/projects']);
                   console.log(localStorage.getItem('user'));
                 },
-                err => console.log(err, this.loginForm.value)
+                err => {
+                    alert(err.error.error_description);
+                }
             );
     }
 }
