@@ -19,8 +19,13 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import co.inventorsoft.scripty.exception.ApplicationException;
 import co.inventorsoft.scripty.model.dto.ProjectDto;
+import co.inventorsoft.scripty.model.dto.ProjectUpdateDto;
+import co.inventorsoft.scripty.repository.ProjectRepository;
 import co.inventorsoft.scripty.security.JWTSecurity;
+import co.inventorsoft.scripty.service.ProjectService;
+import co.inventorsoft.scripty.service.UserService;
 
 /**
  * @author lzabidovsky 
@@ -40,11 +45,19 @@ public class ProjectControllerTest {
 	@Autowired
 	private JWTSecurity jwtSecurity;
 	
-    private String accessToken;
+	@Autowired
+	ProjectService projectService;
+	@Autowired
+	ProjectRepository projectRepository;
+	@Autowired
+	UserService userService;
+
+	private String accessToken;
     private String refreshToken;
     private String accessTokenAdmin;
     
     private static boolean setUpIsDone = false;
+    private static long projectId;
     
 	@Before
 	public void setUp() throws Exception {
@@ -60,11 +73,11 @@ public class ProjectControllerTest {
 	}
 
 	public void createNewTestProject() throws Exception {
-		String jsonString = new ObjectMapper().writeValueAsString(new ProjectDto("project0","Test Project",false));
-		mockMvc.perform(post("/projects")
-				.header("Authorization", "Bearer  " + accessToken)
-				.contentType(JWTSecurity.CONTENT_TYPE)
-				.content(jsonString));
+		try {
+			projectId = projectService.saveProject(new ProjectDto("project0","Test Project",false), "user@test.co");
+		} catch(ApplicationException e) {
+			projectId = projectRepository.findByNameAndUser("project0", userService.findByEmail("user@test.co")).get().getId();
+		}
 	}
 
 	@Test
@@ -87,6 +100,42 @@ public class ProjectControllerTest {
 				.contentType(JWTSecurity.CONTENT_TYPE)
 				.content(jsonString))
 				.andExpect(status().isForbidden());
+	}
+
+	@Test
+	public void updateShouldUpdateProject() throws Exception {
+		String jsonString = new ObjectMapper().writeValueAsString(new ProjectUpdateDto("Test Project Updated",false));
+		mockMvc.perform(put("/projects/"+projectId)
+				.header("Authorization", "Bearer  " + accessToken)
+				.contentType(JWTSecurity.CONTENT_TYPE)
+				.content(jsonString))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(JWTSecurity.CONTENT_TYPE))
+				.andExpect(content().string(Matchers.containsString("was updated")));
+	}
+
+	@Test
+	public void updateShouldNotUpdateProjectWhenUserIsNotOwner() throws Exception {
+		String jsonString = new ObjectMapper().writeValueAsString(new ProjectUpdateDto("Test Project Updated",false));
+		mockMvc.perform(put("/projects/"+projectId)
+				.header("Authorization", "Bearer  " + accessTokenAdmin)
+				.contentType(JWTSecurity.CONTENT_TYPE)
+				.content(jsonString))
+				.andExpect(status().isForbidden())
+				.andExpect(content().contentType(JWTSecurity.CONTENT_TYPE))
+				.andExpect(content().string(Matchers.containsString("has no access to project")));
+	}
+
+	@Test
+	public void updateShouldNotUpdateProjectWhenProjectDoesNotExist() throws Exception {
+		String jsonString = new ObjectMapper().writeValueAsString(new ProjectUpdateDto("Test Project Updated",false));
+		mockMvc.perform(put("/projects/999")
+				.header("Authorization", "Bearer  " + accessToken)
+				.contentType(JWTSecurity.CONTENT_TYPE)
+				.content(jsonString))
+				.andExpect(status().isNotFound())
+				.andExpect(content().contentType(JWTSecurity.CONTENT_TYPE))
+				.andExpect(content().string(Matchers.containsString("does not exist")));
 	}
 
 }
