@@ -1,0 +1,19 @@
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #1b2027;
+}
+.container {
+  max-width: 535px;
+}
+
+.full-width-field {
+  width: 100%;
+  display: block;
+}
+.mat-card-header-text {
+  margin: 0 auto !important;
+  text-align: center;
+}
