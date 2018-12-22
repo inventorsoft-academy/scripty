@@ -56,7 +56,7 @@ public class ProjectController {
 	@ApiOperation(value = "Endpoint to get project's filesMetadata.")
 	@GetMapping(value = "/{projectId}/files", produces = "application/json")
 	public ResponseEntity<DirectoryNode> getProjectFilesMetadata(Authentication authentication, @PathVariable Long projectId) {
-		securityService.projectHasPublicVisibilityOrUserIsOwner(projectId, authentication);
+		securityService.projectHasPublicVisibilityOrUserIsOwner(projectService.getProject(projectId), authentication);
 		return ResponseEntity.ok(projectService.getProject(projectId).getFilesMetadata());
 	}
 
