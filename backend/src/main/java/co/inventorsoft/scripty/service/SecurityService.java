@@ -6,16 +6,24 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import co.inventorsoft.scripty.exception.ApplicationException;
+import co.inventorsoft.scripty.model.entity.Project;
 
 /**
  * @author lzabidovsky 
  */
 @Service
 public class SecurityService {
-	
+
 	public void authenticationHasRoleUser(Authentication authentication) {
 		if(!authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_USER"))) {
 			throw new ApplicationException(authentication.getName()+" does not have ROLE_USER" , HttpStatus.FORBIDDEN);
+		}
+	}
+
+	public void projectUserIsOwner(Project project, Authentication auth) {
+		String username = auth==null ? "Anonymous" : auth.getName();
+		if(!project.getUser().getEmail().equals(username)) {
+			throw new ApplicationException(username+" has no access to project "+project.getId(), HttpStatus.FORBIDDEN);
 		}
 	}
 
