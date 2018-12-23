@@ -8,14 +8,17 @@ import { AppComponent } from './app.component';
 import {RoleGuardService} from "./services/role-guard.service";
 import {AuthGuardService} from "./services/auth-guard.service";
 import {AdminPageModule} from "./layouts/admin-page/admin-page.module";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {TitleService} from './title.service';
+import {AuthService} from './services/auth.service';
 import {HighlightModule} from 'ngx-highlightjs';
 
 import xml from 'highlight.js/lib/languages/xml';
 import scss from 'highlight.js/lib/languages/scss';
 import typescript from 'highlight.js/lib/languages/typescript';
 import javascript from 'highlight.js/lib/languages/javascript';
+import {HttpClientModule} from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Ng2GoogleChartsModule} from "ng2-google-charts";
 import {AuthInterceptor} from "./services/auth.interceptor";
 
@@ -39,9 +42,11 @@ export function HLLanguages() {
         MaterialModule,
         AdminPageModule,
         HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
         HighlightModule.forRoot({
             languages: HLLanguages
-        })
+        }),
     ],
     providers: [
         TitleService,
@@ -51,7 +56,9 @@ export function HLLanguages() {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,
             multi: true
-        }
+        },
+        AuthService,
+        TitleService,
     ],
     bootstrap: [AppComponent]
 })

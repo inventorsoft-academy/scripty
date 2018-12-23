@@ -1,8 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
-
-
 import {ProjectsRoutingModule} from './projects-routing.module';
 import {ProjectsComponent} from './projects.component';
 import {FooterComponent} from './footer/footer.component';
@@ -14,12 +12,14 @@ import {SafePipe} from './safe.pipe';
 import {HighlightModule} from 'ngx-highlightjs';
 
 import {HLLanguages} from '../../app.module';
+import {ProjectsListModule} from './projects-list/projects-list.module';
 
 @NgModule({
     imports: [
         CommonModule,
         ProjectsRoutingModule,
         FormsModule,
+        ProjectsListModule,
         HighlightModule.forRoot({
             languages: HLLanguages
         })

@@ -18,9 +18,23 @@ const routes: Routes = [
         data: {title: 'Admin page'}
     },
     {
-        path: '**',
-        redirectTo: '/projects'
+        path: 'userActivation',
+        loadChildren: './layouts/user-activation/user-activation.module#UserActivationModule',
+        data: {title: 'User activation'}
     },
+    {
+        path: 'login',
+        loadChildren: './layouts/login/login.module#LoginModule', pathMatch: 'full',
+        data: {title: 'Login'}
+    },
+    {
+        path: 'signup',
+        loadChildren: './layouts/register/registration.module#RegistrationModule', pathMatch: 'full',
+        data: {title: 'Sign Up'}
+    },
+    {
+        path: '**', redirectTo: '/projects'
+    }
 ];
 
 @NgModule({

@@ -3,9 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 
 import {ProjectsComponent} from './projects.component';
 import {ProjectComponent} from './project/project.component';
-import {AdminPageComponent} from "../admin-page/admin-page.component";
-import {RoleGuardService} from "../../services/role-guard.service";
-import {AuthGuardService} from "../../services/auth-guard.service";
+import {ProjectsListComponent} from './projects-list/projects-list.component';
 
 
 const projectRoutes: Routes = [
@@ -22,19 +20,23 @@ const projectRoutes: Routes = [
                 path: 'project',
                 component: ProjectComponent,
                 data: {title: 'Your project'}
+            },
+            {
+                path: 'list',
+                component: ProjectsListComponent,
+                data: {title: 'Projects list'}
             }
         ]
     }
 ];
 
 @NgModule({
-	imports: [
-		RouterModule.forChild(projectRoutes)
-	],
-	providers: [AuthGuardService, RoleGuardService],
-	exports: [
-		RouterModule
-	]
+    imports: [
+        RouterModule.forChild(projectRoutes)
+    ],
+    exports: [
+        RouterModule
+    ]
 })
 export class ProjectsRoutingModule {
 }

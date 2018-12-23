@@ -1,0 +1,10 @@
+@import "variables";
+
+.btn-like{
+  &_active{
+    color: $hover-color;
+  }
+  &:hover{
+    color: lighten($hover-color, 20);
+  }
+}
