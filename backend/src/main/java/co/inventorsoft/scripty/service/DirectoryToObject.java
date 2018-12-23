@@ -5,7 +5,11 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
+import java.util.regex.Pattern;
 
+import co.inventorsoft.scripty.model.dto.Node;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +30,8 @@ import co.inventorsoft.scripty.model.dto.FileNode;
 public class DirectoryToObject {
 
 	private Path globalPath;
+	@Value("${directory.separator}")
+	private String directorySeparator;
 
 	public DirectoryNode convert(String pathString) {
 		globalPath = Paths.get(pathString);
@@ -65,4 +71,17 @@ public class DirectoryToObject {
 		} 		
 	}
 
+	public Node metadataToNode(Path projectPath, Path metadata){
+		Node node = null;
+		Path absolutePath = Paths.get(projectPath.toString() + directorySeparator + metadata.toString());
+		String parent = absolutePath.getParent().getFileName().toString();
+		String relativePath = projectPath.getFileName().toString() + directorySeparator + metadata.toString();
+		String name = metadata.getFileName().toString();
+		if(Files.isDirectory(absolutePath)){
+			node = new DirectoryNode(parent, relativePath, name);
+		}else {
+			node = new FileNode(parent, relativePath, name);
+		}
+		return node;
+	}
 }

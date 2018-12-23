@@ -1,27 +1,30 @@
 package co.inventorsoft.scripty.service;
 
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import co.inventorsoft.scripty.model.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import co.inventorsoft.scripty.exception.ApplicationException;
-import co.inventorsoft.scripty.model.dto.ProjectDto;
-import co.inventorsoft.scripty.model.dto.ProjectGithub;
 import co.inventorsoft.scripty.model.entity.Project;
 import co.inventorsoft.scripty.model.entity.User;
 import co.inventorsoft.scripty.repository.ProjectRepository;
 import co.inventorsoft.scripty.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author lzabidovsky
@@ -120,4 +123,42 @@ public class ProjectService {
         }
     }
 
+    public void uploadMeta(Principal userName, String metadata, MultipartFile file, Long id) throws IOException {
+
+        Project project = projectRepository.findById(id).orElseThrow(() -> new ApplicationException("There is no projetct with id " + id, HttpStatus.NOT_FOUND));
+        User user = userRepository.findByEmail(userName.getName()).orElseThrow(() -> new ApplicationException("There is no " + userName, HttpStatus.NOT_FOUND));
+        if (!projectRepository.existsByNameAndUser(project.getName(), user)) {
+            throw new ApplicationException("Denied in access to project with name  " + project.getName() + "  " + userName, HttpStatus.CONFLICT);
+        }
+        Path projectPath = Paths.get(project.getPath());
+        Path directoryPath = Paths.get(project.getPath() + directorySeparator + metadata);
+        DirectoryNode projectDirectoryNode = project.getFilesMetadata();
+        Files.createDirectories(directoryPath);
+        if(file!=null) {
+            byte[] bytes = file.getBytes();
+            Path pathsWithFileName = Paths.get(directoryPath + directorySeparator + file.getOriginalFilename());
+            Files.write(pathsWithFileName, bytes);
+            String pathName = pathsWithFileName.getFileName().toString();
+            String start = pathsWithFileName.toString().substring(0,pathsWithFileName.toString().lastIndexOf(directorySeparator));
+//            Node fileNode = listMetadata(Paths.get(start), pathName, projectPath.getFileName().toString()+directorySeparator+metadata+directorySeparator+file.getOriginalFilename());
+//            addMeta(projectDirectoryNode, fileNode );
+            return;
+        }
+
+       Node fileNode = directoryToObject.metadataToNode(projectPath, Paths.get(metadata));
+       addMeta(projectDirectoryNode, fileNode );
+
+
+    }
+    public void addMeta(DirectoryNode projectNode, Node metaNode){
+        if(!projectNode.getName().equals(Paths.get(metaNode.getParent()).getFileName().toString())){
+
+            Optional<Node> directoryNode = projectNode.getChildren().stream()
+                    .filter(x->metaNode.getPath().startsWith(x.getPath()))
+                    .findAny();
+            addMeta((DirectoryNode)directoryNode.get(), metaNode);
+        }else {
+            projectNode.getChildren().add(metaNode);
+        }
+    }
 }
