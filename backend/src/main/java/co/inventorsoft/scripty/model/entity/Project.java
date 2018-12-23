@@ -47,8 +47,8 @@ public class Project {
 
     LocalDateTime createDate;
 
-    @Lob
-//	@Convert(converter = DirectoryNodeConverter.class)
-            DirectoryNode filesMetadata;
-
+	@Lob
+	@Convert(converter = DirectoryNodeConverter.class)
+	DirectoryNode filesMetadata;
+	
 }

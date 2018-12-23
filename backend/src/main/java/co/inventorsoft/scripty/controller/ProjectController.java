@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import co.inventorsoft.scripty.model.dto.DirectoryNode;
 import co.inventorsoft.scripty.model.dto.ProjectDto;
+import co.inventorsoft.scripty.model.dto.ProjectUpdateDto;
 import co.inventorsoft.scripty.model.dto.ProjectGithub;
 import co.inventorsoft.scripty.model.dto.StringResponse;
 import co.inventorsoft.scripty.service.ProjectService;
@@ -56,8 +57,16 @@ public class ProjectController {
     @ApiOperation(value = "Endpoint to get project's filesMetadata.")
     @GetMapping(value = "/{projectId}/files", produces = "application/json")
     public ResponseEntity<DirectoryNode> getProjectFilesMetadata(Authentication authentication, @PathVariable Long projectId) {
-        securityService.projectHasPublicVisibilityOrUserIsOwner(projectId, authentication);
+        securityService.projectHasPublicVisibilityOrUserIsOwner(projectService.getProject(projectId), authentication);
         return ResponseEntity.ok(projectService.getProject(projectId).getFilesMetadata());
+    }
+
+    @ApiOperation(value = "Endpoint to update project. It consumes project description and visibility.")
+    @PutMapping(value = "/{projectId}", produces = "application/json", consumes = "application/json")
+    public ResponseEntity<StringResponse> updateProject(Authentication authentication, @PathVariable Long projectId, @Valid @RequestBody ProjectUpdateDto projectUpdateDto) {
+        securityService.projectUserIsOwner(projectService.getProject(projectId), authentication);
+        projectService.updateProject(projectId, projectUpdateDto);
+        return ResponseEntity.ok(new StringResponse("Project with ID = " + projectId + " was updated"));
     }
     @PostMapping(value = "/{id}")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
@@ -66,7 +75,7 @@ public class ProjectController {
                            @PathVariable Long id,
                            @RequestParam(required = false) MultipartFile file,
                            @RequestParam String metadata) throws IOException {
-       projectService.uploadMeta(user, metadata, file, id);
+        projectService.uploadMeta(user, metadata, file, id);
 
     }
 

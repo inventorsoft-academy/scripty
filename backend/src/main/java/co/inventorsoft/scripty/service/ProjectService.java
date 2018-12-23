@@ -1,7 +1,6 @@
 package co.inventorsoft.scripty.service;
 
 import java.io.IOException;
-import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -89,6 +88,13 @@ public class ProjectService {
         return projectRepository.findById(projectId).orElseThrow(() -> new ApplicationException("Project with ID="+projectId+" does not exist" , HttpStatus.NOT_FOUND));
     }
 
+    public void updateProject(Long projectId, ProjectUpdateDto projectUpdateDto) {
+        Project project = getProject(projectId);
+        project.setDescription(projectUpdateDto.getDescription());
+        project.setVisibility(projectUpdateDto.getVisibility());
+        projectRepository.save(project);
+    }
+
     public long saveGithubProject(ProjectGithub project, String username) {
         User user = userRepository.findByEmail(username).orElseThrow(() -> new ApplicationException("There is no " + username, HttpStatus.NOT_FOUND));
         String reponame = projectGithubService.getGithubRepoName(project.getGithubURL());
@@ -145,8 +151,8 @@ public class ProjectService {
             return;
         }
 
-       Node fileNode = directoryToObject.metadataToNode(projectPath, Paths.get(metadata));
-       addMeta(projectDirectoryNode, fileNode );
+        Node fileNode = directoryToObject.metadataToNode(projectPath, Paths.get(metadata));
+        addMeta(projectDirectoryNode, fileNode );
 
 
     }
