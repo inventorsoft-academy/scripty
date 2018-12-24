@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import co.inventorsoft.scripty.exception.ApplicationException;
 import co.inventorsoft.scripty.model.dto.ProjectDto;
+import co.inventorsoft.scripty.model.dto.ProjectUpdateDto;
 import co.inventorsoft.scripty.model.dto.ProjectGithub;
 import co.inventorsoft.scripty.model.entity.Project;
 import co.inventorsoft.scripty.model.entity.User;
@@ -37,15 +38,17 @@ public class ProjectService {
 	ProjectRepository projectRepository;
 	UserRepository userRepository;
 	ProjectGithubService projectGithubService;
+	DirectoryToObject directoryToObject;
 
 	String pathLocalRepo;
 	String directorySeparator;
 	
 	@Autowired
-	public ProjectService(ProjectRepository projectRepository, UserRepository userRepository, ProjectGithubService projectGithubService, @Value("${path.local.repo}") String pathLocalRepo, @Value("${directory.separator}") String directorySeparator) {
+	public ProjectService(ProjectRepository projectRepository, UserRepository userRepository, ProjectGithubService projectGithubService, DirectoryToObject directoryToObject, @Value("${path.local.repo}") String pathLocalRepo, @Value("${directory.separator}") String directorySeparator) {
 		this.projectRepository = projectRepository;
 		this.userRepository = userRepository;
 		this.projectGithubService = projectGithubService;
+		this.directoryToObject = directoryToObject;
 		this.pathLocalRepo = pathLocalRepo;
 		this.directorySeparator = directorySeparator;
 	}
@@ -75,8 +78,20 @@ public class ProjectService {
 		newProject.setPath(projectPath);
 		newProject.setUser(user);
 		newProject.setCreateDate(LocalDateTime.now());
+		newProject.setFilesMetadata(directoryToObject.convert(projectPath));
 		
 		return projectRepository.save(newProject).getId();
+	}
+
+	public Project getProject(Long projectId) {
+		return projectRepository.findById(projectId).orElseThrow(() -> new ApplicationException("Project with ID="+projectId+" does not exist" , HttpStatus.NOT_FOUND));
+	}
+
+	public void updateProject(Long projectId, ProjectUpdateDto projectUpdateDto) {
+		Project project = getProject(projectId);
+		project.setDescription(projectUpdateDto.getDescription());
+		project.setVisibility(projectUpdateDto.getVisibility());
+		projectRepository.save(project);
 	}
 
 	public long saveGithubProject(ProjectGithub project, String username) {
@@ -97,6 +112,7 @@ public class ProjectService {
 		newProject.setPath(projectPath);
 		newProject.setUser(user);
 		newProject.setCreateDate(LocalDateTime.now());
+		newProject.setFilesMetadata(directoryToObject.convert(projectPath));
 		
 		return projectRepository.save(newProject).getId();
 	}
