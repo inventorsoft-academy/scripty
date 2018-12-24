@@ -12,6 +12,7 @@ import {AdminTicketService} from './admin-ticket.service';
 })
 export class AdminTicketComponent implements OnInit {
     @ViewChild('fileName') fileName: ElementRef;
+    imageSrc: string | ArrayBuffer;
     alertDialogRef: MatDialogRef<AlertDialogComponent>;
     form: FormGroup;
 
@@ -33,6 +34,8 @@ export class AdminTicketComponent implements OnInit {
         const reader = new FileReader();
 
         if (event.target.files && event.target.files.length) {
+            this.form.get('file').reset();
+            this.imageSrc = '';
             const [file] = event.target.files;
             reader.readAsDataURL(file);
 
@@ -51,6 +54,7 @@ export class AdminTicketComponent implements OnInit {
                 });
 
                 this.fileName.nativeElement.innerHTML = file.name;
+                this.imageSrc = reader.result;
 
                 this.cd.markForCheck();
             };
@@ -58,7 +62,8 @@ export class AdminTicketComponent implements OnInit {
     }
 
     onSubmit() {
-        this.adminTicketService.sendReport(
+        console.log(this.form.value);
+        /*this.adminTicketService.sendReport(
             this.form.get('title').value,
             this.form.get('description').value,
             this.form.get('file').value,
@@ -70,7 +75,7 @@ export class AdminTicketComponent implements OnInit {
             (error) => {
                 console.log(error);
             }
-        );
+        );*/
     }
 
     openDialog() {
