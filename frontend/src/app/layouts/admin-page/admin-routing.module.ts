@@ -3,6 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {AdminPageComponent} from './admin-page.component';
 import {AdminSidebarComponent} from './sidebar/sidebar.component';
 import {AdminFooterComponent} from './footer/footer.component';
+import {UserListComponent} from './content/user-list/user-list.component';
 
 const routes: Routes = [
     {
@@ -13,7 +14,7 @@ const routes: Routes = [
                 data: {title: 'Admin page'}
             },
             {
-                path: 'users', component: AdminFooterComponent,
+                path: 'users', component: UserListComponent,
                 data: {title: 'User list'}
             },
             {
