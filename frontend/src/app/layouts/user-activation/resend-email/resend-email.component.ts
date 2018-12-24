@@ -26,15 +26,13 @@ export class ResendEmailComponent implements OnInit {
             .subscribe(
                 (response: Response) => {
                     if (response && response.response === 'Please complete the registration first!') {
-                        console.log('Please complete the registration first!\nRedirecting to registration page...');
                         this.router.navigate(['signup']);
                     } else {
-                        console.log(response, 'Redirecting to login page...');
                         this.router.navigate(['login']);
                     }
                 },
                 (error) => {
-                    console.log(error, error.error.response);
+                    console.log(error);
                 }
             );
     }
