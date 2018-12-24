@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
  * @author lzabidovsky
  */
 @NoArgsConstructor
-@EqualsAndHashCode
 public class FileNode extends Node implements Serializable {
 	private static final long serialVersionUID = 1L;
 

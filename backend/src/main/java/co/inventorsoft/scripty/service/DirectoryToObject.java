@@ -71,12 +71,12 @@ public class DirectoryToObject {
 		} 		
 	}
 
-	public Node metadataToNode(Path projectPath, Path metadata){
-		Node node = null;
-		Path absolutePath = Paths.get(projectPath.toString() + directorySeparator + metadata.toString());
+	public Node metadataToNode(Path projectPath, String metadata){
+		Node node;
+		Path absolutePath = Paths.get(projectPath.toString() + directorySeparator + metadata);
 		String parent = absolutePath.getParent().getFileName().toString();
-		String relativePath = projectPath.getFileName().toString() + directorySeparator + metadata.toString();
-		String name = metadata.getFileName().toString();
+		String relativePath = projectPath.getFileName().toString() + directorySeparator + metadata;
+		String name = Paths.get(metadata).getFileName().toString();
 		if(Files.isDirectory(absolutePath)){
 			node = new DirectoryNode(parent, relativePath, name);
 		}else {
