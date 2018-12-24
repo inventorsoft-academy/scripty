@@ -38,15 +38,17 @@ public class ProjectService {
 	ProjectRepository projectRepository;
 	UserRepository userRepository;
 	ProjectGithubService projectGithubService;
+	DirectoryToObject directoryToObject;
 
 	String pathLocalRepo;
 	String directorySeparator;
 	
 	@Autowired
-	public ProjectService(ProjectRepository projectRepository, UserRepository userRepository, ProjectGithubService projectGithubService, @Value("${path.local.repo}") String pathLocalRepo, @Value("${directory.separator}") String directorySeparator) {
+	public ProjectService(ProjectRepository projectRepository, UserRepository userRepository, ProjectGithubService projectGithubService, DirectoryToObject directoryToObject, @Value("${path.local.repo}") String pathLocalRepo, @Value("${directory.separator}") String directorySeparator) {
 		this.projectRepository = projectRepository;
 		this.userRepository = userRepository;
 		this.projectGithubService = projectGithubService;
+		this.directoryToObject = directoryToObject;
 		this.pathLocalRepo = pathLocalRepo;
 		this.directorySeparator = directorySeparator;
 	}
@@ -76,6 +78,7 @@ public class ProjectService {
 		newProject.setPath(projectPath);
 		newProject.setUser(user);
 		newProject.setCreateDate(LocalDateTime.now());
+		newProject.setFilesMetadata(directoryToObject.convert(projectPath));
 		
 		return projectRepository.save(newProject).getId();
 	}
@@ -109,6 +112,7 @@ public class ProjectService {
 		newProject.setPath(projectPath);
 		newProject.setUser(user);
 		newProject.setCreateDate(LocalDateTime.now());
+		newProject.setFilesMetadata(directoryToObject.convert(projectPath));
 		
 		return projectRepository.save(newProject).getId();
 	}

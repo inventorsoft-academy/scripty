@@ -15,8 +15,18 @@ import co.inventorsoft.scripty.model.entity.Project;
 public class SecurityService {
 
 	public void authenticationHasRoleUser(Authentication authentication) {
+		if(authentication == null) {
+			throw new ApplicationException("No authentication" , HttpStatus.UNAUTHORIZED);
+		}
 		if(!authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_USER"))) {
 			throw new ApplicationException(authentication.getName()+" does not have ROLE_USER" , HttpStatus.FORBIDDEN);
+		}
+	}
+
+	public void projectHasPublicVisibilityOrUserIsOwner(Project project, Authentication auth) {
+		String username = auth==null ? "Anonymous" : auth.getName();
+		if(!project.getVisibility() && !project.getUser().getEmail().equals(username)) {
+			throw new ApplicationException(username+" has no access to project "+project.getId(), HttpStatus.FORBIDDEN);
 		}
 	}
 
