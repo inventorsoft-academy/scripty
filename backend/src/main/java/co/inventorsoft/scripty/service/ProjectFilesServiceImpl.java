@@ -6,12 +6,15 @@ import co.inventorsoft.scripty.model.dto.Node;
 import co.inventorsoft.scripty.model.entity.Project;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -45,6 +48,29 @@ public class ProjectFilesServiceImpl implements ProjectFilesService{
             createDirectoryAndMetadata(project, metadata);
         }else {
             createFileAndMetadata(project, metadata, file);
+        }
+    }
+    public void deleteProjectFile(Long id, String filePath) {
+        Project project = projectService.getProject(id);
+        //DirectoryNode projectFileMetadata = project.getFilesMetadata();
+        Node deletedNode = directoryToObject.metadataToNode(Paths.get(project.getPath()), filePath);
+        File file = new File(project.getPath() + directorySeparator + filePath);
+        try {
+            FileUtils.deleteDirectory(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        deleteMetadata(project.getFilesMetadata(), deletedNode);
+
+    }
+    private void deleteMetadata(DirectoryNode projectFileMetadata, Node deletedNode){
+        if(!projectFileMetadata.getName().equals(Paths.get(deletedNode.getParent()).getFileName().toString())){
+            Optional<Node> directoryNode = projectFileMetadata.getChildren().stream()
+                    .filter(x->deletedNode.getPath().startsWith(x.getPath()))
+                    .findAny();
+            deleteMetadata((DirectoryNode)directoryNode.get(), deletedNode);
+        }else {
+            projectFileMetadata.getChildren().removeIf(x-> x.getName().equals(deletedNode.getName()));
         }
     }
 

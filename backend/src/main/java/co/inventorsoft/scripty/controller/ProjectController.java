@@ -21,6 +21,8 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 /**
  * @author lzabidovsky
  */
@@ -76,4 +78,12 @@ public class ProjectController {
         securityService.projectUserIsOwner(projectService.getProject(projectId), authentication);
         projectFilesService.uploadProjectFile(metadata, file, projectId);
     }
+    @DeleteMapping(value = "/{projectId}/files")
+	@ResponseStatus(HttpStatus.OK)
+    public void deleteProjectFile(Authentication authentication,
+								  @PathVariable Long projectId,
+								  @RequestParam String filePath) throws IOException {
+    	securityService.projectUserIsOwner(projectService.getProject(projectId), authentication);
+    	projectFilesService.deleteProjectFile(projectId, filePath);
+	}
 }
