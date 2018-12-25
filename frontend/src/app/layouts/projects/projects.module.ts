@@ -9,7 +9,7 @@ import {FooterComponent} from './footer/footer.component';
 import {HeaderComponent} from './header/header.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
 import {ProjectComponent} from './project/project.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SafePipe} from './safe.pipe';
 import {HighlightModule} from 'ngx-highlightjs';
 
@@ -22,6 +22,7 @@ import {MaterialModule} from '../../material-module';
         CommonModule,
         ProjectsRoutingModule,
         FormsModule,
+        ReactiveFormsModule,
         MaterialModule,
         HighlightModule.forRoot({
             languages: HLLanguages

@@ -3,6 +3,36 @@
         Generate your custom response
     </h1>
     <form class="mock-form" [formGroup]="mockForm">
+        <mat-form-field>
+            <mat-select placeholder="Favorite food">
+                <mat-option *ngFor="let food of test" [value]="food">
+                    {{food}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+
+        <mat-form-field>
+            <mat-select placeholder="Select an option">
+                <mat-option value="1">Option 1</mat-option>
+                <mat-option value="2">Option 2</mat-option>
+                <mat-option value="3">Option 3</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select placeholder="Select an option">
+                <mat-option value="1">Option 1</mat-option>
+                <mat-option value="2">Option 2</mat-option>
+                <mat-option value="3">Option 3</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select placeholder="Select an option">
+                <mat-option value="1">Option 1</mat-option>
+                <mat-option value="2">Option 2</mat-option>
+                <mat-option value="3">Option 3</mat-option>
+            </mat-select>
+        </mat-form-field>
         <mat-form-field class="full-width-field">
             <input matInput
                    placeholder="Password"
