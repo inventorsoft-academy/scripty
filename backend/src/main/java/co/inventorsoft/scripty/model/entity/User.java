@@ -1,10 +1,7 @@
 package co.inventorsoft.scripty.model.entity;
 import co.inventorsoft.scripty.model.dto.PictureDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
@@ -15,6 +12,7 @@ import java.time.Instant;
  * @author Symyniuk
  *
  */
+@NoArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode(of="id")
@@ -58,9 +56,6 @@ public class User {
     @CreationTimestamp
     private Instant createDate;
 
-
-    public User() {
-    }
 }
 
 
