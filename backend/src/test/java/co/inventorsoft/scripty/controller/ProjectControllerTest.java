@@ -138,4 +138,34 @@ public class ProjectControllerTest {
 				.andExpect(content().string(Matchers.containsString("does not exist")));
 	}
 
+	@Test
+	public void archiveShouldArchiveProject() throws Exception {
+		mockMvc.perform(put("/projects/"+projectId)
+				.header("Authorization", "Bearer  " + accessToken)
+				.param("archive", "true"))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(JWTSecurity.CONTENT_TYPE))
+				.andExpect(content().string(Matchers.containsString("archive status was changed")));
+	}
+
+	@Test
+	public void archiveShouldNotArchiveProjectWhenUserIsNotOwner() throws Exception {
+		mockMvc.perform(put("/projects/"+projectId)
+				.header("Authorization", "Bearer  " + accessTokenAdmin)
+				.param("archive", "true"))
+				.andExpect(status().isForbidden())
+				.andExpect(content().contentType(JWTSecurity.CONTENT_TYPE))
+				.andExpect(content().string(Matchers.containsString("has no access to project")));
+	}
+
+	@Test
+	public void archiveShouldNotArchiveProjectWhenProjectDoesNotExist() throws Exception {
+		mockMvc.perform(put("/projects/999")
+				.header("Authorization", "Bearer  " + accessToken)
+				.param("archive", "true"))
+				.andExpect(status().isNotFound())
+				.andExpect(content().contentType(JWTSecurity.CONTENT_TYPE))
+				.andExpect(content().string(Matchers.containsString("does not exist")));
+	}
+
 }
