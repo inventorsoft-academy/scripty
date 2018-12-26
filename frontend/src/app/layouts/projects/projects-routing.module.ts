@@ -5,7 +5,6 @@ import {ProjectsComponent} from './projects.component';
 import {ProjectComponent} from './project/project.component';
 import {ProjectsListComponent} from './projects-list/projects-list.component';
 
-
 const projectRoutes: Routes = [
     {
         path: '',

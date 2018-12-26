@@ -1,7 +1,8 @@
-import {Injectable} from "@angular/core";
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
-import {AuthService} from "./auth.service";
-import {Observable} from "rxjs";
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
+import {AuthService} from './auth.service';
+import {Observable} from 'rxjs';
+import {TokenService} from "./token.service";
 
 
 @Injectable({
@@ -10,15 +11,16 @@ import {Observable} from "rxjs";
 export class RoleGuardService implements CanActivate {
 
     constructor(
-        private _authService: AuthService,
+        private _auth: AuthService,
         private _router: Router,
+        private _token: TokenService,
     ) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-        // const user = this._authService.decode();
-        // if (user.role === route.data.role) { //user.role -- localStorage role for user | route.data.role -- admin-routing.module.ts
-        //     return true;
-        // }
+        const user = this._token.decode();
+        if (user.authorities == route.data.role) {
+            return true;
+        }
 
         this._router.navigate(['/projects']);
         return false;
