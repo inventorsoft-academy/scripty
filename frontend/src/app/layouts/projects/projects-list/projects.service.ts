@@ -37,7 +37,7 @@ export class ProjectsService {
     }
 
     archiveProject(projectId: number) {
-        // return observable
+        return this.httpClient.put(`/api/projects/${projectId}?archive=true`, {});
     }
 
     importFromGitHub(url: string) {

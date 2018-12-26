@@ -3,6 +3,7 @@ import {Project} from '../models/Project';
 import {ProjectEditDialogComponent} from '../project-edit-dialog/project-edit-dialog.component';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
+import {ProjectsService} from '../projects.service';
 
 @Component({
     selector: 'app-list',
@@ -16,7 +17,8 @@ export class ListComponent implements OnInit {
     displayedColumns: string[] = ['name', 'description', 'author', 'edit'];
     userName: string;
 
-    constructor(private dialog: MatDialog) {
+    constructor(private dialog: MatDialog,
+                private projectsService: ProjectsService) {
     }
 
     ngOnInit() {
@@ -30,13 +32,21 @@ export class ListComponent implements OnInit {
         });
     }
 
-    openArchiveDialog(name: string) {
+    openArchiveDialog(project: Project) {
         this.confirmDialogRef = this.dialog.open(ConfirmDialogComponent, {});
-        this.confirmDialogRef.componentInstance.confirmMessage = `Do you want to archive '${name}'?`;
+        this.confirmDialogRef.componentInstance.confirmMessage = `Do you want to archive '${project.name}'?`;
         this.confirmDialogRef.afterClosed()
             .subscribe(result => {
                 if (result) {
-                    // archive project
+                    this.projectsService.archiveProject(project.id)
+                        .subscribe(
+                            (response) => {
+                                console.log(response);
+                            },
+                            (error) => {
+                                console.log(error);
+                            }
+                        );
                 }
                 this.confirmDialogRef = null;
             });
