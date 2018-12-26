@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {MatDialog, MatDialogRef} from '@angular/material';
@@ -10,7 +10,7 @@ import {AdminTicketService} from './admin-ticket.service';
     templateUrl: './admin-ticket.component.html',
     styleUrls: ['./admin-ticket.component.scss']
 })
-export class AdminTicketComponent implements OnInit {
+export class AdminTicketComponent {
     @ViewChild('fileName') fileName: ElementRef;
     imageSrc: string | ArrayBuffer;
     alertDialogRef: MatDialogRef<AlertDialogComponent>;
@@ -25,9 +25,6 @@ export class AdminTicketComponent implements OnInit {
                 Validators.maxLength(255)]),
             file: new FormControl(null)
         });
-    }
-
-    ngOnInit() {
     }
 
     onFileChange(event) {
@@ -63,7 +60,7 @@ export class AdminTicketComponent implements OnInit {
 
     onSubmit() {
         console.log(this.form.value);
-        /*this.adminTicketService.sendReport(
+        this.adminTicketService.sendReport(
             this.form.get('title').value,
             this.form.get('description').value,
             this.form.get('file').value,
@@ -75,7 +72,7 @@ export class AdminTicketComponent implements OnInit {
             (error) => {
                 console.log(error);
             }
-        );*/
+        );
     }
 
     openDialog() {
