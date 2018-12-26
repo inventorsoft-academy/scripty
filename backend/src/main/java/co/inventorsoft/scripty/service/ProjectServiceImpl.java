@@ -6,7 +6,7 @@ import co.inventorsoft.scripty.model.entity.Project;
 import co.inventorsoft.scripty.model.entity.User;
 import co.inventorsoft.scripty.repository.ProjectRepository;
 import co.inventorsoft.scripty.repository.UserRepository;
-import co.inventorsoft.scripty.repository.specification.Filter;
+import co.inventorsoft.scripty.repository.specification.ProjectFilter;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -22,8 +22,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -53,19 +53,14 @@ public class ProjectServiceImpl implements ProjectService {
 
 		User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new ApplicationException("There is no " + userEmail, HttpStatus.NOT_FOUND));
 
-		return projectRepository.findAll(Filter.getFilter(user));
+		return projectRepository.findAll(ProjectFilter.getFilter(user));
 
 	}
 
 	@Override
 	public List<Project> getProjects(Authentication authentication) {
-
-		if (authentication == null) {
-			return (List<Project>) projectRepository.findByVisibilityAndArchive(true, false);
-		} else {
-			User user = (User) userRepository.findByEmail(authentication.getName()).orElseThrow(() -> new ApplicationException("There is no " + authentication.getName(), HttpStatus.NOT_FOUND));
-			return projectRepository.findAll(Filter.getFilter(user));
-		}
+		User user = Optional.ofNullable(authentication).flatMap(auth -> userRepository.findByEmail(auth.getName())).orElse(null);
+		return projectRepository.findAll(ProjectFilter.getFilter(user));
 	}
 
 
