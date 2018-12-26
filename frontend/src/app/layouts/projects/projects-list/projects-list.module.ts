@@ -11,7 +11,6 @@ import {MaterialModule} from '../../../material-module';
 import {ListComponent} from './list/list.component';
 import {ProjectsListComponent} from './projects-list.component';
 import { GitImportDialogComponent } from './git-import-dialog/git-import-dialog.component';
-
 @NgModule({
     declarations: [
         ProjectsListComponent,

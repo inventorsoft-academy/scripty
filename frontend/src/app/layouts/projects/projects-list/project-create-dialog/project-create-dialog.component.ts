@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProjectsService} from '../projects.service';
-import {Project} from '../models/Project';
 import {Router} from '@angular/router';
 
 @Component({
@@ -10,7 +9,7 @@ import {Router} from '@angular/router';
     templateUrl: './project-create-dialog.component.html',
     styleUrls: ['./project-create-dialog.component.scss']
 })
-export class ProjectCreateDialogComponent implements OnInit {
+export class ProjectCreateDialogComponent {
     form: FormGroup;
     projectTypes = ['JavaScript', 'jQuery', 'Vue'];
 
@@ -24,9 +23,6 @@ export class ProjectCreateDialogComponent implements OnInit {
             description: new FormControl(this.projectTypes[0], [Validators.required]),
             visibility: new FormControl('true', [Validators.required])
         });
-    }
-
-    ngOnInit() {
     }
 
     onNoClick() {
