@@ -124,28 +124,36 @@ export class MockComponent implements OnInit {
 
     createHeader(): FormGroup {
         return this.formBuilder.group({
-            key: ['huy'],
-            value: ['pizda']
+            key: [],
+            value: []
         });
+    }
+
+    addHeader() {
+        (<FormArray>this.mockForm.get('headers')).push(
+            this.createHeader()
+        );
     }
 
     createMock() {
         if (this.mockForm.invalid) {
-            console.log('Form invalid!');
+            // todo error
             return;
         }
-        console.log(this.mockForm.value);
         const headers = {};
         this.mockForm.value.headers.forEach(e => {
             headers[e.key] = e.value;
         });
-
         this.mockService.setMock(<Mock>{...this.mockForm.value, headers}).subscribe(
             data => {
-                console.log(data);
                 this.url = data['response'].replace('8080', '8090');
             },
-            err => console.log(err));
+            err => {
+                return err;
+                /* todo  error */
+            }
+        )
+        ;
     }
 
 }

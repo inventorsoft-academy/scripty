@@ -2,8 +2,8 @@
     <h1>
         Generate your custom response
     </h1>
-    <div class="url-box">
-        {{url}}
+    <div class="url-box" *ngIf="url">
+        Your link is ready: <a href="{{url}}" target="_blank">{{url}}</a>
     </div>
     <form class="mock-form" [formGroup]="mockForm" (submit)="createMock();">
         <div>
@@ -40,15 +40,13 @@
             </mat-form-field>
         </div>
         <div *ngFor="let header of mockForm.controls.headers.controls; let i = index;" formArrayName="headers">
-            <mat-form-field  [formGroupName]="i">
+            <mat-form-field [formGroupName]="i">
                 <input matInput placeholder="Custom headers kay" [formControlName]="'key' ">
             </mat-form-field>
             <mat-form-field [formGroupName]="i">
                 <input matInput placeholder="Custom headers value" [formControlName]="'value' ">
             </mat-form-field>
         </div>
-
-
         <div>
             <mat-form-field class="body-box">
                 <textarea matInput placeholder="Body" [formControlName]="'body' "></textarea>
@@ -56,11 +54,8 @@
         </div>
         <div class="wrap-button">
             <button mat-button class="submit-btn" type="submit">Generate my HTTP Response</button>
-            <button mat-button mat-stroked-button>Custom headers</button>
+            <button mat-button type="button" (click)="addHeader()">Custom headers</button>
         </div>
-
     </form>
-
-
 </section>
 

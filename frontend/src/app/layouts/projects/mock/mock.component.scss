@@ -1,9 +1,5 @@
 @import "variables";
 
-section {
-  background: $primary-color;
-  color: white;
-}
 
 h1 {
   color: white;
@@ -22,10 +18,20 @@ form {
 }
 
 .body-box {
-  width: 420px;
+  width: 80%;
+  box-sizing: border-box;
+  max-width: 420px;
   textarea {
     resize: none;
     height: 200px;
+  }
+}
+
+.url-box {
+  margin: 30px;
+  a {
+    color: white;
+    border-bottom: 1px solid white;
   }
 }
 
@@ -33,7 +39,7 @@ form {
   button {
     margin: 30px;
     border: 1px solid white;
-    &:hover{
+    &:hover {
       color: #c2185b;
       border-color: #c2185b;
     }
