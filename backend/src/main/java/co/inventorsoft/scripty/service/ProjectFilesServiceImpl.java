@@ -52,23 +52,16 @@ public class ProjectFilesServiceImpl implements ProjectFilesService{
         Path projectPath = Paths.get(project.getPath());
         String fileMetaPath = metaPath + directorySeparator + file.getOriginalFilename();
         Path absoluteFileMetaPath = Paths.get(projectPath.toString() + directorySeparator + fileMetaPath);
-        byte[] bytes;
-        if(Files.exists(absoluteFileMetaPath)){
-            try {
-                bytes = file.getBytes();
-                Files.write(absoluteFileMetaPath, bytes);
-            } catch (IOException e) {
-                throw new ApplicationException(e, HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        } else {
-            try {
-                bytes = file.getBytes();
-                Files.write(absoluteFileMetaPath, bytes);
-            } catch (IOException e) {
-                throw new ApplicationException(e, HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+        if(!Files.exists(absoluteFileMetaPath)){
             Node fileNode = directoryToObject.metadataToNode(projectPath, fileMetaPath);
             addNodeToProjectMetadata(project.getFilesMetadata(), fileNode);
+        }
+        byte[] bytes;
+        try {
+            bytes = file.getBytes();
+            Files.write(absoluteFileMetaPath, bytes);
+        } catch (IOException e) {
+            throw new ApplicationException(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

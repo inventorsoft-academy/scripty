@@ -1,0 +1,15 @@
+<form class="form" [formGroup]="form">
+  <label for="emailInput">Time of your verification link has expired.
+    Please enter email to resend:</label>
+  <div class="form-row">
+    <input class="form-row__input" id="emailInput" type="email" formControlName="email">
+  </div>
+  <mat-error *ngIf="form.get('email').touched && form.get('email').invalid">
+    Enter correct email
+  </mat-error>
+  <button mat-raised-button
+          type="button"
+          (click)="onSubmit()"
+          [disabled]="form.invalid || form.pristine">Send
+  </button>
+</form>
