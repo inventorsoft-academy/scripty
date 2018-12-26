@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.inventorsoft.scripty.model.dto.DirectoryNode;
@@ -68,6 +69,14 @@ public class ProjectController {
 		securityService.projectUserIsOwner(projectService.getProject(projectId), authentication);
 		projectService.updateProject(projectId, projectUpdateDto);
 		return ResponseEntity.ok(new StringResponse("Project with ID = " + projectId + " was updated"));
+	}
+
+	@ApiOperation(value = "Endpoint to archive project. Archive means that it won't be listed in the project list for, but still will be in the system.")
+	@PutMapping(value = "/{projectId}", produces = "application/json")
+	public ResponseEntity<StringResponse> archiveProject(Authentication authentication, @PathVariable Long projectId, @RequestParam boolean archive) {
+		securityService.projectUserIsOwner(projectService.getProject(projectId), authentication);
+		projectService.archiveProject(projectId, archive);
+		return ResponseEntity.ok(new StringResponse("Project ID = " + projectId + " archive status was changed"));
 	}
 
 }
