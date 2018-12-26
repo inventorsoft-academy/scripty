@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserActivationService} from '../user-activation.service';
 import {Router} from '@angular/router';
@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
   templateUrl: './resend-email.component.html',
   styleUrls: ['./resend-email.component.scss']
 })
-export class ResendEmailComponent implements OnInit {
+export class ResendEmailComponent {
     form: FormGroup;
 
     constructor(private userActivationService: UserActivationService,
@@ -16,9 +16,6 @@ export class ResendEmailComponent implements OnInit {
         this.form = new FormGroup({
             email: new FormControl(null, [Validators.required, Validators.email])
         });
-    }
-
-    ngOnInit() {
     }
 
     onSubmit() {

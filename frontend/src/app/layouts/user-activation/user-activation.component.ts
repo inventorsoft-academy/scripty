@@ -1,15 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-reg-confirmation',
   templateUrl: './user-activation.component.html',
   styleUrls: ['./user-activation.component.scss']
 })
-export class UserActivationComponent implements OnInit {
-
+export class UserActivationComponent {
   constructor() { }
-
-  ngOnInit() {
-  }
-
 }
