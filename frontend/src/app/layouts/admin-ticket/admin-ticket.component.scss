@@ -57,7 +57,10 @@
       margin-top: 20px;
     }
     a {
-      margin-top: 5px;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }
