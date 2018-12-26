@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long>, PagingAndSortingRepository<User, Long>, JpaSpecificationExecutor<User> {
     Optional<User> findByEmail(String email);
     User findByFirstName(String firstName);
-    @Query("Select u from User u where email like %?1%")
+    @Query("Select u from User u where ?1 IS NULL OR length(?1) = 0 OR email like %?1%")
     Page<User> findByEmailStartsWith(String email, Pageable pageable);
 
 }
