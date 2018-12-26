@@ -13,6 +13,10 @@ import scss from 'highlight.js/lib/languages/scss';
 import typescript from 'highlight.js/lib/languages/typescript';
 import javascript from 'highlight.js/lib/languages/javascript';
 
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HttpTokenInterceptor} from './token.interceptor';
+import {HttpClientModule} from '@angular/common/http';
+
 export function HLLanguages() {
     return [
         {name: 'typescript', func: typescript},
@@ -24,7 +28,7 @@ export function HLLanguages() {
 
 @NgModule({
     declarations: [
-        AppComponent,
+        AppComponent
     ],
     imports: [
         BrowserModule,
@@ -33,10 +37,16 @@ export function HLLanguages() {
         MaterialModule,
         HighlightModule.forRoot({
             languages: HLLanguages
-        })
+        }),
+        HttpClientModule
     ],
     providers: [
-        TitleService
+        TitleService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: HttpTokenInterceptor,
+            multi: true
+        }
     ],
     bootstrap: [AppComponent]
 })

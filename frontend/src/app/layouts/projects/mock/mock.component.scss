@@ -1,23 +1,41 @@
 @import "variables";
-section{
+
+section {
   background: $primary-color;
+  color: white;
 }
-h1{
+
+h1 {
   color: white;
   font-size: 2em;
   padding: 10px;
   border-bottom: 1px solid $border-color;
 }
-mat-form-field{
-  margin: 0 30px ;
+
+mat-form-field {
+  margin: 0 30px;
 }
-form{
+
+form {
   padding: 20px 0;
+  color: #fff;
 }
-.body-box{
+
+.body-box {
   width: 420px;
-  textarea{
+  textarea {
     resize: none;
     height: 200px;
+  }
+}
+
+.wrap-button {
+  button {
+    margin: 30px;
+    border: 1px solid white;
+    &:hover{
+      color: #c2185b;
+      border-color: #c2185b;
+    }
   }
 }
