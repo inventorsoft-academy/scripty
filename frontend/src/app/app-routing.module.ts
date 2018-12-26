@@ -22,6 +22,11 @@ const routes: Routes = [
         data: {title: 'Admin page'}
     },
     {
+        path: 'userActivation',
+        loadChildren: './layouts/user-activation/user-activation.module#UserActivationModule',
+        data: {title: 'User activation'}
+    },
+    {
         path: '**', redirectTo: '/projects'
     }
 ];

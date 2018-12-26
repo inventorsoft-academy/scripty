@@ -93,19 +93,18 @@ html {
 .mat-raised-button {
   background-color: $hover-color;
   color: #fff;
-  &:disabled {
-    .mat-button-wrapper {
-      color: #555;
-    }
+  &[disabled][disabled] {
+    color: white;
+    background-color: #505050;
   }
 }
 
-.btn-cancel{
+.btn-cancel {
   background-color: #cccccc;
   color: $primary-color;
 }
 
-.mat-dialog-container {
+.mat-dialog-container, .form {
   background: $primary-color;
   color: #fff;
   .form-row {
@@ -130,4 +129,3 @@ html {
     color: #fff;
   }
 }
-
