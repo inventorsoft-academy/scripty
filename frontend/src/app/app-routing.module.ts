@@ -15,7 +15,7 @@ const routes: Routes = [
     {
         path: 'report',
         loadChildren: './layouts/admin-ticket/admin-ticket.module#AdminTicketModule',
-        data: {title: 'Report an error'}
+        data: {title: 'Report a bug'}
     },
     {
         path: '',
