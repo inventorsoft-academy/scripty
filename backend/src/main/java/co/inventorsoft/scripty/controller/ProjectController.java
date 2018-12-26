@@ -39,8 +39,6 @@ import lombok.experimental.FieldDefaults;
 @Api("Controller for Project endpoints")
 public class ProjectController {
 
-
-
 	ProjectService projectService;
 	SecurityService securityService;
 

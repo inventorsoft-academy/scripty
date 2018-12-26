@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface ProjectService {
 
-    List<Project> getProjects(String userEmail);
-
     List<Project> getProjects(Authentication authentication);
 
     List<Project> getProjectsByUser(Long id);

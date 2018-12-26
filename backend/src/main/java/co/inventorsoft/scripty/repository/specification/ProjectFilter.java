@@ -14,50 +14,55 @@ import static java.util.Objects.isNull;
 
 
 public class ProjectFilter {
-	
-	public static Specification<Project> getFilter(User user) {
-		
-		if (isNull(user)) {
-			return new Specification<Project>() {
-				@Override
-				public Predicate toPredicate(Root<Project> root,
-											 CriteriaQuery<?> criteriaQuery,
-											 CriteriaBuilder criteriaBuilder) {
-					return criteriaBuilder.and(
-							criteriaBuilder.equal(root.get("visibility"), 1),
-							criteriaBuilder.equal(root.get("archive"), false)
-					);
 
-				}
-			};
-		} else if (user.getRole().equals("ROLE_USER")) {
-			
-			return new Specification<Project>() {
-	            @Override
-	            public Predicate toPredicate(Root<Project> root,
-	                    CriteriaQuery<?> criteriaQuery,
-	                    CriteriaBuilder criteriaBuilder) {
-	                return criteriaBuilder.or(criteriaBuilder.equal(root.get("visibility"), 1),
-	                		criteriaBuilder.equal(root.get("user").get("id"), user.getId()));
+    final static boolean ARCHIVE_DEFAULT_VALUE = false;
+    final static int VISIBILITY_PUBLIC_VALUE = 1;
+    final static int LOWER_BOUND_FOR_PROJECT_ID_ADMIN_TO_VIEW_ALL_PROJECTS = 1;
+
+    public static Specification<Project> getFilter(User user) {
+
+        if (isNull(user)) {
+            return new Specification<Project>() {
+                @Override
+                public Predicate toPredicate(Root<Project> root,
+                                             CriteriaQuery<?> criteriaQuery,
+                                             CriteriaBuilder criteriaBuilder) {
+                    return criteriaBuilder.and(
+                            criteriaBuilder.equal(root.get("visibility"), VISIBILITY_PUBLIC_VALUE),
+                            criteriaBuilder.equal(root.get("archive"), ARCHIVE_DEFAULT_VALUE)
+                    );
+
+                }
+            };
+        } else if (user.getRole().equals("ROLE_USER")) {
+
+            return new Specification<Project>() {
+                @Override
+                public Predicate toPredicate(Root<Project> root,
+                                             CriteriaQuery<?> criteriaQuery,
+                                             CriteriaBuilder criteriaBuilder) {
+                    return criteriaBuilder.or(criteriaBuilder.equal(root.get("visibility"), VISIBILITY_PUBLIC_VALUE),
+                            criteriaBuilder.equal(root.get("user").get("id"), user.getId()));
 
 
-	            }
-	        };
-		
-		} else {
-			
-			return new Specification<Project>() {
-	            @Override
-	            public Predicate toPredicate(Root<Project> root,
-	                    CriteriaQuery<?> criteriaQuery,
-	                    CriteriaBuilder criteriaBuilder) {
-	                return criteriaBuilder.greaterThanOrEqualTo(root.get("id"), 1); 	                		
-	               	
-	            }
-	        };		
-			
-		}
-		
-	}
+                }
+            };
+
+        } else {
+
+            return new Specification<Project>() {
+                @Override
+                public Predicate toPredicate(Root<Project> root,
+                                             CriteriaQuery<?> criteriaQuery,
+                                             CriteriaBuilder criteriaBuilder) {
+                    return criteriaBuilder.greaterThanOrEqualTo(root.get("id"),
+                                             LOWER_BOUND_FOR_PROJECT_ID_ADMIN_TO_VIEW_ALL_PROJECTS);
+
+                }
+            };
+
+        }
+
+    }
 
 }

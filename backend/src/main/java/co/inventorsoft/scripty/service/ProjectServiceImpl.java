@@ -49,22 +49,10 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public List<Project> getProjects(String userEmail) {
-
-		User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new ApplicationException("There is no " + userEmail, HttpStatus.NOT_FOUND));
-
-		return projectRepository.findAll(ProjectFilter.getFilter(user));
-
-	}
-
-	@Override
 	public List<Project> getProjects(Authentication authentication) {
 		User user = Optional.ofNullable(authentication).flatMap(auth -> userRepository.findByEmail(auth.getName())).orElse(null);
 		return projectRepository.findAll(ProjectFilter.getFilter(user));
 	}
-
-
-
 
 	@Override
 	public List<Project> getProjectsByUser(Long id) {
