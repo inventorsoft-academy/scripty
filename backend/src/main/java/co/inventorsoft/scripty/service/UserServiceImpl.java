@@ -10,6 +10,8 @@ import co.inventorsoft.scripty.repository.UserRepository;
 import co.inventorsoft.scripty.repository.VerificationTokenRepository;
 import com.google.common.io.Files;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -187,5 +189,16 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(resetPasswordDto.getValidPassword()));
         userRepository.save(user);
         passwordTokenRepository.delete(passwordToken);
+    }
+
+    @Override
+    public Page<User> getAllUsers(Pageable pageable) {
+        return userRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<User> findByEmailStartsWith(String email, Pageable pageable) {
+
+        return userRepository.findByEmailStartsWith(email, pageable);
     }
 }
