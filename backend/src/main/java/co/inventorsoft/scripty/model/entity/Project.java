@@ -2,16 +2,7 @@ package co.inventorsoft.scripty.model.entity;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import co.inventorsoft.scripty.model.dto.DirectoryNode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -35,19 +26,19 @@ public class Project {
     @Column(nullable = false, length = 50)
     String name;
 
-    String description;
+	String description;
 
-    @JsonIgnore
-    String path;
+	@JsonIgnore
+	String path;
 
-    Boolean visibility;
+	Boolean visibility;
 
-    Boolean archive;
+	Boolean archive;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    User user;
-
-    LocalDateTime createDate;
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	User user;
+	
+	LocalDateTime createDate;
 
     @JsonIgnore
     @Lob

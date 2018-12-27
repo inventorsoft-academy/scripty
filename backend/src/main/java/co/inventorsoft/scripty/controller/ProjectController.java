@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import co.inventorsoft.scripty.model.dto.DirectoryNode;
 import co.inventorsoft.scripty.model.dto.ProjectDto;
 import co.inventorsoft.scripty.model.dto.ProjectUpdateDto;
@@ -78,6 +79,7 @@ public class ProjectController {
         securityService.projectUserIsOwner(projectService.getProject(projectId), authentication);
         projectService.archiveProject(projectId, archive);
         return ResponseEntity.ok(new StringResponse("Project ID = " + projectId + " archive status was changed"));
+
     }
 
 	@ApiOperation(value = "Endpoint to get list of projects.")

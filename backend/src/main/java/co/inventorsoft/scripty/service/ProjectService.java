@@ -10,7 +10,6 @@ import java.util.List;
  * @author lzabidovsky
  */
 public interface ProjectService {
-
     long saveProject(ProjectDto project, String username);
     Project getProject(Long projectId);
     void updateProject(Long projectId, ProjectUpdateDto projectUpdateDto);
@@ -18,5 +17,4 @@ public interface ProjectService {
     long saveGithubProject(ProjectGithub project, String username);
     List<Project> getProjects(Authentication authentication);
     List<Project> getProjectsByUser(Long id);
-
 }
