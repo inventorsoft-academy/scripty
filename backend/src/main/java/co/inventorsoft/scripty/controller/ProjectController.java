@@ -89,7 +89,7 @@ public class ProjectController {
     public void uploadFile(Authentication authentication,
                            @PathVariable Long projectId,
                            @RequestParam(required = false) MultipartFile file,
-                           @RequestParam String metadata){
+                           @RequestParam(defaultValue = "") String metadata){
         securityService.projectUserIsOwner(projectService.getProject(projectId), authentication);
         projectFilesService.uploadProjectFile(metadata, file, projectId);
     }

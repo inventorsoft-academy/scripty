@@ -6,12 +6,15 @@ import co.inventorsoft.scripty.model.dto.Node;
 import co.inventorsoft.scripty.model.entity.Project;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -50,7 +53,7 @@ public class ProjectFilesServiceImpl implements ProjectFilesService{
 
     private void createFileAndMetadata(Project project, String metaPath, MultipartFile file){
         Path projectPath = Paths.get(project.getPath());
-        String fileMetaPath = metaPath + directorySeparator + file.getOriginalFilename();
+        String fileMetaPath = (metaPath.equals("") ? file.getOriginalFilename() : (metaPath + directorySeparator + file.getOriginalFilename()));
         Path absoluteFileMetaPath = Paths.get(projectPath.toString() + directorySeparator + fileMetaPath);
         if(!Files.exists(absoluteFileMetaPath)){
             Node fileNode = directoryToObject.metadataToNode(projectPath, fileMetaPath);
