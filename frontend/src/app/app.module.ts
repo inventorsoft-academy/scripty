@@ -17,7 +17,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {HttpTokenInterceptor} from './token.interceptor';
-import {HttpClientModule} from '@angular/common/http';
+
 
 export function HLLanguages() {
     return [
