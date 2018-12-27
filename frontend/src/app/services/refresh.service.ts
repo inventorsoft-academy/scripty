@@ -26,7 +26,7 @@ export class RefreshService {
                 refresh_token: this.token.getRefreshToken()
             }, { headers })
             .pipe(tap((res: any) => {
-                console.log('REFRESH SUCCESS!');
+                // console.log('REFRESH SUCCESS!');
                 this.token.setAccessToken(res.access_token);
                 this.token.setRefreshToken(res.refresh_token);
             }));
