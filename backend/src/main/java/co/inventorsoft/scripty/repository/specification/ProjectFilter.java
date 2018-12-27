@@ -10,47 +10,59 @@ import org.springframework.data.jpa.domain.Specification;
 import co.inventorsoft.scripty.model.entity.Project;
 import co.inventorsoft.scripty.model.entity.User;
 
+import static java.util.Objects.isNull;
+
 
 public class ProjectFilter {
 
-    final static int VISIBILITY_SET_TO_PUBLIC = 1;
-    final static int VISIBILITY_FOR_ADMIN_PROJECTID_GREATER_THAN = 1;
+    final static boolean ARCHIVE_DEFAULT_VALUE = false;
+    final static int VISIBILITY_PUBLIC_VALUE = 1;
+    final static int LOWER_BOUND_FOR_PROJECT_ID_ADMIN_TO_VIEW_ALL_PROJECTS = 1;
 
     public static Specification<Project> getFilter(User user) {
 
-        String role = user.getRole();
+        if (isNull(user)) {
+            return new Specification<Project>() {
+                @Override
+                public Predicate toPredicate(Root<Project> root,
+                                             CriteriaQuery<?> criteriaQuery,
+                                             CriteriaBuilder criteriaBuilder) {
+                    return criteriaBuilder.and(
+                            criteriaBuilder.equal(root.get("visibility"), VISIBILITY_PUBLIC_VALUE),
+                            criteriaBuilder.equal(root.get("archive"), ARCHIVE_DEFAULT_VALUE)
+                    );
 
-        if (role.equals("ROLE_USER")) {
+                }
+            };
+        } else if (user.getRole().equals("ROLE_USER")) {
 
             return new Specification<Project>() {
                 @Override
                 public Predicate toPredicate(Root<Project> root,
                                              CriteriaQuery<?> criteriaQuery,
                                              CriteriaBuilder criteriaBuilder) {
-                    return criteriaBuilder.or(criteriaBuilder.equal(root.get("visibility"), VISIBILITY_SET_TO_PUBLIC),
+                    return criteriaBuilder.or(criteriaBuilder.equal(root.get("visibility"), VISIBILITY_PUBLIC_VALUE),
                             criteriaBuilder.equal(root.get("user").get("id"), user.getId()));
+
+
                 }
             };
 
-        } else if (role.equals("ROLE_ADMIN")) {
+        } else {
 
             return new Specification<Project>() {
                 @Override
                 public Predicate toPredicate(Root<Project> root,
                                              CriteriaQuery<?> criteriaQuery,
                                              CriteriaBuilder criteriaBuilder) {
-                    return criteriaBuilder.greaterThanOrEqualTo(root.get("id"), VISIBILITY_FOR_ADMIN_PROJECTID_GREATER_THAN);
+                    return criteriaBuilder.greaterThanOrEqualTo(root.get("id"),
+                                             LOWER_BOUND_FOR_PROJECT_ID_ADMIN_TO_VIEW_ALL_PROJECTS);
+
                 }
             };
+
         }
 
-        return new Specification<Project>() {
-            @Override
-            public Predicate toPredicate(Root<Project> root,
-                                         CriteriaQuery<?> criteriaQuery,
-                                         CriteriaBuilder criteriaBuilder) {
-                return criteriaBuilder.equal(root.get("visibility"), VISIBILITY_SET_TO_PUBLIC);
-            }
-        };
     }
+
 }
