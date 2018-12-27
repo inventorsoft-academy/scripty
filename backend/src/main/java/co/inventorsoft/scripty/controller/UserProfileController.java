@@ -26,6 +26,7 @@ import java.security.Principal;
 
 @Api(description = "Operations for updating user data")
 @RestController
+@RequestMapping(value="/api")
 public class UserProfileController {
     UserService userService;
 

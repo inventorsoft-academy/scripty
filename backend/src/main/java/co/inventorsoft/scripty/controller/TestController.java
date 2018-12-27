@@ -15,7 +15,7 @@ import io.swagger.annotations.ApiOperation;
  * @author lzabidovsky 
  */
 @RestController
-@RequestMapping(value = "/test")
+@RequestMapping(value = "/api/test")
 @Api("Controller for testing JWT security")
 public class TestController {
 

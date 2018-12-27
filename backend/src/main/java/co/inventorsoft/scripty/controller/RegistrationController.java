@@ -16,6 +16,7 @@ import javax.validation.Valid;
  */
 @Api("Controller for user management")
 @RestController
+@RequestMapping(value="/api")
 public class RegistrationController {
 
     private UserService userService;

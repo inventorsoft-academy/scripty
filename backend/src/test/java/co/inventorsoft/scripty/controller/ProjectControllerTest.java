@@ -83,7 +83,7 @@ public class ProjectControllerTest {
 	@Test
 	public void createShouldNotCreateNewProjectWhenProjectExist() throws Exception {
 		String jsonString = new ObjectMapper().writeValueAsString(new ProjectDto("project0","Test Project",false));
-		mockMvc.perform(post("/projects")
+		mockMvc.perform(post("/api/projects")
 				.header("Authorization", "Bearer  " + accessToken)
 				.contentType(JWTSecurity.CONTENT_TYPE)
 				.content(jsonString))
@@ -95,7 +95,7 @@ public class ProjectControllerTest {
 	@Test
 	public void createShouldNotCreateNewProjectWhenRoleIsNotUser() throws Exception {
 		String jsonString = new ObjectMapper().writeValueAsString(new ProjectDto("project1","Test Project",false));
-		mockMvc.perform(post("/projects")
+		mockMvc.perform(post("/api/projects")
 				.header("Authorization", "Bearer  " + accessTokenAdmin)
 				.contentType(JWTSecurity.CONTENT_TYPE)
 				.content(jsonString))
@@ -105,7 +105,7 @@ public class ProjectControllerTest {
 	@Test
 	public void updateShouldUpdateProject() throws Exception {
 		String jsonString = new ObjectMapper().writeValueAsString(new ProjectUpdateDto("Test Project Updated",false));
-		mockMvc.perform(put("/projects/"+projectId)
+		mockMvc.perform(put("/api/projects/"+projectId)
 				.header("Authorization", "Bearer  " + accessToken)
 				.contentType(JWTSecurity.CONTENT_TYPE)
 				.content(jsonString))
@@ -117,7 +117,7 @@ public class ProjectControllerTest {
 	@Test
 	public void updateShouldNotUpdateProjectWhenUserIsNotOwner() throws Exception {
 		String jsonString = new ObjectMapper().writeValueAsString(new ProjectUpdateDto("Test Project Updated",false));
-		mockMvc.perform(put("/projects/"+projectId)
+		mockMvc.perform(put("/api/projects/"+projectId)
 				.header("Authorization", "Bearer  " + accessTokenAdmin)
 				.contentType(JWTSecurity.CONTENT_TYPE)
 				.content(jsonString))
@@ -129,7 +129,7 @@ public class ProjectControllerTest {
 	@Test
 	public void updateShouldNotUpdateProjectWhenProjectDoesNotExist() throws Exception {
 		String jsonString = new ObjectMapper().writeValueAsString(new ProjectUpdateDto("Test Project Updated",false));
-		mockMvc.perform(put("/projects/999")
+		mockMvc.perform(put("/api/projects/999")
 				.header("Authorization", "Bearer  " + accessToken)
 				.contentType(JWTSecurity.CONTENT_TYPE)
 				.content(jsonString))
@@ -140,7 +140,7 @@ public class ProjectControllerTest {
 
 	@Test
 	public void archiveShouldArchiveProject() throws Exception {
-		mockMvc.perform(put("/projects/"+projectId)
+		mockMvc.perform(put("/api/projects/"+projectId)
 				.header("Authorization", "Bearer  " + accessToken)
 				.param("archive", "true"))
 				.andExpect(status().isOk())
@@ -150,7 +150,7 @@ public class ProjectControllerTest {
 
 	@Test
 	public void archiveShouldNotArchiveProjectWhenUserIsNotOwner() throws Exception {
-		mockMvc.perform(put("/projects/"+projectId)
+		mockMvc.perform(put("/api/projects/"+projectId)
 				.header("Authorization", "Bearer  " + accessTokenAdmin)
 				.param("archive", "true"))
 				.andExpect(status().isForbidden())
@@ -160,7 +160,7 @@ public class ProjectControllerTest {
 
 	@Test
 	public void archiveShouldNotArchiveProjectWhenProjectDoesNotExist() throws Exception {
-		mockMvc.perform(put("/projects/999")
+		mockMvc.perform(put("/api/projects/999")
 				.header("Authorization", "Bearer  " + accessToken)
 				.param("archive", "true"))
 				.andExpect(status().isNotFound())

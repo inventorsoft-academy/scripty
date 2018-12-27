@@ -26,6 +26,7 @@ import java.util.regex.Pattern;
 
 @Api(description = "Operations with mock requests")
 @RestController
+@RequestMapping(value="/api")
 public class MockRequestController {
     String link;
 

@@ -31,7 +31,7 @@ import lombok.experimental.FieldDefaults;
  * @author lzabidovsky 
  */
 @RestController
-@RequestMapping(value = "/projects")
+@RequestMapping(value = "/api/projects")
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Api("Controller for Project endpoints")

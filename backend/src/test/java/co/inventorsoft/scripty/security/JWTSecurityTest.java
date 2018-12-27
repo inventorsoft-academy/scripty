@@ -61,18 +61,18 @@ public class JWTSecurityTest {
 	
 	@Test
 	public void getShouldGetSuccessResponseWithoutToken() throws Exception {
-		mockMvc.perform(get("/test/anybody")).andExpect(status().isOk());
+		mockMvc.perform(get("/api/test/anybody")).andExpect(status().isOk());
 	}
 
 	@Test
 	public void getShouldGetUnauthorizedResponseWithoutToken() throws Exception {
-		mockMvc.perform(get("/test/user")).andExpect(status().isUnauthorized());
+		mockMvc.perform(get("/api/test/user")).andExpect(status().isUnauthorized());
 	}
 
 	@Test
 	public void getShouldGetSuccessResponseWhenRoleIsValid() throws Exception {
 		final String accessToken = jwtSecurity.obtainTokensGrantTypePassword("admin@test.co", "jwtpass", mockMvc)[0];
-		mockMvc.perform(get("/test/admin").header("Authorization", "Bearer " + accessToken)).andExpect(status().isOk());
+		mockMvc.perform(get("/api/test/admin").header("Authorization", "Bearer " + accessToken)).andExpect(status().isOk());
 	}
 
 	@Test(expected =  AssertionError.class)
@@ -83,14 +83,14 @@ public class JWTSecurityTest {
 	@Test
 	public void getShouldGetForbiddenWhenRoleIsInvalid() throws Exception {
 		final String accessToken = jwtSecurity.obtainTokensGrantTypePassword("user@test.co", "jwtpass", mockMvc)[0];
-		mockMvc.perform(get("/test/admin").header("Authorization", "Bearer " + accessToken)).andExpect(status().isForbidden());
+		mockMvc.perform(get("/api/test/admin").header("Authorization", "Bearer " + accessToken)).andExpect(status().isForbidden());
 	}
 
 	@Test
 	public void getShouldGetNewValidTokensWhenPostRefreshToken() throws Exception {
 		final String refreshToken = jwtSecurity.obtainTokensGrantTypePassword("user@test.co", "jwtpass", mockMvc)[1];
 		final String accessToken = jwtSecurity.obtainTokensGrantTypeRefreshToken(refreshToken, mockMvc)[0];
-		mockMvc.perform(get("/test/user").header("Authorization", "Bearer " + accessToken)).andExpect(status().isOk());
+		mockMvc.perform(get("/api/test/user").header("Authorization", "Bearer " + accessToken)).andExpect(status().isOk());
 	}
 
 }
