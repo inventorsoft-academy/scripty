@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
     // API_URL: 'http://192.168.99.100:8090'
+    clientId: 'jwtclientid',
+    clientSecret: 'jwtClientSecret'
 };
 
 /*

@@ -33,7 +33,7 @@ export class TokenService {
     isTokenActive() {
         let expiration = this.getAccessToken();
         expiration = this.decode().exp * 1000;
-        return new Date(expiration).valueOf() - 60000 > new Date().valueOf();
-        // return false;
+        // return new Date(expiration).valueOf() - 60000 > new Date().valueOf();
+        return false;
     }
 }

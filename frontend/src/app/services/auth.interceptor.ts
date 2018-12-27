@@ -3,14 +3,16 @@ import {Observable, throwError} from 'rxjs';
 import {catchError, mergeMap} from 'rxjs/operators';
 import {AuthService} from './auth.service';
 import {Injectable} from '@angular/core';
-import {TokenService} from "./token.service";
+import {TokenService} from './token.service';
+import {RefreshService} from './refresh.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthInterceptor implements HttpInterceptor {
     constructor(private _auth: AuthService,
-                private _token: TokenService) {
+                private _token: TokenService,
+                private _refresh: RefreshService) {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -24,7 +26,7 @@ export class AuthInterceptor implements HttpInterceptor {
             });
             return next.handle(request);
         } else {
-            return this._auth.refresh().pipe(mergeMap(() => {
+            return this._refresh.refresh().pipe(mergeMap(() => {
                 return next.handle(req.clone({
                     headers: req.headers.set(
                         'Authorization',
