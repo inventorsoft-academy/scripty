@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 
 
 @Component({
@@ -11,6 +11,9 @@ export class ProjectComponent implements OnInit {
     html: string;
     style: string;
     script: string;
+    @ViewChild('htmlCode') htmlCode: ElementRef;
+    @ViewChild('styleCode') styleCode: ElementRef;
+    @ViewChild('scriptCode') scriptCode: ElementRef;
     private readonly frameType: string;
 
     public constructor() {
@@ -23,6 +26,13 @@ export class ProjectComponent implements OnInit {
 
     ngOnInit() {
     }
+
+    onScrollTextArea(event, type) {
+        const element = `${type}Code`;
+        this[element].nativeElement.scrollLeft = event.target.scrollLeft;
+        this[element].nativeElement.scrollTop = event.target.scrollTop;
+    }
+
 
     onBlurCode(type: string) {
         localStorage.setItem(type, this[type]);
