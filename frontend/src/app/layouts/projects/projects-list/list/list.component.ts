@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Project} from '../models/Project';
+import {Project} from '../../../../models/Project';
 import {ProjectEditDialogComponent} from '../project-edit-dialog/project-edit-dialog.component';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';

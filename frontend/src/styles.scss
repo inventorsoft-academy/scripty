@@ -37,7 +37,7 @@ html {
             display: flex;
             flex-direction: column;
             background-color: $primary-color;
-            overflow-y: scroll;
+            overflow-y: auto;
           }
         }
       }
