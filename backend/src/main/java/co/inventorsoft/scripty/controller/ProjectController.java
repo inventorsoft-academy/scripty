@@ -1,7 +1,7 @@
 package co.inventorsoft.scripty.controller;
 
 import javax.validation.Valid;
-
+import co.inventorsoft.scripty.model.entity.Project;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import co.inventorsoft.scripty.model.dto.DirectoryNode;
 import co.inventorsoft.scripty.model.dto.ProjectDto;
 import co.inventorsoft.scripty.model.dto.ProjectUpdateDto;
@@ -26,6 +25,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
+
+import java.util.List;
 
 /**
  * @author lzabidovsky
@@ -78,5 +79,11 @@ public class ProjectController {
         projectService.archiveProject(projectId, archive);
         return ResponseEntity.ok(new StringResponse("Project ID = " + projectId + " archive status was changed"));
     }
+
+	@ApiOperation(value = "Endpoint to get list of projects.")
+	@GetMapping(produces = "application/json")
+	public ResponseEntity<List<Project>> getProjects(Authentication authentication) {
+		return ResponseEntity.ok(projectService.getProjects(authentication));
+	}
 
 }
