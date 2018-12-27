@@ -40,7 +40,6 @@ public class ProjectServiceImpl implements ProjectService {
     final static boolean DEFAULT_VISIBILITY = true;
     public static final String UNATHORIZED_USER_EMAIL = "anonymousUser";
 
-
     ProjectRepository projectRepository;
     UserRepository userRepository;
     ProjectGithubService projectGithubService;
