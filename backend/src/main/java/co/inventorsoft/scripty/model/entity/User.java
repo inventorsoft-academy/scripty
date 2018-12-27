@@ -12,6 +12,7 @@ import java.time.Instant;
  * @author Symyniuk
  *
  */
+
 @Getter
 @Setter
 @NoArgsConstructor

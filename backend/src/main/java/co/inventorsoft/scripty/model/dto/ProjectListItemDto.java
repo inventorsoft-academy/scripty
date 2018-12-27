@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import lombok.Value;
 
 @Value
-public class ProjectToFront {
+public class ProjectListItemDto {
 	Long id;
 	String name;
 	String description;
