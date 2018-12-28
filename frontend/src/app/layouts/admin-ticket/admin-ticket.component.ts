@@ -59,14 +59,12 @@ export class AdminTicketComponent {
     }
 
     onSubmit() {
-        console.log(this.form.value);
         this.adminTicketService.sendReport(
             this.form.get('title').value,
             this.form.get('description').value,
             this.form.get('file').value,
         ).subscribe(
             (response: Response) => {
-                console.log(response);
                 this.openDialog();
             },
             (error) => {

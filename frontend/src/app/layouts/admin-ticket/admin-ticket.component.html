@@ -20,7 +20,7 @@
         <mat-error *ngIf="form.get('description').touched && form.get('description').hasError('required')">
             Description is required.
         </mat-error>
-        <div class="file-row">
+        <!--<div class="file-row">
             <label class="mat-raised-button"
                    for="fileInput">Choose file</label>
             <input type="file" id="fileInput"
@@ -30,7 +30,7 @@
             <p class="file-name" #fileName>No file chosen</p>
         </div>
         <small class="mat-small">Max file size is 5Mb. Supported formats: PNG, GIF, JPG.</small>
-        <img class="img-preview" [src]="imageSrc || ''" alt="">
+        <img class="img-preview" [src]="imageSrc || ''" alt="">-->
         <button mat-raised-button
                 type="button"
                 (click)="onSubmit()"
