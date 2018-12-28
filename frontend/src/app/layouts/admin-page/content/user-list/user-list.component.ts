@@ -8,18 +8,25 @@ import {User} from '../../../../models/user.model';
     styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
-    users: Array<User>;
-    displayedColumns: string[] = ['id', 'name', 'email', 'reg-date'];
+    users = [];
+    currentPage = 0;
+    totalElements: number;
+    displayedColumns: string[] = ['id', 'name', 'email', 'reg-date', 'status'];
 
     constructor(private usersService: UsersService) {
     }
 
     ngOnInit() {
-        this.usersService.getUsers()
+        this.getUsers(this.currentPage);
+    }
+
+    getUsers(page: number) {
+        this.usersService.getUsers(page)
             .subscribe(
-                (response: Array<User>) => {
-                    this.users = response;
-                    console.log(this.users);
+                (response) => {
+                    this.users = this.users.concat(response['content']);
+                    this.totalElements = response['totalElements'];
+                    this.currentPage++;
                 },
                 (error) => {
                     console.log(error);
@@ -27,4 +34,7 @@ export class UserListComponent implements OnInit {
             );
     }
 
+    showMore(page: number) {
+        this.getUsers(page);
+    }
 }

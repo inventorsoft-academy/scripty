@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class UsersService {
 
-  constructor(private httpClient: HttpClient) { }
+    constructor(private httpClient: HttpClient) {
+    }
 
-  getUsers() {
-    return this.httpClient.get('http://www.mocky.io/v2/5c21254b2e0000a0001e0cc8');
-  }
+    getUsers(page: number) {
+        return this.httpClient.get(`/api/api/users?page=${page}&size=5`);
+    }
 }
