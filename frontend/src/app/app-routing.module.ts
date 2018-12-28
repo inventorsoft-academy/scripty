@@ -32,6 +32,16 @@ const routes: Routes = [
         data: {title: 'User activation'}
     },
     {
+        path: 'login',
+        loadChildren: './layouts/login/login.module#LoginModule', pathMatch: 'full',
+        data: {title: 'Login'}
+    },
+    {
+        path: 'signup',
+        loadChildren: './layouts/register/registration.module#RegistrationModule', pathMatch: 'full',
+        data: {title: 'Sign Up'}
+    },
+    {
         path: '**', redirectTo: '/projects'
     }
 ];

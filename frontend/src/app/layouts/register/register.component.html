@@ -1,0 +1,71 @@
+<div class="page">
+  <div class="form-container">
+  <mat-card class="form-card">
+    <mat-card-header>
+      <mat-card-title>Register to  < scripty /> </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="signup-form" [formGroup]="registrationForm">
+
+              <mat-form-field class="full-width-field">
+                <input matInput placeholder="Email"
+                       formControlName="email"
+                       autocomplete="off"
+                       required>
+                  <mat-error *ngIf="emailValidator()">{{emailError}}</mat-error>
+              </mat-form-field>
+              <mat-form-field class="full-width-field">
+                <input matInput
+                       data-ng-change="nameValidator('firstName')"
+                       placeholder="First Name"
+                       formControlName="firstName"
+                       type="text"
+                       required
+                       autocomplete="off">
+                  <mat-error *ngIf="nameValidator('firstName')">{{nameError}}</mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="full-width-field">
+                <input matInput
+                       placeholder="Last Name"
+                       formControlName="lastName"
+                       type="text"
+                      required>
+                  <mat-error *ngIf="nameValidator('lastName')">{{nameError}}</mat-error>
+              </mat-form-field>
+
+                <div class="formGroupName" formGroupName="password">
+                    <mat-form-field class="full-width-field">
+                        <input matInput
+                               placeholder="Password"
+                                formControlName="password"
+                               type="password"
+                               autocomplete="new-password"
+                               required>
+                        <mat-error *ngIf="passwordValidator()">{{passwordError}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="full-width-field">
+                        <input matInput
+                               placeholder="Repeat Password"
+                               formControlName="matchingPassword"
+                               type="password"
+                               autocomplete="new-password"
+                               [errorStateMatcher]="errorMatcher"
+                               required>
+                        <mat-error *ngIf="registrationForm.get('password').hasError('passwordsDoNotMatch')">Passwords do not match!</mat-error>
+                    </mat-form-field>
+                </div>
+      </form>
+
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button
+              (click)="registerUser()"
+              class="submit-from-btn"
+              [disabled]="!registrationForm.valid"
+      >Register</button>
+      <!--/*/[disabled]="!ownerForm.valid"-->
+    </mat-card-actions>
+  </mat-card>
+  </div>
+</div>

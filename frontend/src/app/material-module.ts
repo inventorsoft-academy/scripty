@@ -3,6 +3,8 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import {CdkTableModule} from '@angular/cdk/table';
 import {CdkTreeModule} from '@angular/cdk/tree';
 import {NgModule} from '@angular/core';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {FormsModule} from '@angular/forms';
 import {
     MatAutocompleteModule,
     MatBadgeModule,
@@ -82,6 +84,8 @@ import {
         MatTooltipModule,
         MatTreeModule,
         ScrollingModule,
+        MatFormFieldModule,
+        FormsModule
     ]
 })
 export class MaterialModule {
