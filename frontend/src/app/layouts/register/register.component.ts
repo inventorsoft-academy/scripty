@@ -124,7 +124,7 @@ export class RegisterComponent {
                     alert('Confirm your email address in the letter from us!');
                     this.router.navigate(['/login']);
                 },
-                err => alert(err.error.error_description)
+                err => alert(err)
             );
     }
 }

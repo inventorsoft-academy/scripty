@@ -1,16 +1,11 @@
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
-
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
     {
         path: 'projects',
         loadChildren: './layouts/projects/projects.module#ProjectsModule',
         data: {title: 'Projects'}
-        },
-    {
-        path: 'admin',
-        loadChildren: './layouts/admin-page/admin-page.module#AdminPageModule'
     },
     {
         path: 'report',
@@ -19,7 +14,8 @@ const routes: Routes = [
     },
     {
         path: '',
-        redirectTo: '/projects', pathMatch: 'full'
+        redirectTo: '/projects',
+        pathMatch: 'full'
     },
     {
         path: 'admin',

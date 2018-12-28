@@ -1,12 +1,18 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpBackend, HttpClient, HttpHeaders, HttpParams, HttpXhrBackend, XhrFactory} from '@angular/common/http';
+import {JwtHelperService} from '@auth0/angular-jwt';
+import {Observable, ReplaySubject} from 'rxjs';
+import {BrowserXhr} from "@angular/http";
+import {tap} from "rxjs/operators";
+import {environment} from "../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
-    private _registerUrl = 'http://192.168.99.100:8090/registration';
-    private _authUrl = 'http://jwtclientid:jwtClientSecret@192.168.99.100:8090/oauth/token';
+    private _registerUrl = 'http://localhost/registration';
+    private _authUrl = 'http://jwtclientid:jwtClientSecret@localhost:8090/oauth/token';
+    private http: HttpClient;
 
     public getToken(): string {
         console.log(localStorage.getItem('access_token'));
@@ -14,11 +20,10 @@ export class AuthService {
     }
     public isAuthenticated() {
         const token = this.getToken();
-        // return a boolean reflecting
-        // whether or not the token is expired
-        // return tokenNotExpired(null, token);
+        return token
     }
-    constructor(private http: HttpClient) {
+    constructor(private httpBackend: HttpBackend) {
+        this.http = new HttpClient(httpBackend);
     }
 
     registerUser(user) {
@@ -27,7 +32,4 @@ export class AuthService {
     authUser(credentials) {
         return this.http.post<any>(this._authUrl, credentials);
     }
-    // loginUser(token) {
-    //     return this.http.post<any>(this._loginUrl, token);
-    // }
 }
