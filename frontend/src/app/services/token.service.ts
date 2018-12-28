@@ -24,15 +24,15 @@ export class TokenService {
       localStorage.setItem('refresh_token', refresh_token);
     }
 
-    decode() {
+    decode(): string {
         const helper = new JwtHelperService();
         const decodeToken = helper.decodeToken(this.getAccessToken());
         return decodeToken;
     }
 
     isTokenActive() {
-        let expiration = this.getAccessToken();
-        expiration = this.decode().exp * 1000;
+        let expiration: any = this.decode();
+        expiration = expiration.exp * 1000
         return new Date(expiration).valueOf() - 60000 > new Date().valueOf();
         // return false;
     }

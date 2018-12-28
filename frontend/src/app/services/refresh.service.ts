@@ -16,7 +16,7 @@ export class RefreshService {
       this.customHttp = new HttpClient(httpBackend);
   }
 
-    refresh (): Observable {
+    refresh () {
 
         const headers = new HttpHeaders().set('Content-Type', 'application/json')
           .set('Authorization', `Basic ${btoa(environment.clientId + ':' + environment.clientSecret)}`);
