@@ -35,12 +35,12 @@ export class HttpTokenInterceptor implements HttpInterceptor {
             // todo for developer
             /* tslint:disable */
             tokenData = {
-                "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiand0cmVzb3VyY2VpZCJdLCJ1c2VyX25hbWUiOiJkbDExMDIxOTk3QGdtYWlsLmNvbSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1NDU4MjY2NzIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJqdGkiOiI5NGEyMWQxZS1iN2NiLTQ3NDgtYTEyZC1mYWZjYjg5M2I2OWIiLCJjbGllbnRfaWQiOiJqd3RjbGllbnRpZCJ9.mn1A3e1515DRvYCVEM0rgQWGx4Wvnyfe_QnSuFnE0Ig",
+                "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiand0cmVzb3VyY2VpZCJdLCJ1c2VyX25hbWUiOiJ1c2VyQHRlc3QuY28iLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNTQ1OTkyNDYzLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiNzExMWNhNGYtODliMy00ZDVhLTk0ZjEtZTEzMWRmNTM3NWFlIiwiY2xpZW50X2lkIjoiand0Y2xpZW50aWQifQ.-MnIuz_G0JQXLrTjS5T7JvtLAJ4e_UjvO8AvL_lHAsU",
                 "token_type": "bearer",
-                "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiand0cmVzb3VyY2VpZCJdLCJ1c2VyX25hbWUiOiJkbDExMDIxOTk3QGdtYWlsLmNvbSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJhdGkiOiI5NGEyMWQxZS1iN2NiLTQ3NDgtYTEyZC1mYWZjYjg5M2I2OWIiLCJleHAiOjE1NDU4NDAxNzIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJqdGkiOiI3OWFjMDAxZi0zMTNjLTRkMzYtOTNjMi1mYTI1ZTc5Njg2ZmEiLCJjbGllbnRfaWQiOiJqd3RjbGllbnRpZCJ9.8iK7fyhHf3UfeZ8RHnaIg_DIIkath3c0rkjDwDwcrpI",
+                "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiand0cmVzb3VyY2VpZCJdLCJ1c2VyX25hbWUiOiJ1c2VyQHRlc3QuY28iLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiYXRpIjoiNzExMWNhNGYtODliMy00ZDVhLTk0ZjEtZTEzMWRmNTM3NWFlIiwiZXhwIjoxNTQ2MDA1OTYzLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiYjA2MzBlZWEtN2QyYS00NDY2LWE2YWItYjZkOTJkYzZhNTViIiwiY2xpZW50X2lkIjoiand0Y2xpZW50aWQifQ.IdosxiO6CEa1HfmWEpcST5JfaEmOMHeM0ZL5NanmShA",
                 "expires_in": 899,
                 "scope": "read write",
-                "jti": "94a21d1e-b7cb-4748-a12d-fafcb893b69b"
+                "jti": "7111ca4f-89b3-4d5a-94f1-e131df5375ae"
             };
             TokenService.setTokenData(
                 tokenData
