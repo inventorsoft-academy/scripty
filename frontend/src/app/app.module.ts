@@ -15,6 +15,8 @@ import xml from 'highlight.js/lib/languages/xml';
 import scss from 'highlight.js/lib/languages/scss';
 import typescript from 'highlight.js/lib/languages/typescript';
 import javascript from 'highlight.js/lib/languages/javascript';
+import {HttpClientModule} from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 export function HLLanguages() {
     return [
@@ -34,6 +36,9 @@ export function HLLanguages() {
         AppRoutingModule,
         BrowserAnimationsModule,
         MaterialModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
         HighlightModule.forRoot({
             languages: HLLanguages
         }),
