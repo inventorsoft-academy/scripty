@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {Router} from "@angular/router";
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
     user: string;
     @Output() sidebarIsOpen = new EventEmitter<boolean>();
 
-    constructor() {
+    constructor(private router: Router) {
     }
 
     ngOnInit() {
@@ -29,6 +29,7 @@ export class HeaderComponent implements OnInit {
     logOut() {
         this.isAuthorized = false;
         localStorage.clear();
+        this.router.navigate(['/login']);
     }
 
     openNav() {

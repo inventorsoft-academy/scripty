@@ -36,10 +36,6 @@ export class RegisterComponent {
         private  _auth: AuthService,
     ) {
         this.initForm();
-        // redirect to home if already logged in
-        // if (this._auth.currentUserValue) {
-        //     this.router.navigate(['/']);
-        // }
     }
 
     initForm() {
@@ -124,7 +120,9 @@ export class RegisterComponent {
                     alert('Confirm your email address in the letter from us!');
                     this.router.navigate(['/login']);
                 },
-                err => alert(err.error.error_description)
+                err => {
+                    console.log(err);
+                    alert(err); }
             );
     }
 }

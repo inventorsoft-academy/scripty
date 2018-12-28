@@ -27,7 +27,4 @@ export class AuthService {
     authUser(credentials) {
         return this.http.post<any>(this._authUrl, credentials);
     }
-    // loginUser(token) {
-    //     return this.http.post<any>(this._loginUrl, token);
-    // }
 }
