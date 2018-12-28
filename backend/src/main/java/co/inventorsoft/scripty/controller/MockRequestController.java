@@ -33,7 +33,7 @@ public class MockRequestController {
     MockRequestService requestService;
 
     @Autowired
-    MockRequestController(MockRequestService service, @Value("${prefix.link}")String link){
+    MockRequestController(MockRequestService service, @Value("${prefix.mock-link}")String link){
         requestService = service;
         this.link = link;
     }
