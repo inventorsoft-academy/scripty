@@ -13,6 +13,11 @@ const routes: Routes = [
         loadChildren: './layouts/admin-page/admin-page.module#AdminPageModule'
     },
     {
+        path: 'report',
+        loadChildren: './layouts/admin-ticket/admin-ticket.module#AdminTicketModule',
+        data: {title: 'Report a bug'}
+    },
+    {
         path: '',
         redirectTo: '/projects', pathMatch: 'full'
     },
