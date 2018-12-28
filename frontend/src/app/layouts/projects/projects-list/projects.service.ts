@@ -25,7 +25,7 @@ export class ProjectsService {
             'visibility': visibility
         };
 
-        return this.httpClient.post(`/api/projects/${id}`, body);
+        return this.httpClient.put(`/api/projects/${id}`, body);
     }
 
     deleteProject(projectId: number) {
