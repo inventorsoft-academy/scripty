@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import {JwtHelperService} from '@auth0/angular-jwt';
+import {AuthService} from "./auth.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenService {
 
-  constructor() { }
+  constructor(private _auth: AuthService) { }
 
     getAccessToken() {
       return localStorage.getItem('access_token');
@@ -31,9 +32,11 @@ export class TokenService {
     }
 
     isTokenActive() {
-        let expiration: any = this.decode();
-        expiration = expiration.exp * 1000
-        return new Date(expiration).valueOf() - 60000 > new Date().valueOf();
+      if (this._auth.isAuthenticated()) {
+          let expiration: any = this.decode();
+          expiration = expiration.exp * 1000
+          return new Date(expiration).valueOf() - 60000 > new Date().valueOf();
+      }
         // return false;
     }
 }

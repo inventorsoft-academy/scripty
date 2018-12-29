@@ -1,10 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpBackend, HttpClient, HttpHeaders, HttpParams, HttpXhrBackend, XhrFactory} from '@angular/common/http';
-import {JwtHelperService} from '@auth0/angular-jwt';
-import {Observable, ReplaySubject} from 'rxjs';
-import {BrowserXhr} from "@angular/http";
-import {tap} from "rxjs/operators";
-import {environment} from "../../environments/environment";
+import {environment} from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -20,6 +16,7 @@ export class AuthService {
     }
     public isAuthenticated() {
         const token = this.getToken();
+        return token != null ? true : false;
     }
     constructor(private httpBackend: HttpBackend) {
         this.http = new HttpClient(httpBackend);
