@@ -27,6 +27,11 @@ const routes: Routes = [
         data: {title: 'User activation'}
     },
     {
+        path: 'user',
+        loadChildren: './layouts/forgot-pass/forgot-pass.module#ForgotPassModule',
+        data: {title: 'Reset password'}
+    },
+    {
         path: '**', redirectTo: '/projects'
     }
 ];
