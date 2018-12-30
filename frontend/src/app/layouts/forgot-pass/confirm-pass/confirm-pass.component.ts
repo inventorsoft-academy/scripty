@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ResetPassService} from '../../../services/reset-pass.service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material';
 
 @Component({
     selector: 'app-confirm-pass',
@@ -12,6 +13,7 @@ export class ConfirmPassComponent implements OnInit {
     token: string;
     passwordError: string;
     form: FormGroup;
+    errorMatcher = new CrossFieldErrorMatcher();
 
     constructor(private route: ActivatedRoute,
                 private router: Router,
@@ -20,11 +22,14 @@ export class ConfirmPassComponent implements OnInit {
             email: new FormControl(null, [
                 Validators.email,
                 Validators.required]),
-            password: new FormControl(null, [
-                Validators.required,
-                Validators.minLength(6),
-                Validators.maxLength(16),
-                Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,16}$')])
+            passwords: new FormGroup({
+                password: new FormControl(null, [
+                    Validators.required,
+                    Validators.minLength(6),
+                    Validators.maxLength(16),
+                    Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,16}$')]),
+                matchingPassword: new FormControl(null)
+            }, {validators: this.matchPassword})
         });
     }
 
@@ -33,12 +38,11 @@ export class ConfirmPassComponent implements OnInit {
             .subscribe(
                 (queryParams) => {
                     this.token = queryParams.get('token');
-                    console.log(this.token);
                 });
     }
 
     passwordValidator() {
-        const _field = this.form.get('password');
+        const _field = this.form.get('passwords.password');
         if (_field.hasError('required') && _field.touched) {
             this.passwordError = 'This field should not be blank';
             return true;
@@ -53,5 +57,34 @@ export class ConfirmPassComponent implements OnInit {
             return true;
         }
         return false;
+    }
+
+    matchPassword(group: FormGroup) {
+        const pass = group.get('password').value;
+        const confirmPass = group.get('matchingPassword').value;
+
+        return pass === confirmPass ? null : {'matchError': true};
+    }
+
+    onSubmit() {
+        this.resetPassService.setNewPassword(
+            this.form.get('email').value,
+            this.form.get('passwords.password').value,
+            this.token)
+            .subscribe(
+                response => {
+                    console.log(response);
+                },
+                error => {
+                    console.log(error);
+                    console.log(error.error['response']);
+                }
+            );
+    }
+}
+
+class CrossFieldErrorMatcher implements ErrorStateMatcher {
+    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+        return control.dirty && form.invalid;
     }
 }

@@ -10,19 +10,23 @@
                        formControlName="email">
                 <mat-error *ngIf="form.get('email').invalid">Email is required</mat-error>
             </mat-form-field>
-            <mat-form-field>
-                <input matInput
-                       placeholder="Password"
-                       type="password"
-                       formControlName="password">
-                <mat-error *ngIf="passwordValidator()">{{passwordError}}</mat-error>
-            </mat-form-field>
-            <mat-form-field>
-                <input matInput
-                       type="password"
-                       placeholder="Repeat password">
-
-            </mat-form-field>
+            <div formGroupName="passwords">
+                <mat-form-field>
+                    <input matInput
+                           placeholder="New password"
+                           type="password"
+                           formControlName="password">
+                    <mat-error *ngIf="passwordValidator()">{{passwordError}}</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput
+                           type="password"
+                           formControlName="matchingPassword"
+                           placeholder="Repeat password"
+                    [errorStateMatcher]="errorMatcher">
+                    <mat-error *ngIf="form.get('passwords.matchingPassword').touched && form.get('passwords').hasError('matchError')">Passwords do not match</mat-error>
+                </mat-form-field>
+            </div>
         </form>
     </mat-card-content>
     <mat-card-actions>

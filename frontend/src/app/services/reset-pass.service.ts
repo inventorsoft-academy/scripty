@@ -14,4 +14,15 @@ export class ResetPassService {
             'email': email
         });
     }
+
+    setNewPassword(email: string, password: string, token: string) {
+        return this.httpClient.put('api/user/resetPassword?token=' + token, {
+            'email': email,
+            'password': {
+                'matchingPassword': password,
+                'password': password
+            },
+            'validPassword': password
+        });
+    }
 }
