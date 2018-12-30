@@ -13,5 +13,5 @@ public interface ProjectService {
 	Project getProject(Long projectId);
 	void updateProject(Long projectId, ProjectUpdateDto projectUpdateDto);
 	void archiveProject(Long projectId, boolean archive);
-	long saveGithubProject(ProjectGithub project, String username); 
+	long saveGithubProject(ProjectGithub project, String username);
 }

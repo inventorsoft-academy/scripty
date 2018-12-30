@@ -5,7 +5,11 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
+import java.util.regex.Pattern;
 
+import co.inventorsoft.scripty.model.dto.Node;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +30,8 @@ import co.inventorsoft.scripty.model.dto.FileNode;
 public class DirectoryToObject {
 
 	private Path globalPath;
+	@Value("${directory.separator}")
+	private String directorySeparator;
 
 	public DirectoryNode convert(String pathString) {
 		globalPath = Paths.get(pathString);
@@ -53,11 +59,9 @@ public class DirectoryToObject {
 				String pathString = localPath.toString();
 				String fileNameString = localPath.getFileName().toString();
 				if (Files.isDirectory(entry)) {
-					if (!fileNameString.equals(".git")) {
-						DirectoryNode subdir = new DirectoryNode(parentString, pathString, fileNameString);
-						dir.getChildren().add(subdir);
-						listFiles(entry, subdir);
-					}
+					DirectoryNode subdir = new DirectoryNode(parentString, pathString, fileNameString);
+					dir.getChildren().add(subdir);
+					listFiles(entry, subdir);
 				} else {
 					dir.getChildren().add(new FileNode(parentString, pathString, fileNameString));
 				}
@@ -67,4 +71,17 @@ public class DirectoryToObject {
 		} 		
 	}
 
+	public Node metadataToNode(Path projectPath, String metadata){
+		Node node;
+		Path absolutePath = Paths.get(projectPath.toString() + directorySeparator + metadata);
+		String parent = absolutePath.getParent().getFileName().toString();
+		String relativePath = projectPath.getFileName().toString() + directorySeparator + metadata;
+		String name = Paths.get(metadata).getFileName().toString();
+		if(Files.isDirectory(absolutePath)){
+			node = new DirectoryNode(parent, relativePath, name);
+		}else {
+			node = new FileNode(parent, relativePath, name);
+		}
+		return node;
+	}
 }
