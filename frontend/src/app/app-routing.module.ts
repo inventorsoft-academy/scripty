@@ -27,7 +27,7 @@ const routes: Routes = [
         data: {title: 'User activation'}
     },
     {
-        path: 'user',
+        path: 'users',
         loadChildren: './layouts/forgot-pass/forgot-pass.module#ForgotPassModule',
         data: {title: 'Reset password'}
     },

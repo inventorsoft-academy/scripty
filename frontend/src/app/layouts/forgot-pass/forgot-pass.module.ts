@@ -12,7 +12,7 @@ const routes: Routes = [
         path: '', component: ForgotPassComponent, children: [
             {path: '', redirectTo: '/projects', pathMatch: 'full'},
             {path: 'sendResetLink', component: SendLinkComponent, data: {title: 'Send reset link'}},
-            {path: 'resetPassword', component: ConfirmPassComponent, data: {title: 'Create new password'}}
+            {path: ':email/forgot-password/:token', component: ConfirmPassComponent, data: {title: 'Create new password'}}
         ]
     }
 ];

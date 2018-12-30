@@ -11,6 +11,7 @@ import {ErrorStateMatcher} from '@angular/material';
 })
 export class ConfirmPassComponent implements OnInit {
     token: string;
+    email: string;
     passwordError: string;
     form: FormGroup;
     errorMatcher = new CrossFieldErrorMatcher();
@@ -19,30 +20,22 @@ export class ConfirmPassComponent implements OnInit {
                 private router: Router,
                 private resetPassService: ResetPassService) {
         this.form = new FormGroup({
-            email: new FormControl(null, [
-                Validators.email,
-                Validators.required]),
-            passwords: new FormGroup({
-                password: new FormControl(null, [
-                    Validators.required,
-                    Validators.minLength(6),
-                    Validators.maxLength(16),
-                    Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,16}$')]),
-                matchingPassword: new FormControl(null)
-            }, {validators: this.matchPassword})
-        });
+            password: new FormControl(null, [
+                Validators.required,
+                Validators.minLength(6),
+                Validators.maxLength(16),
+                Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,16}$')]),
+            matchingPassword: new FormControl(null)
+        }, {validators: this.matchPassword});
     }
 
     ngOnInit() {
-        this.route.queryParamMap
-            .subscribe(
-                (queryParams) => {
-                    this.token = queryParams.get('token');
-                });
+        this.email = this.route.snapshot.params['email'];
+        this.token = this.route.snapshot.params['token'];
     }
 
     passwordValidator() {
-        const _field = this.form.get('passwords.password');
+        const _field = this.form.get('password');
         if (_field.hasError('required') && _field.touched) {
             this.passwordError = 'This field should not be blank';
             return true;
@@ -68,16 +61,16 @@ export class ConfirmPassComponent implements OnInit {
 
     onSubmit() {
         this.resetPassService.setNewPassword(
-            this.form.get('email').value,
-            this.form.get('passwords.password').value,
+            this.email,
+            this.form.get('password').value,
             this.token)
             .subscribe(
-                response => {
-                    console.log(response);
+                () => {
+                    console.log('Password changed');
+                    this.router.navigate(['login']);
                 },
                 error => {
                     console.log(error);
-                    console.log(error.error['response']);
                 }
             );
     }

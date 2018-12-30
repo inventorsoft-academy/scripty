@@ -16,8 +16,7 @@ export class ResetPassService {
     }
 
     setNewPassword(email: string, password: string, token: string) {
-        return this.httpClient.put('api/user/resetPassword?token=' + token, {
-            'email': email,
+        return this.httpClient.put(`api/users/${email}/forgot-password/${token}`, {
             'password': {
                 'matchingPassword': password,
                 'password': password
