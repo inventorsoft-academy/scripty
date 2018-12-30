@@ -26,9 +26,6 @@ public class ResetPasswordDto{
     @ValidPassword
     Password password;
 
-    @Email
-    @NotBlank(message = "Please provide your email")
-    String email;
     public String getValidPassword(){
         return password.getPassword();
     }

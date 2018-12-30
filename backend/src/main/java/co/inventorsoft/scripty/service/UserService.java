@@ -13,7 +13,7 @@ public interface UserService {
     void sendResetPasswordToken(EmailDto emailDto);
     void setPicture(String email, MultipartFile picture);
     PictureDto getPicture(Long id);
-    void updateForgottenPassword(String token, ResetPasswordDto resetPasswordDto);
+    void updateForgottenPassword(String email, String token, ResetPasswordDto resetPasswordDto);
     void updateProfile(String email, UpdateUserDto updateDto);
 
 }

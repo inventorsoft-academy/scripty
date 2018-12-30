@@ -10,7 +10,7 @@
             <p><h1>Reset your password?</h1></p>
             <p>Dear, ${firstName} ${lastName},</p>
             <p>If you requested a password reset, click the button below. If not, ignore this email.</p>
-            <p><a href="${url}user/resetPassword?token=${token}"><button>Reset password</button></a></p>
+            <p><a href="${url}users/${email}/forgot-password/${token}"><button>Reset password</button></a></p>
         </td>
     </tr>
 </table>
