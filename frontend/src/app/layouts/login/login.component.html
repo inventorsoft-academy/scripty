@@ -1,0 +1,36 @@
+<div class="page">
+    <div class="form-container">
+        <mat-card class="form-card">
+            <mat-card-header>
+                <mat-card-title>Login to scripty</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <form class="login-form" [formGroup]="loginForm">
+                    <mat-form-field class="full-width-field">
+                        <input matInput
+                               placeholder="Email"
+                               formControlName="username"
+                               required>
+                        <mat-error *ngIf="emailValidator()">{{emailError}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="full-width-field">
+                        <input matInput
+                               placeholder="Password"
+                               formControlName="password"
+                               type="password"
+                               required>
+                    </mat-form-field>
+                </form>
+            </mat-card-content>
+            <mat-card-actions>
+                <button
+                        mat-raised-button
+                        (click)="authUser()"
+                        class="submit-from-btn"
+                        [disabled]="!loginForm.valid"
+                >Login</button>
+            </mat-card-actions>
+            <a class="reg-link" routerLink="/signup">Register new account!</a>
+        </mat-card>
+    </div>
+</div>

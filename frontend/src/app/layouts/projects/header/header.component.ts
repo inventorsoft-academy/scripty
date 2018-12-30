@@ -1,4 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -8,15 +9,17 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 export class HeaderComponent implements OnInit {
     isAuthorized: boolean;
     isOpen: boolean;
+    user: string;
     @Output() sidebarIsOpen = new EventEmitter<boolean>();
 
-    constructor() {
+    constructor(private router: Router) {
     }
 
     ngOnInit() {
-        this.isAuthorized = false;
+        this.isAuthorized = localStorage.getItem('access_token') !== null;
         this.isOpen = false;
         this.openNav();
+        this.user = localStorage.getItem('user');
     }
 
     signIn() {
@@ -25,6 +28,8 @@ export class HeaderComponent implements OnInit {
 
     logOut() {
         this.isAuthorized = false;
+        localStorage.clear();
+        this.router.navigate(['/login']);
     }
 
     openNav() {

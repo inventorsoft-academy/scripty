@@ -22,6 +22,16 @@ const routes: Routes = [
         data: {title: 'Admin page'}
     },
     {
+        path: 'login',
+        loadChildren: './layouts/login/login.module#LoginModule', pathMatch: 'full',
+        data: {title: 'Login'}
+    },
+    {
+        path: 'signup',
+        loadChildren: './layouts/register/registration.module#RegistrationModule', pathMatch: 'full',
+        data: {title: 'Sign Up'}
+    },
+    {
         path: 'userActivation',
         loadChildren: './layouts/user-activation/user-activation.module#UserActivationModule',
         data: {title: 'User activation'}
