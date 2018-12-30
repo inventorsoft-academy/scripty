@@ -25,18 +25,27 @@ export class TokenService {
       localStorage.setItem('refresh_token', refresh_token);
     }
 
-    decode(): string {
+    decode(token): string {
         const helper = new JwtHelperService();
-        const decodeToken = helper.decodeToken(this.getAccessToken());
+        const decodeToken = helper.decodeToken(token);
         return decodeToken;
     }
 
-    isTokenActive() {
+    isAccessActive() {
       if (this._auth.isAuthenticated()) {
-          let expiration: any = this.decode();
+          let expiration: any = this.decode(this.getAccessToken());
           expiration = expiration.exp * 1000;
           return new Date(expiration).valueOf() - 60000 > new Date().valueOf();
           // return false;
       }
+    }
+
+    isRefreshActive() {
+        if (this._auth.isAuthenticated()) {
+            let expiration: any = this.decode(this.getRefreshToken());
+            expiration = expiration.exp * 1000;
+            return new Date(expiration).valueOf() - 60000 > new Date().valueOf();
+            // return false;
+        }
     }
 }

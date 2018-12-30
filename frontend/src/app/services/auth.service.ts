@@ -9,6 +9,7 @@ export class AuthService {
     private _registerUrl = 'api/registration';
     private _authUrl = 'api/oauth/token';
     private http: HttpClient;
+    isAuthorized: boolean;
 
 
     public getToken(): string {
@@ -27,9 +28,15 @@ export class AuthService {
     registerUser(user) {
         return this.http.post<any>(this._registerUrl, user);
     }
+
     authUser(credentials) {
         const headers = new HttpHeaders()
             .set('Authorization', `Basic ${btoa(environment.clientId + ':' + environment.clientSecret)}`);
         return this.http.post<any>(this._authUrl, credentials, {headers});
+    }
+
+    logOut() {
+        this.isAuthorized = false;
+        localStorage.clear();
     }
 }
