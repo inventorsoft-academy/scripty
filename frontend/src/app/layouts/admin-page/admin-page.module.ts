@@ -9,6 +9,7 @@ import {AdminContentComponent} from './content/content.component';
 import {AdminFooterComponent} from './footer/footer.component';
 import {UserListComponent} from './content/user-list/user-list.component';
 import {MaterialModule} from '../../material-module';
+import { UserSearchComponent } from './content/user-list/user-search/user-search.component';
 
 @NgModule({
     declarations: [
@@ -17,7 +18,8 @@ import {MaterialModule} from '../../material-module';
         AdminSidebarComponent,
         AdminContentComponent,
         AdminFooterComponent,
-        UserListComponent
+        UserListComponent,
+        UserSearchComponent
     ],
     imports: [
         CommonModule,

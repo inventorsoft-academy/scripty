@@ -1,3 +1,4 @@
+<app-user-search (emailChanged)="searchByEmail($event)"></app-user-search>
 <table mat-table [dataSource]="users">
 
     <ng-container matColumnDef="id">
@@ -21,8 +22,8 @@
     </ng-container>
 
     <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef>Enabled</th>
-        <td mat-cell *matCellDef="let user"> {{user.enabled}}</td>
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let user"> {{user.enabled ? 'Enabled' : 'No enabled'}}</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
