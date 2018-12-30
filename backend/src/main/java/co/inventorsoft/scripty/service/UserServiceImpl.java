@@ -158,6 +158,15 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public void updateProfile(String email, UpdateUserDto updateDto) {
+        userRepository.findByEmail(email).ifPresent(user -> {
+            user.setFirstName(updateDto.getFirstName());
+            user.setLastName(updateDto.getLastName());
+            userRepository.save(user);
+        });
+    }
+
     private void validateResetPasswordToken(final String token){
         Optional<PasswordToken> passwordTokenOptional = passwordTokenRepository.findByPasswordToken(token);
         Instant tokenExpiryDate = passwordTokenOptional.map(passwordToken -> passwordToken.getExpiryDate())

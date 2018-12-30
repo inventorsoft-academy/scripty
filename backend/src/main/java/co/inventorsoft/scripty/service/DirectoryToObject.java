@@ -53,9 +53,11 @@ public class DirectoryToObject {
 				String pathString = localPath.toString();
 				String fileNameString = localPath.getFileName().toString();
 				if (Files.isDirectory(entry)) {
-					DirectoryNode subdir = new DirectoryNode(parentString, pathString, fileNameString);
-					dir.getChildren().add(subdir);
-					listFiles(entry, subdir);
+					if (!fileNameString.equals(".git")) {
+						DirectoryNode subdir = new DirectoryNode(parentString, pathString, fileNameString);
+						dir.getChildren().add(subdir);
+						listFiles(entry, subdir);
+					}
 				} else {
 					dir.getChildren().add(new FileNode(parentString, pathString, fileNameString));
 				}
