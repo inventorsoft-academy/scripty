@@ -1,5 +1,4 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -41,10 +40,7 @@ export function HLLanguages() {
         ReactiveFormsModule,
         HighlightModule.forRoot({
             languages: HLLanguages
-        }),
-        MaterialModule,
-        FormsModule,
-        HttpClientModule
+        })
     ],
     providers: [
         AuthService,

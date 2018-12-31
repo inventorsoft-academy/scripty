@@ -10,17 +10,17 @@ import {AdminContentComponent} from './content/content.component';
 import {AdminFooterComponent} from './footer/footer.component';
 
 @NgModule({
-	declarations: [
-		AdminPageComponent,
-		AdminHeaderComponent,
-		AdminSidebarComponent,
-		AdminContentComponent,
-		AdminFooterComponent
-	],
-	imports: [
-		CommonModule,
-		AdminRoutingModule,
-	]
+    declarations: [
+        AdminPageComponent,
+        AdminHeaderComponent,
+        AdminSidebarComponent,
+        AdminContentComponent,
+        AdminFooterComponent
+    ],
+    imports: [
+        CommonModule,
+        AdminRoutingModule,
+    ]
 })
 export class AdminPageModule {
 }
