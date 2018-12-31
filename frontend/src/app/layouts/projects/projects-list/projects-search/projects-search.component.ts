@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {ProjectCreateDialogComponent} from '../project-create-dialog/project-create-dialog.component';
 import {GitImportDialogComponent} from '../git-import-dialog/git-import-dialog.component';
@@ -8,9 +8,8 @@ import {GitImportDialogComponent} from '../git-import-dialog/git-import-dialog.c
     templateUrl: './projects-search.component.html',
     styleUrls: ['./projects-search.component.scss']
 })
-export class ProjectsSearchComponent implements OnInit {
+export class ProjectsSearchComponent {
     searchStr = '';
-    showBtns = false;
     @Output() search = new EventEmitter<string>();
     @Output() changeList = new EventEmitter();
 
@@ -44,9 +43,5 @@ export class ProjectsSearchComponent implements OnInit {
                 }
                 this.importDialogRef = null;
             });
-    }
-
-    ngOnInit() {
-        this.showBtns = localStorage.getItem('user') !== null;
     }
 }

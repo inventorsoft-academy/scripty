@@ -11,7 +11,7 @@ import {ProjectsService} from '../projects.service';
 })
 export class ProjectEditDialogComponent {
     form: FormGroup;
-    projectTypes = ['JavaScript', 'jQuery', 'Vue', 'GitHub'];
+    projectTypes = ['JavaScript', 'jQuery', 'Vue'];
 
     constructor(
         public dialogRef: MatDialogRef<ProjectEditDialogComponent>,
