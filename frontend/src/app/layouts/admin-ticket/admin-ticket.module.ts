@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AdminTicketComponent} from './admin-ticket.component';
 import {MaterialModule} from '../../material-module';
-import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 import {RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
@@ -12,8 +11,7 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [
-        AdminTicketComponent,
-        AlertDialogComponent
+        AdminTicketComponent
     ],
     imports: [
         CommonModule,
@@ -24,9 +22,6 @@ const routes: Routes = [
     ],
     exports: [
       RouterModule
-    ],
-    entryComponents: [
-        AlertDialogComponent
     ]
 })
 export class AdminTicketModule {

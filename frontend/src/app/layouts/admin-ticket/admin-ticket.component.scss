@@ -13,48 +13,18 @@
     label {
       min-width: 100px;
     }
-    .file-row {
-      margin: 10px 0;
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      label {
-        margin-right: 20px;
-        text-align: center;
-        display: inline-block;
-        line-height: 40px;
-      }
-      .file-name {
-        flex-grow: 1;
-        text-align: center;
-        max-width: 160px;
-        overflow-x: auto;
-        font-size: 10px;
-      }
-      input {
-        visibility: hidden;
-        width: 0.1px;
-        height: 0.1px;
-        position: absolute;
-        bottom: 0;
-        right: 0;
-      }
-    }
-    .mat-error {
-      margin-left: 100px;
-    }
     &-row {
       &__input {
-        flex-grow: 1;
         resize: vertical;
       }
     }
-    .img-preview {
-      max-width: 100%;
-      height: auto;
-    }
-    button {
+    .buttons {
+      display: flex;
       margin-top: 20px;
+      justify-content: space-between;
+      button {
+        width: 45%;
+      }
     }
     a {
       margin-top: 10px;

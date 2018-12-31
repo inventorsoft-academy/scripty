@@ -9,11 +9,10 @@ export class AdminTicketService {
     constructor(private httpClient: HttpClient) {
     }
 
-    sendReport(title: string, description: string, file: string) {
+    sendReport(title: string, description: string) {
         return this.httpClient.post('/api/tickets', {
             description: description,
             title: title
-            // file: file
         });
     }
 }
