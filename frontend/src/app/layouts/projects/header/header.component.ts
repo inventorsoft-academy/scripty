@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
     @Output() sidebarIsOpen = new EventEmitter<boolean>();
 
     constructor(private _auth: AuthService,
-                private  router: Router) {
+                private  router: Router) { }
 
 
     ngOnInit() {
