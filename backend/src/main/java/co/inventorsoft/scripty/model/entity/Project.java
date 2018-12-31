@@ -19,33 +19,33 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 /**
- * @author lzabidovsky 
+ * @author lzabidovsky
  */
 @Entity
 @Table(name = "projects")
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Project {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(unique = true, nullable = false)
-	Long id;
-	
-	@Column(nullable = false, length = 50)
-	String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
+    Long id;
 
-	String description;
-	
-	String path;
-	
-	Boolean visibility;
-	
-	Boolean archive;
-	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	User user;
-	
-	LocalDateTime createDate;
+    @Column(nullable = false, length = 50)
+    String name;
+
+    String description;
+
+    String path;
+
+    Boolean visibility;
+
+    Boolean archive;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    User user;
+
+    LocalDateTime createDate;
 
 	@Lob
 	@Convert(converter = DirectoryNodeConverter.class)
