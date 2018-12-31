@@ -37,7 +37,7 @@ html {
             display: flex;
             flex-direction: column;
             background-color: $primary-color;
-            overflow-y: scroll;
+            overflow-y: auto;
           }
         }
       }
@@ -101,7 +101,7 @@ html {
           color: white;
         }
         .mat-form-field-appearance-legacy .mat-form-field-underline {
-          background-color: rgba(255,255,255, .42);
+          background-color: rgba(255, 255, 255, .42);
         }
         .mat-raised-button[disabled][disabled] {
           color: white;
