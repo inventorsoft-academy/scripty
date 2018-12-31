@@ -25,7 +25,9 @@ export class ProjectsListComponent implements OnInit {
     updateList() {
         this.projectsService.getProjects()
             .subscribe((projects: Array<Project>) => {
-                this.activeProjects = projects;
+                this.activeProjects = projects.sort(project => {
+                    return project.archive ? 1 : -1;
+                });
             });
     }
 }

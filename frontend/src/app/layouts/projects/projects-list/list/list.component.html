@@ -25,11 +25,14 @@
                 <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="openEditDialog(project)">
+                <button *ngIf="!project.archive" mat-menu-item (click)="openEditDialog(project)">
                     Edit
                 </button>
-                <button mat-menu-item (click)="openArchiveDialog(project)">
+                <button *ngIf="!project.archive" mat-menu-item (click)="openArchiveDialog(project, true)">
                     Archive
+                </button>
+                <button *ngIf="project.archive" mat-menu-item (click)="openArchiveDialog(project, false)">
+                    Unarchive
                 </button>
                 <!--<button mat-menu-item (click)="openDeleteDialog(project.name)">
                     Delete
@@ -39,5 +42,5 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row [ngClass]="row.archive ? 'archived' : ''" *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>

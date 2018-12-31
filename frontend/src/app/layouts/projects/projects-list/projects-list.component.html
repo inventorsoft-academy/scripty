@@ -3,5 +3,7 @@
                          (changeList)="updateList()">
     </app-projects-search>
     <app-list [projects]="activeProjects"
-              [searchStr]="searchStr"></app-list>
+              [searchStr]="searchStr"
+              (changeList)="updateList()"
+    ></app-list>
 </div>
