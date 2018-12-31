@@ -36,6 +36,11 @@ const routes: Routes = [
         data: {title: 'Sign Up'}
     },
     {
+        path: 'users',
+        loadChildren: './layouts/forgot-pass/forgot-pass.module#ForgotPassModule',
+        data: {title: 'Reset password'}
+    },
+    {
         path: '**', redirectTo: '/projects'
     }
 ];
