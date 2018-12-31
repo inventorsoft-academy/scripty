@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {AuthService} from "../../../services/auth.service";
+import { Router } from '@angular/router';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
     selector: 'app-header',
@@ -12,8 +13,9 @@ export class HeaderComponent implements OnInit {
     user: string;
     @Output() sidebarIsOpen = new EventEmitter<boolean>();
 
-    constructor(private _auth: AuthService) {
-    }
+    constructor(private _auth: AuthService,
+                private  router: Router) {
+
 
     ngOnInit() {
         this._auth.isAuthorized = localStorage.getItem('access_token') !== null;
@@ -31,6 +33,7 @@ export class HeaderComponent implements OnInit {
         this._auth.isAuthorized = false;
         this.isAuthorized = false;
         localStorage.clear();
+        this.router.navigate(['/login']);
     }
 
     openNav() {

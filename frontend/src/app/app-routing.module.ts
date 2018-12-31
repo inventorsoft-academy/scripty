@@ -6,11 +6,14 @@ const routes: Routes = [
         path: 'projects',
         loadChildren: './layouts/projects/projects.module#ProjectsModule',
         data: {title: 'Projects'}
+        },
+    {
+        path: 'admin',
+        loadChildren: './layouts/admin-page/admin-page.module#AdminPageModule'
     },
     {
         path: '',
-        redirectTo: '/projects',
-        pathMatch: 'full'
+        redirectTo: '/projects', pathMatch: 'full'
     },
     {
         path: 'admin',

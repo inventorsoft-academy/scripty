@@ -1,4 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -17,7 +18,6 @@ import xml from 'highlight.js/lib/languages/xml';
 import scss from 'highlight.js/lib/languages/scss';
 import typescript from 'highlight.js/lib/languages/typescript';
 import javascript from 'highlight.js/lib/languages/javascript';
-import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AuthInterceptor} from './services/auth.interceptor';
 
@@ -32,7 +32,7 @@ export function HLLanguages() {
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
     ],
     imports: [
         BrowserModule,
@@ -45,7 +45,7 @@ export function HLLanguages() {
         ReactiveFormsModule,
         HighlightModule.forRoot({
             languages: HLLanguages
-        }),
+        })
     ],
     providers: [
         TitleService,
