@@ -6,7 +6,7 @@ import {Injectable} from '@angular/core';
 import {TokenService} from './token.service';
 import {RefreshService} from './refresh.service';
 import {Router} from '@angular/router';
-import {error} from "util";
+import {ToastService} from './toast.service';
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +15,8 @@ export class AuthInterceptor implements HttpInterceptor {
     constructor(private _auth: AuthService,
                 private _token: TokenService,
                 private _refresh: RefreshService,
-                private _router: Router) {
+                private _router: Router,
+                private _toast: ToastService) {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -38,9 +39,10 @@ export class AuthInterceptor implements HttpInterceptor {
                 }));
             }));
         } else if (!this._token.isRefreshActive()) {
-            console.log('REFRESH DIE!');
             this._auth.logOut();
+            this._toast.showError('Refresh Token Die! You need re-login');
             this._router.navigate(['/login']);
+
             return next.handle(request).pipe(
                 catchError(err => {
                     return throwError(err);

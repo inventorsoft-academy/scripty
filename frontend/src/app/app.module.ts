@@ -20,6 +20,8 @@ import javascript from 'highlight.js/lib/languages/javascript';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AuthInterceptor} from './services/auth.interceptor';
+import { ToastComponent } from './layouts/toast/toast.component';
+import {ToastrModule} from 'ngx-toastr';
 
 export function HLLanguages() {
     return [
@@ -32,7 +34,8 @@ export function HLLanguages() {
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        ToastComponent
     ],
     imports: [
         BrowserModule,
@@ -46,6 +49,11 @@ export function HLLanguages() {
         HighlightModule.forRoot({
             languages: HLLanguages
         }),
+        ToastrModule.forRoot({
+            timeOut: 2500,
+            maxOpened: 3,
+            preventDuplicates: true,
+        }) // ToastrModule added
     ],
     providers: [
         TitleService,

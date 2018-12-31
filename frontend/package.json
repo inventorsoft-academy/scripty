@@ -28,10 +28,11 @@
     "hammerjs": "^2.0.8",
     "highlight.js": "^9.13.1",
     "jwt-decode": "latest",
+    "material-icons": "^0.2.3",
     "ng2-google-charts": "^3.5.0",
     "ngx-highlightjs": "^3.0.0",
+    "ngx-toastr": "^9.1.1",
     "roboto-fontface": "^0.10.0",
-    "material-icons": "^0.2.3",
     "rxjs": "~6.3.3",
     "zone.js": "~0.8.26"
   },
