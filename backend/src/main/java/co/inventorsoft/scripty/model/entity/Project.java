@@ -44,5 +44,4 @@ public class Project {
     @Lob
     @Convert(converter = DirectoryNodeConverter.class)
     DirectoryNode filesMetadata;
-
 }
