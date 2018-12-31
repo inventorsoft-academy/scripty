@@ -10,7 +10,7 @@ import {
     NgForm,
     Validators
 } from '@angular/forms';
-import {ToastService} from "../../services/toast.service";
+import {ToastService} from '../../services/toast.service';
 
 /** Error when the parent is invalid */
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
