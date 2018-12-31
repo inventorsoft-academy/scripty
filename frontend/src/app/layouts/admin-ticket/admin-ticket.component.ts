@@ -28,6 +28,7 @@ export class AdminTicketComponent {
         ).subscribe(
             () => {
                 console.log('Message sent!\nThank you for making us better!');
+                this.router.navigateByUrl('/');
             },
             (error) => {
                 console.log(error);
