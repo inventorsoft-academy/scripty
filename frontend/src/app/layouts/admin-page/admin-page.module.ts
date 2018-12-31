@@ -7,6 +7,9 @@ import {AdminHeaderComponent} from './header/header.component';
 import {AdminSidebarComponent} from './sidebar/sidebar.component';
 import {AdminContentComponent} from './content/content.component';
 import {AdminFooterComponent} from './footer/footer.component';
+import {UserListComponent} from './content/user-list/user-list.component';
+import {MaterialModule} from '../../material-module';
+import { UserSearchComponent } from './content/user-list/user-search/user-search.component';
 
 @NgModule({
     declarations: [
@@ -14,11 +17,14 @@ import {AdminFooterComponent} from './footer/footer.component';
         AdminHeaderComponent,
         AdminSidebarComponent,
         AdminContentComponent,
-        AdminFooterComponent
+        AdminFooterComponent,
+        UserListComponent,
+        UserSearchComponent
     ],
     imports: [
         CommonModule,
         AdminRoutingModule,
+        MaterialModule
     ]
 })
 export class AdminPageModule {
