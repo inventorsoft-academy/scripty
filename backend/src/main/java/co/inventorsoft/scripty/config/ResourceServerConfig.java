@@ -39,7 +39,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 			.antMatchers("/mock-requests", "/mock-requests/*").permitAll()
 			.antMatchers("/users/{\\d+}/picture").permitAll()
 			.antMatchers("/users/password").hasRole("USER")
-				.antMatchers(HttpMethod.GET, "/projects").permitAll()
 
 			.anyRequest().authenticated();
 	}
