@@ -49,24 +49,5 @@ export class AuthInterceptor implements HttpInterceptor {
                 })
             );
         }
-
-        // return next.handle(request).pipe(
-        //     catchError(err => {
-        //         console.log('Error status code: ' + err.status);
-        //         if (err.status === 401) {
-        //             return this.auth.refresh().pipe(mergeMap(() => {
-        //                 return next.handle(req.clone({
-        //                     headers: req.headers.set(
-        //                         'Authorization',
-        //                         'Bearer ' + localStorage.getItem('access_token')
-        //                     )
-        //                 }));
-        //             }));
-        //         } else {
-        //             return throwError(err);
-        //         }
-        //         // return throwError(err);
-        //     })
-        // );
     }
 }
