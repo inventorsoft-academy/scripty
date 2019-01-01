@@ -1,8 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Project} from '../models/Project';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Project} from '../../../../models/Project';
 import {ProjectEditDialogComponent} from '../project-edit-dialog/project-edit-dialog.component';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
+import {ProjectsService} from '../projects.service';
 
 @Component({
     selector: 'app-list',
@@ -13,10 +14,13 @@ export class ListComponent implements OnInit {
     @Input() projects: Project[];
     @Input() searchStr: string;
     confirmDialogRef: MatDialogRef<ConfirmDialogComponent>;
+    editDialogRef: MatDialogRef<ProjectEditDialogComponent>;
+    @Output() changeList = new EventEmitter();
     displayedColumns: string[] = ['name', 'description', 'author', 'edit'];
     userName: string;
 
-    constructor(private dialog: MatDialog) {
+    constructor(private dialog: MatDialog,
+                private projectsService: ProjectsService) {
     }
 
     ngOnInit() {
@@ -25,18 +29,37 @@ export class ListComponent implements OnInit {
     }
 
     openEditDialog(project) {
-        this.dialog.open(ProjectEditDialogComponent, {
+        this.editDialogRef = this.dialog.open(ProjectEditDialogComponent, {
             data: project
         });
+        this.editDialogRef.afterClosed()
+            .subscribe(
+                result => {
+                    if (result) {
+                        this.changeList.emit();
+                    }
+                }
+            );
     }
 
-    openArchiveDialog(name: string) {
+    openArchiveDialog(project: Project, value: boolean) {
         this.confirmDialogRef = this.dialog.open(ConfirmDialogComponent, {});
-        this.confirmDialogRef.componentInstance.confirmMessage = `Do you want to archive '${name}'?`;
+        this.confirmDialogRef.componentInstance.confirmMessage = value ?
+            `Do you want to archive '${project.name}'?` :
+            `Do you want to unarchive '${project.name}'?`;
         this.confirmDialogRef.afterClosed()
             .subscribe(result => {
                 if (result) {
-                    // archive project
+                    this.projectsService.archiveProject(project.id, value)
+                        .subscribe(
+                            (response) => {
+                                console.log(response);
+                                this.changeList.emit();
+                            },
+                            (error) => {
+                                console.log(error);
+                            }
+                        );
                 }
                 this.confirmDialogRef = null;
             });
