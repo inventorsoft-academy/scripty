@@ -6,11 +6,19 @@ const routes: Routes = [
         path: 'projects',
         loadChildren: './layouts/projects/projects.module#ProjectsModule',
         data: {title: 'Projects'}
+        },
+    {
+        path: 'admin',
+        loadChildren: './layouts/admin-page/admin-page.module#AdminPageModule'
+    },
+    {
+        path: 'report',
+        loadChildren: './layouts/admin-ticket/admin-ticket.module#AdminTicketModule',
+        data: {title: 'Report a bug'}
     },
     {
         path: '',
-        redirectTo: '/projects',
-        pathMatch: 'full'
+        redirectTo: '/projects', pathMatch: 'full'
     },
     {
         path: 'admin',
@@ -31,6 +39,11 @@ const routes: Routes = [
         path: 'signup',
         loadChildren: './layouts/register/registration.module#RegistrationModule', pathMatch: 'full',
         data: {title: 'Sign Up'}
+    },
+    {
+        path: 'users',
+        loadChildren: './layouts/forgot-pass/forgot-pass.module#ForgotPassModule',
+        data: {title: 'Reset password'}
     },
     {
         path: '**', redirectTo: '/projects'

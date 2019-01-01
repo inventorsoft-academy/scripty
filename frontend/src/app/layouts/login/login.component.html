@@ -31,9 +31,8 @@
                         [disabled]="!loginForm.valid"
                 >Login</button>
             </mat-card-actions>
-            <mat-card-content>
-                <mat-label>You don't have an account? <a routerLink="/signup"><u>Sign up</u></a> now!</mat-label>
-            </mat-card-content>
+            <a class="reg-link" routerLink="/signup">Register new account!</a>
+            <a class="reg-link" routerLink="/users/sendResetLink">Forgot password?</a>
         </mat-card>
     </div>
 </div>

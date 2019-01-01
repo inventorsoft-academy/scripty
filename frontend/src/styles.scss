@@ -2,7 +2,6 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 @import "reset-src";
 @import "variables";
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import '~highlight.js/styles/atelier-lakeside-dark.css';
 
 html {
@@ -38,13 +37,14 @@ html {
             display: flex;
             flex-direction: column;
             background-color: $primary-color;
-            overflow-y: scroll;
+            overflow-y: auto;
           }
         }
       }
     }
 
     a {
+      color: #fff;
       text-decoration: none;
       font-family: 'Roboto', sans-serif;
       font-size: 16px;
@@ -86,26 +86,35 @@ html {
         .mat-card-header .mat-card-title {
           color: white;
         }
+        .mat-card-header-text {
+          margin: 0 auto;
+        }
         input.mat-input-element {
           color: white;
           &::placeholder {
             color: white;
           }
         }
+        .mat-form-field {
+          width: 100%;
+        }
         .mat-form-field-label {
           color: white;
         }
-        .mat-form-field-ripple {
-          //background-color: white;
-        }
         .mat-form-field-appearance-legacy .mat-form-field-underline {
-          background-color: rgba(255,255,255, .42);
+          background-color: rgba(255, 255, 255, .42);
         }
         .mat-raised-button[disabled][disabled] {
           color: white;
           background-color: #505050;
         }
       }
+    }
+    .reg-link {
+      text-align: center;
+      margin: 0 auto;
+      display: block;
+      color: white;
     }
     //login-registration submit button
     .submit-from-btn {
@@ -140,7 +149,7 @@ html {
   }
 }
 
-.btn-cancel{
+.btn-cancel {
   background-color: #cccccc;
   color: $primary-color;
 }
@@ -158,7 +167,6 @@ html {
     display: flex;
     align-items: center;
     &__input {
-      width: 220px;
       color: #fff;
     }
   }
@@ -170,4 +178,3 @@ html {
     color: #fff;
   }
 }
-

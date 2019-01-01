@@ -13,6 +13,7 @@ import {HighlightModule} from 'ngx-highlightjs';
 
 import {HLLanguages} from '../../app.module';
 import {ProjectsListModule} from './projects-list/projects-list.module';
+import {DirectivesModule} from '../../directives/directives.module';
 
 @NgModule({
     imports: [
@@ -20,6 +21,7 @@ import {ProjectsListModule} from './projects-list/projects-list.module';
         ProjectsRoutingModule,
         FormsModule,
         ProjectsListModule,
+        DirectivesModule,
         HighlightModule.forRoot({
             languages: HLLanguages
         })

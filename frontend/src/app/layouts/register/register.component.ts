@@ -38,10 +38,6 @@ export class RegisterComponent {
         private _toast: ToastService
     ) {
         this.initForm();
-        // redirect to home if already logged in
-        // if (this._auth.currentUserValue) {
-        //     this.router.navigate(['/']);
-        // }
     }
 
     initForm() {
