@@ -54,6 +54,7 @@ export class ListComponent implements OnInit {
                         .subscribe(
                             (response) => {
                                 console.log(response);
+                                this.changeList.emit();
                             },
                             (error) => {
                                 console.log(error);
