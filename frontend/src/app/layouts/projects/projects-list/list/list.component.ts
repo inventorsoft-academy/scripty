@@ -25,7 +25,7 @@ export class ListComponent implements OnInit {
 
     ngOnInit() {
         this.userName = localStorage.getItem('user');
-        this.userName = 'user@test.co';
+        // this.userName = 'user@test.co';
     }
 
     openEditDialog(project) {
