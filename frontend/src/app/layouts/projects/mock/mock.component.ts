@@ -139,7 +139,7 @@ export class MockComponent implements OnInit {
         });
         this.mockService.setMock(<Mock>{...this.mockForm.value, headers}).subscribe(
             data => {
-                this.url = data['response'].replace('8080', '8090');
+                this.url = data['response'];
             },
             err => {
                 return err;
