@@ -2,10 +2,11 @@ package co.inventorsoft.scripty.model.dto;
 
 import java.io.Serializable;
 
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
- * @author lzabidovsky 
+ * @author lzabidovsky
  */
 @NoArgsConstructor
 public class FileNode extends Node implements Serializable {
