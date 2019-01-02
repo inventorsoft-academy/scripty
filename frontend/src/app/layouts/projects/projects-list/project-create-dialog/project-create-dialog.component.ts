@@ -3,6 +3,7 @@ import {MatDialogRef} from '@angular/material';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProjectsService} from '../projects.service';
 import {Router} from '@angular/router';
+import {ToastService} from '../../../../services/toast.service';
 
 @Component({
     selector: 'app-project-create-dialog',
@@ -15,6 +16,7 @@ export class ProjectCreateDialogComponent {
 
     constructor(public dialogRef: MatDialogRef<ProjectCreateDialogComponent>,
                 private projectService: ProjectsService,
+                private toastService: ToastService,
                 private router: Router) {
         this.form = new FormGroup({
             name: new FormControl('Project Name', [Validators.required,
@@ -32,17 +34,16 @@ export class ProjectCreateDialogComponent {
     submit() {
         this.projectService.createProject(this.form.value)
             .subscribe(
-                (data) => {
-                    console.log(data);
+                () => {
                     this.dialogRef.close(true);
+                    this.toastService.showSuccess('Project created');
                 },
                 error => {
-                    console.log(error);
                     if (error.status === 401) {
                         this.router.navigate(['login']);
                     }
                     if (error.status === 409) {
-                        console.log(`A project with name '${this.form.get('name').value}' already exists.`);
+                        this.toastService.showError(`A project with name '${this.form.get('name').value}' already exists.`);
                     }
                     this.dialogRef.close(false);
                 }

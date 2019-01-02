@@ -30,7 +30,7 @@ export class ProjectsListComponent implements OnInit {
                         return -1;
                     }
 
-                    if (a.user.email  === localStorage.getItem('user') && b.user.email !== localStorage.getItem('user')) {
+                    if (!a.archive && b.user.email !== localStorage.getItem('user')) {
                         return -1;
                     }
 
