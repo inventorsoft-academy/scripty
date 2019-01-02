@@ -1,3 +1,6 @@
 export const environment = {
-  production: true
+    production: true,
+    apiUrl: 'localhost:8080/',
+    clientId: 'jwtclientid',
+    clientSecret: 'jwtClientSecret'
 };

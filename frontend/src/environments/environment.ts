@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-    apiUrl: 'http://192.168.99.100:8090/',
+    apiUrl: '/localhost:8090',
     clientId: 'jwtclientid',
     clientSecret: 'jwtClientSecret'
 };

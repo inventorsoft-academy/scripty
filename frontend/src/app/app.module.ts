@@ -50,7 +50,7 @@ export function HLLanguages() {
             languages: HLLanguages
         }),
         ToastrModule.forRoot({
-            timeOut: 2500,
+            timeOut: 3500,
             maxOpened: 3,
             positionClass: 'toast-bottom-right',
             preventDuplicates: true,

@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AdminTicketService} from './admin-ticket.service';
+import {ToastService} from '../../services/toast.service';
 
 @Component({
     selector: 'app-admin-ticket',
@@ -12,7 +13,8 @@ export class AdminTicketComponent {
     form: FormGroup;
 
     constructor(private router: Router,
-                private adminTicketService: AdminTicketService) {
+                private adminTicketService: AdminTicketService,
+                private toastServise: ToastService) {
         this.form = new FormGroup({
             title: new FormControl(null, [Validators.required,
                 Validators.maxLength(50)]),
@@ -27,11 +29,13 @@ export class AdminTicketComponent {
             this.form.get('description').value
         ).subscribe(
             () => {
-                console.log('Message sent!\nThank you for making us better!');
+                this.toastServise.showSuccess('Message sent!\nThank you for making us better!');
                 this.router.navigateByUrl('/');
             },
             (error) => {
-                console.log(error);
+                if (error.status !== 401) {
+                    console.log(error);
+                }
             }
         );
     }

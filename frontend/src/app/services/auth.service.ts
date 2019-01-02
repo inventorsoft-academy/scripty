@@ -1,14 +1,13 @@
 import {Injectable} from '@angular/core';
-import {HttpBackend, HttpClient, HttpHeaders, HttpParams, HttpXhrBackend, XhrFactory} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
-    private _registerUrl = 'api/registration';
-    private _authUrl = 'api/oauth/token';
-    private http: HttpClient;
+    private _registerUrl = '/public/api/registration';
+    private _authUrl = '/public/api/oauth/token';
     isAuthorized: boolean;
 
 
@@ -21,9 +20,7 @@ export class AuthService {
         return token != null;
     }
 
-    constructor(private httpBackend: HttpBackend) {
-        this.http = new HttpClient(httpBackend);
-    }
+    constructor(private http: HttpClient) { }
 
     registerUser(user) {
         return this.http.post<any>(this._registerUrl, user);
