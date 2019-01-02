@@ -12,6 +12,6 @@ export class MockService {
     }
 
     setMock(data: Mock) {
-        return this.http.post('/mock-requests', data);
+        return this.http.post('/api/mock-requests', data);
     }
 }
