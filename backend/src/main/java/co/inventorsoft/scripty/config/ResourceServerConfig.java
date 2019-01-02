@@ -34,11 +34,13 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 			.requestMatchers().and().authorizeRequests()
 			.antMatchers("/v2/api-docs", "/swagger*/**", "/", "/webjars/**").permitAll()
 			.antMatchers(HttpMethod.GET, "/projects/*/**").permitAll()
-			.antMatchers("/registration*","/user/sendPasswordReset","/user/resetPassword", "/user/resendRegistrationToken").permitAll()
+			.antMatchers("/registration*","/user/sendPasswordReset","/users/*/forgot-password/*", "/user/resendRegistrationToken").permitAll()
+			.antMatchers("/users/*/projects/*").permitAll()
 			.antMatchers("/test/anybody", "/test").permitAll()
 			.antMatchers("/mock-requests", "/mock-requests/*").permitAll()
 			.antMatchers("/users/{\\d+}/picture").permitAll()
 			.antMatchers("/users/password").hasRole("USER")
+				.antMatchers(HttpMethod.GET, "/projects").permitAll()
 
 			.anyRequest().authenticated();
 	}

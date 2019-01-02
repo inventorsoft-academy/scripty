@@ -10,6 +10,8 @@ import co.inventorsoft.scripty.repository.UserRepository;
 import co.inventorsoft.scripty.repository.VerificationTokenRepository;
 import com.google.common.io.Files;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -136,9 +138,9 @@ public class UserServiceImpl implements UserService {
 
     private VerificationToken generateNewVerificationToken(final User user) {
         return tokenRepository.findByUser(user)
-               .map(token -> token.updateToken(UUID.randomUUID().toString()))
-               .map(tokenRepository::save)
-               .orElseThrow(()-> new ApplicationException("Token not found", HttpStatus.OK));
+                .map(token -> token.updateToken(UUID.randomUUID().toString()))
+                .map(tokenRepository::save)
+                .orElseThrow(()-> new ApplicationException("Token not found", HttpStatus.OK));
     }
 
     private void createResetPasswordToken(final User user, final String passwordToken){
@@ -177,15 +179,29 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public void updateForgottenPassword(final String token, final ResetPasswordDto resetPasswordDto){
-        final User user = findByEmail(resetPasswordDto.getEmail());
+    public void updateForgottenPassword(final String email, final String token, final ResetPasswordDto resetPasswordDto){
+        validateResetPasswordToken(token);
+        final PasswordToken passwordToken = passwordTokenRepository.findByPasswordToken(token).get();
+        final User user = passwordToken.getUser();
         if(!user.isEnabled()){
             throw new ApplicationException("Please confirm your registration first", HttpStatus.BAD_REQUEST);
         }
-        validateResetPasswordToken(token);
-        final PasswordToken passwordToken = passwordTokenRepository.findByPasswordToken(token).get();
+        if(!user.getEmail().equals(email)){
+            throw new ApplicationException("Invalid email: " + email, HttpStatus.BAD_REQUEST);
+        }
         user.setPassword(passwordEncoder.encode(resetPasswordDto.getValidPassword()));
         userRepository.save(user);
         passwordTokenRepository.delete(passwordToken);
+    }
+
+    @Override
+    public Page<User> getAllUsers(Pageable pageable) {
+        return userRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<User> findByEmailStartsWith(String email, Pageable pageable) {
+
+        return userRepository.findByEmailStartsWith(email, pageable);
     }
 }

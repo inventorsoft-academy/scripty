@@ -10,20 +10,20 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 /**
- * @author lzabidovsky 
+ * @author lzabidovsky
  */
 @NoArgsConstructor
 @Setter
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class DirectoryNode extends Node implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	LinkedList<Node> children;
+    LinkedList<Node> children;
 
-	public DirectoryNode(String parent, String path, String name) {
-		super(parent, path, name, "directory");
-		children = new LinkedList<>();
-	}
+    public DirectoryNode(String parent, String path, String name) {
+        super(parent, path, name, "directory");
+        children = new LinkedList<>();
+    }
 
 }

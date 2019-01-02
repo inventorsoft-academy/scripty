@@ -39,5 +39,4 @@ public class ProjectGithubService {
 			throw new ApplicationException("Error GitHub URL " + githubURL, HttpStatus.BAD_REQUEST);
 		}
 	}
-
 }

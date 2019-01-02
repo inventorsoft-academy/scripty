@@ -2,6 +2,8 @@ package co.inventorsoft.scripty.service;
 
 import co.inventorsoft.scripty.model.dto.*;
 import co.inventorsoft.scripty.model.entity.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface UserService {
@@ -13,7 +15,9 @@ public interface UserService {
     void sendResetPasswordToken(EmailDto emailDto);
     void setPicture(String email, MultipartFile picture);
     PictureDto getPicture(Long id);
-    void updateForgottenPassword(String token, ResetPasswordDto resetPasswordDto);
+    void updateForgottenPassword(String email, String token, ResetPasswordDto resetPasswordDto);
     void updateProfile(String email, UpdateUserDto updateDto);
+    Page<User> getAllUsers(Pageable pageable);
+    Page<User>findByEmailStartsWith(String email, Pageable pageable);
 
 }
