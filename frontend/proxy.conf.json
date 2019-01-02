@@ -1,13 +1,11 @@
 {
-  "/localhost:8090/*": {
+  "/api/*": {
     "target": {
       "host": "localhost",
       "protocol": "http:",
       "port": 8090
     },
-    "pathRewrite": {
-      "^/localhost:8090/api": "localhost:8090"
-    },
+    "pathRewrite": {"^/api" : ""},
     "changeOrigin": true,
     "secure": false,
     "logLevel": "debug"

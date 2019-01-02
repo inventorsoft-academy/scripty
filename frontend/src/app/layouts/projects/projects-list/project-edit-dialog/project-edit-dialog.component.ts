@@ -12,11 +12,13 @@ import {ProjectsService} from '../projects.service';
 export class ProjectEditDialogComponent {
     form: FormGroup;
     projectTypes = ['JavaScript', 'jQuery', 'Vue', 'GitHub'];
+    project: Project;
 
     constructor(
         public dialogRef: MatDialogRef<ProjectEditDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) private project: Project,
+        @Inject(MAT_DIALOG_DATA) project: Project,
         private projectsService: ProjectsService) {
+        this.project = project;
         this.form = new FormGroup({
             description: new FormControl(this.project.description.includes('github.com') ? 'GitHub' : this.project.description,
                 [Validators.required]),
