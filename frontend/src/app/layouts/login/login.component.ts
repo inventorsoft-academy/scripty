@@ -5,9 +5,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastService} from '../../services/toast.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
@@ -20,13 +20,14 @@ export class LoginComponent implements OnInit {
       private _auth: AuthService,
       private _toast: ToastService) { }
 
-  ngOnInit() {
-      this.loginForm = this._formBuilder.group({
-          username: ['', [Validators.required, Validators.email]],
-          password: ['', Validators.required],
-          grant_type: 'password'
-      });
-  }
+    ngOnInit() {
+        this.loginForm = this._formBuilder.group({
+            username: ['', [Validators.required, Validators.email]],
+            password: ['', Validators.required],
+            grant_type: 'password'
+        });
+    }
+
     emailValidator() {
         const _field = this.loginForm.get('username');
         if (_field.hasError('required') && _field.touched) {
@@ -38,15 +39,16 @@ export class LoginComponent implements OnInit {
         }
         return false;
     }
+
     authUser() {
         this._auth.authUser(this.loginForm.value)
             .subscribe(
                 res => {
-                  localStorage.setItem('access_token', res.access_token);
-                  localStorage.setItem('refresh_token', res.refresh_token);
-                  localStorage.setItem('user', this.loginForm.value.username);
-                  this.router.navigate(['/projects']);
-                  console.log(localStorage.getItem('user'));
+                    localStorage.setItem('access_token', res.access_token);
+                    localStorage.setItem('refresh_token', res.refresh_token);
+                    localStorage.setItem('user', this.loginForm.value.username);
+                    this.router.navigate(['/projects']);
+                    console.log(localStorage.getItem('user'));
                 },
                 err => {
                     this._toast.showError(err.error.error_description);

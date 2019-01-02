@@ -8,4 +8,7 @@ table {
     color: #fff;
     border-color: #fff;
   }
+  .archived {
+    background-color: lighten($primary-color, 20);
+  }
 }

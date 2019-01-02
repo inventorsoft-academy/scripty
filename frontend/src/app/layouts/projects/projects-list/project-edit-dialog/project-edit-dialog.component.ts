@@ -1,6 +1,6 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, Output} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {Project} from '../models/Project';
+import {Project} from '../../../../models/Project';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProjectsService} from '../projects.service';
 
@@ -34,17 +34,14 @@ export class ProjectEditDialogComponent {
             this.form.value.description,
             this.form.value.visibility).subscribe(
             (response) => {
-                console.log(response);
-                console.log(`\'${this.project.name}\' project updated.`);
-                this.project.description = this.form.value.description;
-                this.project.visibility = this.form.value.visibility;
+                console.log(response['response']);
+                this.dialogRef.close(true);
             },
             (error) => {
                 console.log(error);
-                // show error
+                this.dialogRef.close(false);
             }
         );
-        this.dialogRef.close();
     }
 
 }

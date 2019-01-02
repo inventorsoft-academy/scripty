@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialogRef} from '@angular/material';
 import {ProjectsService} from '../projects.service';
@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
     templateUrl: './git-import-dialog.component.html',
     styleUrls: ['./git-import-dialog.component.scss']
 })
-export class GitImportDialogComponent implements OnInit {
+export class GitImportDialogComponent {
     form: FormGroup;
 
     constructor(public dialogRef: MatDialogRef<GitImportDialogComponent>,
@@ -19,9 +19,6 @@ export class GitImportDialogComponent implements OnInit {
             url: new FormControl(null, [Validators.required,
                 Validators.pattern('^https:\\/\\/github.com\\/.+?\\/(.+?).git$')])
         });
-    }
-
-    ngOnInit() {
     }
 
     submit() {

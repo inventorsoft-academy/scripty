@@ -5,8 +5,11 @@
             <label for="nameInput">Name:</label>
             <input class="form-row__input" id="nameInput" type="text" formControlName="name">
         </div>
-        <mat-error *ngIf="form.get('name').errors?.maxlength">
+        <mat-error *ngIf="form.get('name').hasError('maxlength')">
             Max name length is 50 symbols.
+        </mat-error>
+        <mat-error *ngIf="form.get('name').touched && form.get('name').hasError('required')">
+            Name is required.
         </mat-error>
         <div class="form-row">
             <label for="typeInput">Type:</label>

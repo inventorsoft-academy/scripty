@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Project} from './models/Project';
+import {HttpClient} from '@angular/common/http';
+import {Project} from '../../../models/Project';
 
 @Injectable({
     providedIn: 'root'
@@ -8,10 +8,6 @@ import {Project} from './models/Project';
 export class ProjectsService {
     getProjects() {
         return this.httpClient.get('/api/projects');
-    }
-
-    getMoreProjects() {
-        return this.httpClient.get('http://www.mocky.io/v2/5c1776df2f00005200b086fa');
     }
 
     createProject(project: Project) {
@@ -36,8 +32,8 @@ export class ProjectsService {
         return this.httpClient.delete('/api/url/' + projectId);
     }
 
-    archiveProject(projectId: number) {
-        // return observable
+    archiveProject(projectId: number, value: boolean) {
+        return this.httpClient.put(`/api/projects/${projectId}?archive=${value}`, null);
     }
 
     importFromGitHub(url: string) {
