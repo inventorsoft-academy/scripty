@@ -3,10 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
+    production: false,
     apiUrl: 'http://192.168.99.100:8090/',
     clientId: 'jwtclientid',
-    clientSecret: 'jwtClientSecret'
+    clientSecret: 'jwtClientSecret',
+    API_URL: '/api'
 };
 
 /*

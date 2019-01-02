@@ -2,16 +2,15 @@ import {BrowserModule} from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from './material-module';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import {RoleGuardService} from './services/role-guard.service';
 import {AuthGuardService} from './services/auth-guard.service';
 import {AdminPageModule} from './layouts/admin-page/admin-page.module';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {TitleService} from './title.service';
-import {AuthService} from './services/auth.service';
 import {HighlightModule} from 'ngx-highlightjs';
 
 import xml from 'highlight.js/lib/languages/xml';
@@ -22,6 +21,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AuthInterceptor} from './services/auth.interceptor';
 import { ToastComponent } from './layouts/toast/toast.component';
 import {ToastrModule} from 'ngx-toastr';
+import {AuthService} from './services/auth.service';
 
 export function HLLanguages() {
     return [
