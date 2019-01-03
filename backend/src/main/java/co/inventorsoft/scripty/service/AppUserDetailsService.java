@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 
 /**
- * @author lzabidovsky 
+ * @author lzabidovsky
  */
 @Component
 public class AppUserDetailsService implements UserDetailsService {

@@ -6,6 +6,7 @@ import co.inventorsoft.scripty.model.dto.ProjectGithub;
 import co.inventorsoft.scripty.model.entity.Project;
 import org.springframework.security.core.Authentication;
 import java.util.List;
+
 /**
  * @author lzabidovsky
  */
@@ -17,6 +18,4 @@ public interface ProjectService {
     long saveGithubProject(ProjectGithub project, String username);
     List<Project> getProjects(Authentication authentication);
     List<Project> getProjectsByUser(Long id);
-
-
 }

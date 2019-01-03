@@ -1,15 +1,13 @@
 package co.inventorsoft.scripty.controller;
 
-import java.util.Collection;
-import java.util.List;
-
 import javax.validation.Valid;
 
-
 import co.inventorsoft.scripty.model.entity.Project;
+import co.inventorsoft.scripty.service.ProjectFilesService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +29,9 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * @author lzabidovsky
@@ -44,6 +45,7 @@ public class ProjectController {
 
     ProjectService projectService;
     SecurityService securityService;
+    ProjectFilesService projectFilesService;
 
     @ApiOperation(value = "Endpoint to create new projects. The endpoint consumes fields: name(required), description(optional), visibility: public(true) or private(false).")
     @PostMapping(consumes = "application/json")
@@ -82,13 +84,22 @@ public class ProjectController {
         securityService.projectUserIsOwner(projectService.getProject(projectId), authentication);
         projectService.archiveProject(projectId, archive);
         return ResponseEntity.ok(new StringResponse("Project ID = " + projectId + " archive status was changed"));
-
     }
 
-	@ApiOperation(value = "Endpoint to get list of projects.")
-	@GetMapping(produces = "application/json")
-	public ResponseEntity<List<Project>> getProjects(Authentication authentication) {
-		return ResponseEntity.ok(projectService.getProjects(authentication));
-	}
+    @ApiOperation(value = "Endpoint to upload project's file. It consumes file and relative path of this file")
+    @PostMapping(value = "/{projectId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void uploadFile(Authentication authentication,
+                           @PathVariable Long projectId,
+                           @RequestParam(required = false) MultipartFile file,
+                           @RequestParam(defaultValue = "") String metadata){
+        securityService.projectUserIsOwner(projectService.getProject(projectId), authentication);
+        projectFilesService.uploadProjectFile(metadata, file, projectId);
+    }
 
+    @ApiOperation(value = "Endpoint to get list of projects.")
+    @GetMapping(produces = "application/json")
+    public ResponseEntity<List<Project>> getProjects(Authentication authentication) {
+        return ResponseEntity.ok(projectService.getProjects(authentication));
+    }
 }

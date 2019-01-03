@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(userDto.getValidPassword()));
         user.setEmail(userDto.getEmail());
         user.setEnabled(false);
-        user.setRole("User");
+        user.setRole("ROLE_USER");
         userRepository.save(user);
         final String token = UUID.randomUUID().toString();
         createVerificationTokenForUser(user, token);
