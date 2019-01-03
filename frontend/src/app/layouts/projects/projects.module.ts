@@ -1,8 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
-
-
 import {ProjectsRoutingModule} from './projects-routing.module';
 import {ProjectsComponent} from './projects.component';
 import {FooterComponent} from './footer/footer.component';
@@ -14,6 +12,7 @@ import {SafePipe} from './safe.pipe';
 import {HighlightModule} from 'ngx-highlightjs';
 
 import {HLLanguages} from '../../app.module';
+import {DirectivesModule} from '../../directives/directives.module';
 import {MockComponent} from './mock/mock.component';
 import {MaterialModule} from '../../material-module';
 
@@ -22,6 +21,7 @@ import {MaterialModule} from '../../material-module';
         CommonModule,
         ProjectsRoutingModule,
         FormsModule,
+        DirectivesModule,
         ReactiveFormsModule,
         MaterialModule,
         HighlightModule.forRoot({
