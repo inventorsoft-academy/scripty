@@ -7,12 +7,14 @@ import {FooterComponent} from './footer/footer.component';
 import {HeaderComponent} from './header/header.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
 import {ProjectComponent} from './project/project.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SafePipe} from './safe.pipe';
 import {HighlightModule} from 'ngx-highlightjs';
 
 import {HLLanguages} from '../../app.module';
 import {DirectivesModule} from '../../directives/directives.module';
+import {MockComponent} from './mock/mock.component';
+import {MaterialModule} from '../../material-module';
 
 @NgModule({
     imports: [
@@ -20,6 +22,8 @@ import {DirectivesModule} from '../../directives/directives.module';
         ProjectsRoutingModule,
         FormsModule,
         DirectivesModule,
+        ReactiveFormsModule,
+        MaterialModule,
         HighlightModule.forRoot({
             languages: HLLanguages
         })
@@ -30,6 +34,7 @@ import {DirectivesModule} from '../../directives/directives.module';
         HeaderComponent,
         SidebarComponent,
         ProjectComponent,
+        MockComponent,
         SafePipe
     ]
 })

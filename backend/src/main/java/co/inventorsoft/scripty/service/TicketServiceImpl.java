@@ -1,10 +1,13 @@
 package co.inventorsoft.scripty.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import co.inventorsoft.scripty.exception.ApplicationException;
 import co.inventorsoft.scripty.model.dto.TicketDto;
+import co.inventorsoft.scripty.model.dto.TicketToFront;
 import co.inventorsoft.scripty.model.entity.Ticket;
 import co.inventorsoft.scripty.model.entity.User;
 import co.inventorsoft.scripty.repository.TicketRepository;
@@ -36,6 +39,16 @@ public class TicketServiceImpl implements TicketService {
 
 	public Ticket getTicket(Long ticketId) {
 		return ticketRepository.findById(ticketId).orElseThrow(() -> new ApplicationException("Ticket with ID="+ticketId+" does not exist" , HttpStatus.NOT_FOUND));
+	}
+
+	public List<TicketToFront> getAll() {
+		return ticketRepository.findAllByOrderByCreateDateDesc();
+	}
+
+	public void archiveTicket(Long ticketId, boolean archive) {
+		Ticket ticket = getTicket(ticketId);
+		ticket.setArchive(archive);
+		ticketRepository.save(ticket);
 	}
 
 }
