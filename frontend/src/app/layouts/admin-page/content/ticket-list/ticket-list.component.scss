@@ -1,7 +1,3 @@
-.archived {
-  background: darken(#fff, 10);
-}
-
 .archive-btn {
   float: right;
 }
@@ -11,4 +7,10 @@
   display: block;
   width: 120px;
   font-weight: bold;
+}
+
+.mat-expansion-panel {
+  &.archived {
+    background: lighten(#494949, 20);
+  }
 }

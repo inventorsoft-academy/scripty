@@ -10,10 +10,10 @@ export class TicketListService {
     }
 
     getTickets() {
-        return this.httpClient.get('api/tickets');
+        return this.httpClient.get('/api/tickets');
     }
 
     archiveTickets(id: number, value = true) {
-        return this.httpClient.put(`api/tickets/${id}?archive=${value}`, {});
+        return this.httpClient.put(`/api/tickets/${id}?archive=${value}`, {});
     }
 }

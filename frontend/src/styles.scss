@@ -38,6 +38,8 @@ html {
             overflow-y: auto;
             overflow-x: hidden;
             background: $primary-color;
+          }
+          app-mock {
             color: white;
           }
         }
