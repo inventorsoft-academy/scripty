@@ -11,7 +11,6 @@ import {UserListComponent} from './content/user-list/user-list.component';
 import {MaterialModule} from '../../material-module';
 import { UserSearchComponent } from './content/user-list/user-search/user-search.component';
 import {TicketListComponent} from './content/ticket-list/ticket-list.component';
-import {MaterialModule} from '../../material-module';
 
 @NgModule({
     declarations: [

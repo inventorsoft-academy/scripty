@@ -40,8 +40,9 @@ html {
             overflow-y: auto;
             overflow-x: hidden;
             background: $primary-color;
-            color: white;
-
+          }
+          app-mock {
+            color: #fff;
           }
         }
       }
