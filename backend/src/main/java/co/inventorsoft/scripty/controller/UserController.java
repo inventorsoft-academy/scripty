@@ -24,9 +24,8 @@ import co.inventorsoft.scripty.service.UserService;
 public class UserController {
 
 	UserService userService;
-	
-	@RequestMapping("/users")
 
+	@RequestMapping("/users")
 	Page<User> getUsersByEmail(@RequestParam(required = false) String email, @RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size, @RequestParam Optional<String> sort ){
 		return userService.findByEmailStartsWith(email, PageRequest.of(page.orElse(0), size.orElse(3), Sort.by(sort.orElse("createDate"))));
 	}
