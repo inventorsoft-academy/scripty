@@ -6,7 +6,7 @@ import co.inventorsoft.scripty.model.dto.ProjectGithub;
 import co.inventorsoft.scripty.model.entity.Project;
 
 /**
- * @author lzabidovsky
+ * @author lzabidovsky 
  */
 public interface ProjectService {
 	long saveProject(ProjectDto project, String username);

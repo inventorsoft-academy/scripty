@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -50,6 +49,7 @@ public class ProjectFilesServiceImpl implements ProjectFilesService{
             createFileAndMetadata(project, metadata, file);
         }
     }
+
     public void deleteProjectFile(Long id, String filePath) {
         Project project = projectService.getProject(id);
         Path absolutePath = Paths.get(project.getPath() + directorySeparator + filePath);
@@ -60,7 +60,7 @@ public class ProjectFilesServiceImpl implements ProjectFilesService{
             try {
                 FileUtils.deleteDirectory(file);
             } catch (IOException e) {
-               throw new ApplicationException(e, HttpStatus.INTERNAL_SERVER_ERROR);
+                throw new ApplicationException(e, HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }else {
             try {
@@ -84,7 +84,7 @@ public class ProjectFilesServiceImpl implements ProjectFilesService{
 
     private void createFileAndMetadata(Project project, String metaPath, MultipartFile file){
         Path projectPath = Paths.get(project.getPath());
-        String fileMetaPath = metaPath + directorySeparator + file.getOriginalFilename();
+        String fileMetaPath = (metaPath.equals("") ? file.getOriginalFilename() : (metaPath + directorySeparator + file.getOriginalFilename()));
         Path absoluteFileMetaPath = Paths.get(projectPath.toString() + directorySeparator + fileMetaPath);
         if(!Files.exists(absoluteFileMetaPath)){
             Node fileNode = directoryToObject.metadataToNode(projectPath, fileMetaPath);
