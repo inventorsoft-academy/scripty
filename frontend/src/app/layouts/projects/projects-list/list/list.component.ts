@@ -13,9 +13,12 @@ import {ProjectsService} from '../projects.service';
 export class ListComponent implements OnInit {
     @Input() projects: Project[];
     @Input() searchStr: string;
+    @Input() filterOptions: object;
+
+    @Output() changeList = new EventEmitter();
+
     confirmDialogRef: MatDialogRef<ConfirmDialogComponent>;
     editDialogRef: MatDialogRef<ProjectEditDialogComponent>;
-    @Output() changeList = new EventEmitter();
     displayedColumns: string[] = ['name', 'description', 'author', 'edit'];
     userName: string;
 

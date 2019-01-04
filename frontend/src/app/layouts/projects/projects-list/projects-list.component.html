@@ -1,9 +1,11 @@
 <div class="projects">
     <app-projects-search (search)="onSearch($event)"
+                         (filterOptionsChanged)="onFilterOptionsChange($event)"
                          (changeList)="updateList()">
     </app-projects-search>
     <app-list [projects]="activeProjects"
               [searchStr]="searchStr"
+              [filterOptions]="filterOptions"
               (changeList)="updateList()"
     ></app-list>
 </div>

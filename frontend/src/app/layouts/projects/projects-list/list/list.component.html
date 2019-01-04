@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="projects | filter:searchStr">
+<table mat-table [dataSource]="projects | filter:searchStr:filterOptions">
 
     <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Name</th>

@@ -35,12 +35,12 @@ export class HttpTokenInterceptor implements HttpInterceptor {
             // todo for developer
             /* tslint:disable */
             tokenData = {
-                "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiand0cmVzb3VyY2VpZCJdLCJ1c2VyX25hbWUiOiJ1c2VyQHRlc3QuY28iLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNTQ2NjAzODU5LCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiYzc2N2ZmMWQtZGU3Zi00MjY1LTk1YzEtOGY1YjQwZTljZmVjIiwiY2xpZW50X2lkIjoiand0Y2xpZW50aWQifQ.luJBfzFD97xNuYO2ZxA0pG6tevIqOdlMNT5ytE8lZk0",
+                "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiand0cmVzb3VyY2VpZCJdLCJ1c2VyX25hbWUiOiJ1c2VyQHRlc3QuY28iLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNTQ2NjI4OTU0LCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiN2FlMDlhY2QtZmY0Yy00N2FlLWExMDktM2Y5OWZiYjE3NDA3IiwiY2xpZW50X2lkIjoiand0Y2xpZW50aWQifQ.qFOgNhZXKOTmzAGIdXnAogFiKXwDJuhaVlgX_5zZ6nA",
                 "token_type": "bearer",
-                "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiand0cmVzb3VyY2VpZCJdLCJ1c2VyX25hbWUiOiJ1c2VyQHRlc3QuY28iLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiYXRpIjoiYzc2N2ZmMWQtZGU3Zi00MjY1LTk1YzEtOGY1YjQwZTljZmVjIiwiZXhwIjoxNTQ2NjE3MzU5LCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiMTlhNTk0MzgtNDc4My00ZmZlLTg1NWMtODIwNzA5MThhZDFkIiwiY2xpZW50X2lkIjoiand0Y2xpZW50aWQifQ.FOHeko159_twBRbBbWac2hEIDBX6FUJAwmogy9y2CC4",
+                "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiand0cmVzb3VyY2VpZCJdLCJ1c2VyX25hbWUiOiJ1c2VyQHRlc3QuY28iLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiYXRpIjoiN2FlMDlhY2QtZmY0Yy00N2FlLWExMDktM2Y5OWZiYjE3NDA3IiwiZXhwIjoxNTQ2NjQyNDU0LCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiNGU5YTNmNDAtOWU0MS00NmZkLWE2ZTctYTEwOTQyNjM5ZTM0IiwiY2xpZW50X2lkIjoiand0Y2xpZW50aWQifQ.Y2Skzevj48FrnBYTpL8EVLZMBvsCM2qZckqOudxbPCM",
                 "expires_in": 899,
                 "scope": "read write",
-                "jti": "c767ff1d-de7f-4265-95c1-8f5b40e9cfec"
+                "jti": "7ae09acd-ff4c-47ae-a109-3f99fbb17407"
             };
             TokenService.setTokenData(
                 tokenData
