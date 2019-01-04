@@ -20,7 +20,7 @@ import co.inventorsoft.scripty.repository.UserRepository;
 import co.inventorsoft.scripty.service.UserService;
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api")
+@RequestMapping
 public class UserController {
 
 	UserService userService;
