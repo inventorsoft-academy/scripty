@@ -66,17 +66,25 @@ export class AdminTicketComponent {
     }
 
     onSubmit() {
-        this._adminTicketService.sendReport(
-            this.form.get('title').value,
-            this.form.get('description').value
-        ).subscribe(
-            () => {
-                console.log('Message sent!\nThank you for making us better!');
-                this._router.navigateByUrl('/');
-            },
-            (error) => {
-                console.log(error);
-            }
-        );
+        const formData = new FormData();
+
+        formData.append('picture', this.form.get('file').value);
+        formData.append('ticket', new Blob([JSON.stringify({
+            'title': this.form.get('title').value,
+            'description': this.form.get('description').value
+        })], {
+            type: 'application/json'
+        }));
+
+        this._adminTicketService.sendReport(formData)
+            .subscribe(
+                () => {
+                    console.log('Message sent!\nThank you for making us better!');
+                    this._router.navigateByUrl('/');
+                },
+                (err) => {
+                    console.log(err);
+                }
+            );
     }
 }
