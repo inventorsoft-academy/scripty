@@ -14,41 +14,44 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import co.inventorsoft.scripty.model.dto.DirectoryNode;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 /**
- * @author lzabidovsky 
+ * @author lzabidovsky
  */
 @Entity
 @Table(name = "projects")
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Project {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(unique = true, nullable = false)
-	Long id;
-	
-	@Column(nullable = false, length = 50)
-	String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
+    Long id;
 
-	String description;
-	
-	String path;
-	
-	Boolean visibility;
-	
-	Boolean archive;
-	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	User user;
-	
-	LocalDateTime createDate;
+    @Column(nullable = false, length = 50)
+    String name;
 
-	@Lob
-	@Convert(converter = DirectoryNodeConverter.class)
-	DirectoryNode filesMetadata;
-	
+    String description;
+
+    @JsonIgnore
+    String path;
+
+    Boolean visibility;
+
+    Boolean archive;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    User user;
+
+    LocalDateTime createDate;
+
+    @JsonIgnore
+    @Lob
+    @Convert(converter = DirectoryNodeConverter.class)
+    DirectoryNode filesMetadata;
+
 }
