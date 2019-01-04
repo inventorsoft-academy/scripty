@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Validators, FormGroup, FormArray, FormBuilder} from '@angular/forms';
 import {MockService} from './mock.service';
 import {Mock} from './mock';
+import {MatSnackBarService} from '../../../mat-snack-bar.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class MockComponent implements OnInit {
     methods: string[];
     url: string;
 
-    constructor(private formBuilder: FormBuilder, private mockService: MockService) {
+    constructor(private formBuilder: FormBuilder, private mockService: MockService, private snackBar: MatSnackBarService) {
         this.url = '';
         this.methods = [
             'GET',
@@ -130,7 +131,7 @@ export class MockComponent implements OnInit {
 
     createMock() {
         if (this.mockForm.invalid) {
-            // todo error
+            this.snackBar.openSnackBar('invalid Form', 'Close', 'error');
             return;
         }
         const headers = {};
@@ -141,9 +142,8 @@ export class MockComponent implements OnInit {
             data => {
                 this.url = data['response'];
             },
-            err => {
-                return err;
-                /* todo  error */
+            error => {
+                this.snackBar.openSnackBar(error.error, 'Close', 'error');
             }
         )
         ;

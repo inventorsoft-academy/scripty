@@ -17,6 +17,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {HttpTokenInterceptor} from './token.interceptor';
+import {MatSnackBarService} from './mat-snack-bar.service';
 
 
 export function HLLanguages() {
@@ -47,6 +48,7 @@ export function HLLanguages() {
     ],
     providers: [
         TitleService,
+        MatSnackBarService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: HttpTokenInterceptor,

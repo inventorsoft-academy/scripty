@@ -92,6 +92,11 @@ html {
   }
 }
 
+.error {
+  background: red;
+  color: white;
+}
+
 .mat-raised-button {
   background-color: $hover-color;
   color: #fff;
