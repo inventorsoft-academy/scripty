@@ -3,7 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 
 import {ProjectsComponent} from './projects.component';
 import {ProjectComponent} from './project/project.component';
-
+import {ProjectsListComponent} from './projects-list/projects-list.component';
 
 const projectRoutes: Routes = [
     {
@@ -19,6 +19,11 @@ const projectRoutes: Routes = [
                 path: 'project',
                 component: ProjectComponent,
                 data: {title: 'Your project'}
+            },
+            {
+                path: 'list',
+                component: ProjectsListComponent,
+                data: {title: 'Projects list'}
             }
         ]
     }

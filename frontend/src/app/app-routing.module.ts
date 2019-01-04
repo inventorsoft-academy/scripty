@@ -1,6 +1,5 @@
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
-
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
     {
@@ -11,6 +10,11 @@ const routes: Routes = [
     {
         path: 'admin',
         loadChildren: './layouts/admin-page/admin-page.module#AdminPageModule'
+    },
+    {
+        path: 'report',
+        loadChildren: './layouts/admin-ticket/admin-ticket.module#AdminTicketModule',
+        data: {title: 'Report a bug'}
     },
     {
         path: '',
@@ -25,6 +29,21 @@ const routes: Routes = [
         path: 'userActivation',
         loadChildren: './layouts/user-activation/user-activation.module#UserActivationModule',
         data: {title: 'User activation'}
+    },
+    {
+        path: 'login',
+        loadChildren: './layouts/login/login.module#LoginModule', pathMatch: 'full',
+        data: {title: 'Login'}
+    },
+    {
+        path: 'signup',
+        loadChildren: './layouts/register/registration.module#RegistrationModule', pathMatch: 'full',
+        data: {title: 'Sign Up'}
+    },
+    {
+        path: 'users',
+        loadChildren: './layouts/forgot-pass/forgot-pass.module#ForgotPassModule',
+        data: {title: 'Reset password'}
     },
     {
         path: '**', redirectTo: '/projects'

@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Title} from '@angular/platform-browser';
 
 @Component({
     selector: 'app-projects',
@@ -9,13 +8,10 @@ import {Title} from '@angular/platform-browser';
 export class ProjectsComponent implements OnInit {
     isOpen: boolean;
 
-
     constructor() {
     }
 
-    ngOnInit() {
-
-    }
+    ngOnInit() {}
 
     onSidebarIsOpen(isOpen: boolean) {
         this.isOpen = isOpen;

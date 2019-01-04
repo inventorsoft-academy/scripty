@@ -27,7 +27,7 @@ export class RegConfirmComponent implements OnInit {
     activateUser(token: string) {
         this.userActivationService.activateUser(token)
             .subscribe(() => {
-                    this.router.navigate(['login']);
+                    this.router.navigate(['/login']);
                 },
                 (error) => {
                     if (error.status === 400 && error.error.response === 'Wrong link') {
