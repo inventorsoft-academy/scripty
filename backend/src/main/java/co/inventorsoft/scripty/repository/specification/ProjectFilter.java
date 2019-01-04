@@ -34,7 +34,7 @@ public class ProjectFilter {
         } else {
 
             return (Specification<Project>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.greaterThanOrEqualTo(root.get("id"),
-                                     LOWER_BOUND_FOR_PROJECT_ID_ADMIN_TO_VIEW_ALL_PROJECTS);
+                    LOWER_BOUND_FOR_PROJECT_ID_ADMIN_TO_VIEW_ALL_PROJECTS);
 
         }
 

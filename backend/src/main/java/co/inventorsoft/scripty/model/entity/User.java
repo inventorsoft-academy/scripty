@@ -12,9 +12,10 @@ import java.time.Instant;
  * @author Symyniuk
  *
  */
-@NoArgsConstructor
+
 @Getter
 @Setter
+@NoArgsConstructor
 @EqualsAndHashCode(of="id")
 @Entity
 @Table(name = "users")

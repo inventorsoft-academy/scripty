@@ -36,7 +36,10 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProjectServiceImpl implements ProjectService {
 
+    final static String DEFAULT_DESCRIPTION = "";
     final static boolean DEFAULT_VISIBILITY = true;
+    public static final String UNATHORIZED_USER_EMAIL = "anonymousUser";
+
 
     ProjectRepository projectRepository;
     UserRepository userRepository;
@@ -130,6 +133,7 @@ public class ProjectServiceImpl implements ProjectService {
             }
         }
     }
+
     @Override
     public List<Project> getProjects(Authentication authentication) {
         User user = Optional.ofNullable(authentication).flatMap(auth -> userRepository.findByEmail(auth.getName())).orElse(null);
