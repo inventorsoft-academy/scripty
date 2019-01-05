@@ -16,4 +16,8 @@ export class TicketListService {
     archiveTickets(id: number, value = true) {
         return this.httpClient.put(`/api/tickets/${id}?archive=${value}`, {});
     }
+
+    getImage(id: number) {
+        return this.httpClient.get(`/tickets/${id}/picture`);
+    }
 }

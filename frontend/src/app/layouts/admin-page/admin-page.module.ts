@@ -10,6 +10,7 @@ import {AdminContentComponent} from './content/content.component';
 import {AdminFooterComponent} from './footer/footer.component';
 import {TicketListComponent} from './content/ticket-list/ticket-list.component';
 import {MaterialModule} from '../../material-module';
+import { ImageModalComponent } from './content/ticket-list/image-modal/image-modal.component';
 
 @NgModule({
     declarations: [
@@ -18,12 +19,16 @@ import {MaterialModule} from '../../material-module';
         AdminSidebarComponent,
         AdminContentComponent,
         AdminFooterComponent,
-        TicketListComponent
+        TicketListComponent,
+        ImageModalComponent
     ],
     imports: [
         CommonModule,
         AdminRoutingModule,
         MaterialModule
+    ],
+    entryComponents: [
+        ImageModalComponent
     ]
 })
 export class AdminPageModule {

@@ -1,4 +1,4 @@
-import {Injectable, Injector} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpEvent, HttpInterceptor, HttpHandler, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment as env} from '../environments/environment';
@@ -35,12 +35,12 @@ export class HttpTokenInterceptor implements HttpInterceptor {
             // todo for developer
             /* tslint:disable */
             tokenData = {
-                "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiand0cmVzb3VyY2VpZCJdLCJ1c2VyX25hbWUiOiJ1c2VyQHRlc3QuY28iLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNTQ2MDA1NDk2LCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiNjQ0MmI5MzMtOWZkOC00MTU5LWJhNjQtYzEyMDhkYjQ5YTk1IiwiY2xpZW50X2lkIjoiand0Y2xpZW50aWQifQ.Hj7IeHnCAZo1GZ8-SsiKvab0K_7kjXz9-l7PStBywv4",
+                "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiand0cmVzb3VyY2VpZCJdLCJ1c2VyX25hbWUiOiJhZG1pbkB0ZXN0LmNvIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU0NjY4NzkyMywiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiJdLCJqdGkiOiI1NzdjNTQwMy1iOWRmLTQzNjUtOTkxZC01NzZlYjBkMjhiYTMiLCJjbGllbnRfaWQiOiJqd3RjbGllbnRpZCJ9.CRGGRVbAT8tUkBE3PsAfDQQCvieV1KNM92PX9PwQK28",
                 "token_type": "bearer",
-                "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiand0cmVzb3VyY2VpZCJdLCJ1c2VyX25hbWUiOiJ1c2VyQHRlc3QuY28iLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiYXRpIjoiNjQ0MmI5MzMtOWZkOC00MTU5LWJhNjQtYzEyMDhkYjQ5YTk1IiwiZXhwIjoxNTQ2MDE4OTk2LCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiYzY0OWE3Y2UtNWZkYy00MmM4LTk1ZjQtNGE3MWMxODhiMGU2IiwiY2xpZW50X2lkIjoiand0Y2xpZW50aWQifQ.XVdk_rh8fZaQTa8y57rqf_mP3irxjk0cC_smn1l5zjU",
+                "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiand0cmVzb3VyY2VpZCJdLCJ1c2VyX25hbWUiOiJhZG1pbkB0ZXN0LmNvIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImF0aSI6IjU3N2M1NDAzLWI5ZGYtNDM2NS05OTFkLTU3NmViMGQyOGJhMyIsImV4cCI6MTU0NjcwMTQyMywiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiJdLCJqdGkiOiIyOTA4M2VhMi1iZTliLTQ0OWMtOGUzMC03NjRkZTU3NjY5NDAiLCJjbGllbnRfaWQiOiJqd3RjbGllbnRpZCJ9.0dbAHquyjiQB3rgnsQMB0s1DZL0xtJsbYctJX1yNwjI",
                 "expires_in": 899,
                 "scope": "read write",
-                "jti": "6442b933-9fd8-4159-ba64-c1208db49a95"
+                "jti": "577c5403-b9df-4365-991d-576eb0d28ba3"
             };
             TokenService.setTokenData(
                 tokenData
