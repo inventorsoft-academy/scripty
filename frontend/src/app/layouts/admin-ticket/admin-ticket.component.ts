@@ -30,7 +30,7 @@ export class AdminTicketComponent {
             this.form.get('description').value
         ).subscribe(
             () => {
-                console.log('Message sent!\nThank you for making us better!');
+                this.toast.info('Message sent!\nThank you for making us better!');
                 this.router.navigateByUrl('/');
             },
             (error) => {
