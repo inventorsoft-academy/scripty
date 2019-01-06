@@ -1,0 +1,36 @@
+<div class="background">
+    <form #formElement="ngForm" class="form" [formGroup]="form">
+        <div class="form-row">
+            <label for="titleInput">Title<sup>*</sup></label>
+            <input class="form-row__input" id="titleInput" formControlName="title">
+        </div>
+        <mat-error *ngIf="form.get('title').hasError('maxlength')">
+            Max length is 50 symbols.
+        </mat-error>
+        <mat-error *ngIf="form.get('title').touched && form.get('title').hasError('required')">
+            Title is required.
+        </mat-error>
+        <div class="form-row">
+            <label for="descrInput">Description<sup>*</sup></label>
+            <textarea class="form-row__input" id="descrInput" formControlName="description"></textarea>
+        </div>
+        <mat-error *ngIf="form.get('description').hasError('maxlength')">
+            Max length is 255 symbols.
+        </mat-error>
+        <mat-error *ngIf="form.get('description').touched && form.get('description').hasError('required')">
+            Description is required.
+        </mat-error>
+        <div class="buttons">
+            <button mat-raised-button
+                    type="button"
+                    (click)="onSubmit()"
+                    [disabled]="form.invalid">Submit
+            </button>
+            <button mat-raised-button
+                    routerLink="/"
+                    class="btn-cancel"
+                    type="button">Cancel
+            </button>
+        </div>
+    </form>
+</div>

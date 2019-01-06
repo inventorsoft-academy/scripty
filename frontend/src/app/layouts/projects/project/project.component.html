@@ -1,3 +1,53 @@
-<div class="main-container">
-  project work
-</div>
+<section>
+    <nav>
+        <ul class="nav-box">
+            <li (click)="run()">
+                <i class="material-icons">play_arrow</i>
+                Run
+            </li>
+            <li>
+                <i class="material-icons">save</i>
+                Save
+            </li>
+        </ul>
+    </nav>
+    <div class="wrap-code">
+        <div class="html">
+            <h3>HTML</h3>
+            <div>
+                <textarea placeholder="html"
+                          [value]="html"
+                          (keyup)="onInputCode($event, 'html')"
+                          (blur)="onBlurCode('html')"
+                          (scroll)="onScrollTextArea($event,'html')"
+                ></textarea>
+                <pre><code #htmlCode [highlight]="html"></code></pre>
+            </div>
+        </div>
+        <div class="style">
+            <h3>CSS</h3>
+            <div>
+                <textarea placeholder="style" [value]="style"
+                          (keyup)="onInputCode($event, 'style')"
+                          (blur)="onBlurCode('style')"
+                          (scroll)="onScrollTextArea($event,'style')"
+                ></textarea>
+                <pre><code #styleCode [highlight]="style"></code></pre>
+            </div>
+        </div>
+        <div class="script">
+            <h3>JavaScript</h3>
+            <div>
+                <textarea placeholder="script" [value]="script"
+                          (keyup)="onInputCode($event, 'script')"
+                          (blur)="onBlurCode('script')"
+                          (scroll)="onScrollTextArea($event,'script')"
+                ></textarea>
+                <pre><code #scriptCode [highlight]="script"></code></pre>
+            </div>
+        </div>
+        <div class="result">
+            <iframe [src]="result | safe"></iframe>
+        </div>
+    </div>
+</section>

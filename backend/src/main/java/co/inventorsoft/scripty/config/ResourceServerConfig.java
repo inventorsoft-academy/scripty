@@ -3,6 +3,7 @@ package co.inventorsoft.scripty.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -32,10 +33,14 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		http
 			.requestMatchers().and().authorizeRequests()
 			.antMatchers("/v2/api-docs", "/swagger*/**", "/", "/webjars/**").permitAll()
+			.antMatchers(HttpMethod.GET, "/projects/*/**").permitAll()
 			.antMatchers("/registration*","/user/sendPasswordReset","/user/resetPassword", "/user/resendRegistrationToken").permitAll()
 			.antMatchers("/test/anybody", "/test").permitAll()
-			.antMatchers("/mock-requests", "/mock-requests/*").hasRole("USER")
+			.antMatchers("/mock-requests", "/mock-requests/*").permitAll()
+			.antMatchers("/users/{\\d+}/picture").permitAll()
 			.antMatchers("/users/password").hasRole("USER")
+				.antMatchers(HttpMethod.GET, "/projects").permitAll()
+
 			.anyRequest().authenticated();
 	}
 }
