@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AdminTicketService} from './admin-ticket.service';
+import {ToastService} from '../../toast.service';
+
 
 @Component({
     selector: 'app-admin-ticket',
@@ -12,6 +14,7 @@ export class AdminTicketComponent {
     form: FormGroup;
 
     constructor(private router: Router,
+                private toast: ToastService,
                 private adminTicketService: AdminTicketService) {
         this.form = new FormGroup({
             title: new FormControl(null, [Validators.required,
@@ -31,7 +34,7 @@ export class AdminTicketComponent {
                 this.router.navigateByUrl('/');
             },
             (error) => {
-                console.log(error);
+                this.toast.error(error);
             }
         );
     }

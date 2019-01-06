@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Validators, FormGroup, FormArray, FormBuilder} from '@angular/forms';
 import {MockService} from './mock.service';
 import {Mock} from './mock';
-import {MatSnackBarService} from '../../../mat-snack-bar.service';
+import {ToastService} from '../../../toast.service';
 
 
 @Component({
@@ -18,7 +18,7 @@ export class MockComponent implements OnInit {
     methods: string[];
     url: string;
 
-    constructor(private formBuilder: FormBuilder, private mockService: MockService, private snackBar: MatSnackBarService) {
+    constructor(private formBuilder: FormBuilder, private mockService: MockService, private toast: ToastService) {
         this.url = '';
         this.methods = [
             'GET',
@@ -130,10 +130,6 @@ export class MockComponent implements OnInit {
     }
 
     createMock() {
-        if (this.mockForm.invalid) {
-            this.snackBar.openSnackBar('invalid Form', 'Close', 'error');
-            return;
-        }
         const headers = {};
         this.mockForm.value.headers.forEach(e => {
             headers[e.key] = e.value;
@@ -143,7 +139,7 @@ export class MockComponent implements OnInit {
                 this.url = data['response'];
             },
             error => {
-                this.snackBar.openSnackBar(error.error, 'Close', 'error');
+                this.toast.error(error.error);
             }
         )
         ;
