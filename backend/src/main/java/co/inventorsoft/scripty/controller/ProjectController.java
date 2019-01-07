@@ -94,11 +94,11 @@ public class ProjectController {
         projectFilesService.uploadProjectFile(metadata, file, projectId);
     }
 
-    @DeleteMapping(value = "/{projectId}/files")
+    @DeleteMapping(value = "/{projectId}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteProjectFile(Authentication authentication,
                                   @PathVariable Long projectId,
-                                  @RequestParam String filePath) throws IOException {
+                                  @RequestParam String filePath){
         securityService.projectUserIsOwner(projectService.getProject(projectId), authentication);
         projectFilesService.deleteProjectFile(projectId, filePath);
     }

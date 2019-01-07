@@ -50,35 +50,28 @@ public class ProjectFilesServiceImpl implements ProjectFilesService{
         }
     }
 
-    public void deleteProjectFile(Long id, String filePath) {
+    public void deleteProjectFile(Long id, String filePath){
         Project project = projectService.getProject(id);
-        Path absolutePath = Paths.get(project.getPath() + directorySeparator + filePath);
-        //DirectoryNode projectFileMetadata = project.getFilesMetadata();
         Node deletedNode = directoryToObject.metadataToNode(Paths.get(project.getPath()), filePath);
         File file = new File(project.getPath() + directorySeparator + filePath);
-        if(Files.isDirectory(absolutePath)){
+        if(Files.exists(file.toPath())){
             try {
-                FileUtils.deleteDirectory(file);
-            } catch (IOException e) {
-                throw new ApplicationException(e, HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }else {
-            try {
-                Files.deleteIfExists(absolutePath);
+                FileUtils.forceDelete(file);
             } catch (IOException e) {
                 throw new ApplicationException(e, HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
         deleteMetadata(project.getFilesMetadata(), deletedNode);
     }
+
     private void deleteMetadata(DirectoryNode projectFileMetadata, Node deletedNode){
         if(!projectFileMetadata.getName().equals(Paths.get(deletedNode.getParent()).getFileName().toString())){
             Optional<Node> directoryNode = projectFileMetadata.getChildren().stream()
-                    .filter(x->deletedNode.getPath().startsWith(x.getPath()))
+                    .filter(x -> deletedNode.getPath().startsWith(x.getPath()))
                     .findAny();
             deleteMetadata((DirectoryNode)directoryNode.get(), deletedNode);
         }else {
-            projectFileMetadata.getChildren().removeIf(x-> x.getName().equals(deletedNode.getName()));
+            projectFileMetadata.getChildren().removeIf(x -> x.getName().equals(deletedNode.getName()));
         }
     }
 

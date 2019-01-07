@@ -6,5 +6,5 @@ import java.io.IOException;
 
 public interface ProjectFilesService {
     void uploadProjectFile(String metadata, MultipartFile file, Long projectId);
-    void deleteProjectFile(Long id, String filePath) throws IOException;
+    void deleteProjectFile(Long id, String filePath);
 }
