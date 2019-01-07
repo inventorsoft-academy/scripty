@@ -1,8 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 @import "reset-src";
 @import "variables";
 @import '~highlight.js/styles/atelier-lakeside-dark.css';
+@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
 
 html {
   height: 100%;
@@ -32,17 +31,21 @@ html {
           height: 100%;
           box-sizing: border-box;
           width: 100%;
-          app-project {
+          app-project, app-mock {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            background-color: $primary-color;
+            overflow-y: auto;
+            overflow-x: hidden;
+            background: $primary-color;
+            color: white;
           }
         }
       }
     }
 
     a {
+      color: #fff;
       text-decoration: none;
       font-family: 'Roboto', sans-serif;
       font-size: 16px;
@@ -116,7 +119,6 @@ html {
     display: flex;
     align-items: center;
     &__input {
-      width: 220px;
       color: #fff;
     }
   }

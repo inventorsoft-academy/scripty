@@ -1,6 +1,8 @@
 package co.inventorsoft.scripty.controller;
 
 import javax.validation.Valid;
+
+import co.inventorsoft.scripty.model.entity.Project;
 import co.inventorsoft.scripty.service.ProjectFilesService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import co.inventorsoft.scripty.model.dto.DirectoryNode;
 import co.inventorsoft.scripty.model.dto.ProjectDto;
 import co.inventorsoft.scripty.model.dto.ProjectUpdateDto;
@@ -28,7 +31,7 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import java.util.List;
 
 /**
  * @author lzabidovsky
@@ -94,6 +97,13 @@ public class ProjectController {
         projectFilesService.uploadProjectFile(metadata, file, projectId);
     }
 
+    @ApiOperation(value = "Endpoint to get list of projects.")
+    @GetMapping(produces = "application/json")
+    public ResponseEntity<List<Project>> getProjects(Authentication authentication) {
+        return ResponseEntity.ok(projectService.getProjects(authentication));
+    }
+
+    @ApiOperation(value = "Endpoint to delete project file")
     @DeleteMapping(value = "/{projectId}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteProjectFile(Authentication authentication,

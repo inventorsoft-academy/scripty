@@ -15,6 +15,10 @@ import javascript from 'highlight.js/lib/languages/javascript';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HttpTokenInterceptor} from './token.interceptor';
+
+
 export function HLLanguages() {
     return [
         {name: 'typescript', func: typescript},
@@ -38,10 +42,16 @@ export function HLLanguages() {
         ReactiveFormsModule,
         HighlightModule.forRoot({
             languages: HLLanguages
-        })
+        }),
+        HttpClientModule
     ],
     providers: [
-        TitleService
+        TitleService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: HttpTokenInterceptor,
+            multi: true
+        }
     ],
     bootstrap: [AppComponent]
 })
