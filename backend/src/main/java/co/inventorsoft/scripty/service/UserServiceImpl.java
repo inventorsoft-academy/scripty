@@ -191,7 +191,7 @@ public class UserServiceImpl implements UserService {
 
     public void changeUserStatus(long id, boolean status) {
         User user = userRepository.findById(id).orElseThrow(() ->
-                new ApplicationException(String.format("User with such identifier not found.", id), HttpStatus.BAD_REQUEST));
+                new ApplicationException("User with such identifier not found.", HttpStatus.BAD_REQUEST));
         user.setEnabled(status);
         userRepository.save(user);
     }
