@@ -19,5 +19,5 @@ public interface UserService {
     void updateProfile(String email, UpdateUserDto updateDto);
     Page<User> getAllUsers(Pageable pageable);
     Page<User>findByEmailStartsWith(String email, Pageable pageable);
-
+    void changeUserStatus(long id, boolean status);
 }

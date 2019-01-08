@@ -138,9 +138,9 @@ public class UserServiceImpl implements UserService {
 
     private VerificationToken generateNewVerificationToken(final User user) {
         return tokenRepository.findByUser(user)
-                .map(token -> token.updateToken(UUID.randomUUID().toString()))
-                .map(tokenRepository::save)
-                .orElseThrow(()-> new ApplicationException("Token not found", HttpStatus.OK));
+               .map(token -> token.updateToken(UUID.randomUUID().toString()))
+               .map(tokenRepository::save)
+               .orElseThrow(()-> new ApplicationException("Token not found", HttpStatus.OK));
     }
 
     private void createResetPasswordToken(final User user, final String passwordToken){
@@ -203,5 +203,12 @@ public class UserServiceImpl implements UserService {
     public Page<User> findByEmailStartsWith(String email, Pageable pageable) {
 
         return userRepository.findByEmailStartsWith(email, pageable);
+    }
+
+    public void changeUserStatus(long id, boolean status) {
+        User user = userRepository.findById(id).orElseThrow(() ->
+                new ApplicationException("User with such identifier not found.", HttpStatus.BAD_REQUEST));
+        user.setEnabled(status);
+        userRepository.save(user);
     }
 }
