@@ -3,6 +3,7 @@ package co.inventorsoft.scripty.controller;
 import co.inventorsoft.scripty.model.dto.PictureDto;
 import co.inventorsoft.scripty.model.dto.StringResponse;
 import co.inventorsoft.scripty.model.dto.UpdateUserDto;
+import co.inventorsoft.scripty.model.dto.UserProfileToFront;
 import co.inventorsoft.scripty.service.UserService;
 import io.swagger.annotations.Api;
 import co.inventorsoft.scripty.model.dto.UpdatePasswordDto;
@@ -66,5 +67,12 @@ public class UserProfileController {
     public ResponseEntity updateProfile(Principal user, @RequestBody @Valid UpdateUserDto updateDto){
         userService.updateProfile(user.getName(), updateDto);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @ApiOperation(value = "Get user's profile info")
+    @GetMapping(value="/users/info")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    public ResponseEntity<UserProfileToFront> getProfile(Principal user){
+        return ResponseEntity.ok().body(userService.getProfile(user.getName()));
     }
 }

@@ -15,5 +15,5 @@ public interface UserService {
     PictureDto getPicture(Long id);
     void updateForgottenPassword(String token, ResetPasswordDto resetPasswordDto);
     void updateProfile(String email, UpdateUserDto updateDto);
-
+    UserProfileToFront getProfile(String email);
 }

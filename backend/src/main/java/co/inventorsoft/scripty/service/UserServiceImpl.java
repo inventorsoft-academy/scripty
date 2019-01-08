@@ -188,4 +188,8 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
         passwordTokenRepository.delete(passwordToken);
     }
+
+    public UserProfileToFront getProfile(String email){
+       return userRepository.findByEmailAndEnabled(email, true);
+    }
 }
