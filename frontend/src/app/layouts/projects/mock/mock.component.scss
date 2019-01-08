@@ -1,0 +1,46 @@
+@import "variables";
+
+h1 {
+  color: white;
+  font-size: 2em;
+  padding: 10px;
+  border-bottom: 1px solid $border-color;
+}
+
+mat-form-field {
+  margin: 0 30px;
+}
+
+form {
+  padding: 20px 0;
+  color: #fff;
+}
+
+.body-box {
+  width: 80%;
+  box-sizing: border-box;
+  max-width: 420px;
+  textarea {
+    resize: none;
+    height: 200px;
+  }
+}
+
+.url-box {
+  margin: 30px;
+  a {
+    color: white;
+    border-bottom: 1px solid white;
+  }
+}
+
+.wrap-button {
+  button {
+    margin: 30px;
+    border: 1px solid white;
+    &:hover {
+      color: #c2185b;
+      border-color: #c2185b;
+    }
+  }
+}

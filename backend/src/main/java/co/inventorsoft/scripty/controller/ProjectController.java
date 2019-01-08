@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import co.inventorsoft.scripty.model.dto.DirectoryNode;
 import co.inventorsoft.scripty.model.dto.ProjectDto;
 import co.inventorsoft.scripty.model.dto.ProjectUpdateDto;
@@ -30,7 +29,6 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.util.List;
 
 /**
@@ -96,6 +94,7 @@ public class ProjectController {
         securityService.projectUserIsOwner(projectService.getProject(projectId), authentication);
         projectFilesService.uploadProjectFile(metadata, file, projectId);
     }
+
     @ApiOperation(value = "Endpoint to get list of projects.")
     @GetMapping(produces = "application/json")
     public ResponseEntity<List<Project>> getProjects(Authentication authentication) {

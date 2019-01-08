@@ -7,7 +7,16 @@
   color: white;
   padding: 0 10px;
 }
-
+.link {
+  cursor: pointer;
+  &:hover{
+    opacity: 0.8;
+    text-decoration: underline;
+  }
+  &:focus {
+    outline: 0;
+  }
+}
 ul {
   list-style: none;
   padding: 10px 0;

@@ -28,17 +28,17 @@ public class Project {
 
 	String description;
 
-	@JsonIgnore
-	String path;
+    @JsonIgnore
+    String path;
 
 	Boolean visibility;
 
 	Boolean archive;
 
-	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-	User user;
-	
-	LocalDateTime createDate;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    User user;
+
+    LocalDateTime createDate;
 
     @JsonIgnore
     @Lob
