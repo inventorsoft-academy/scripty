@@ -12,7 +12,6 @@ import {SafePipe} from './safe.pipe';
 import {HighlightModule} from 'ngx-highlightjs';
 
 import {HLLanguages} from '../../app.module';
-import {ProjectsListModule} from './projects-list/projects-list.module';
 import {DirectivesModule} from '../../directives/directives.module';
 import {MockComponent} from './mock/mock.component';
 import {MaterialModule} from '../../material-module';
@@ -22,10 +21,9 @@ import {MaterialModule} from '../../material-module';
         CommonModule,
         ProjectsRoutingModule,
         FormsModule,
+        DirectivesModule,
         ReactiveFormsModule,
         MaterialModule,
-        ProjectsListModule,
-        DirectivesModule,
         HighlightModule.forRoot({
             languages: HLLanguages
         })

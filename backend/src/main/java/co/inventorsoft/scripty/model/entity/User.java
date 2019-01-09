@@ -12,6 +12,7 @@ import java.time.Instant;
  * @author Symyniuk
  *
  */
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -55,4 +56,7 @@ public class User {
 
     @CreationTimestamp
     private Instant createDate;
+
 }
+
+
