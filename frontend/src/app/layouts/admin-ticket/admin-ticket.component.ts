@@ -40,11 +40,13 @@ export class AdminTicketComponent {
 
             if (file.size > 5242880) {
                 reader.abort();
+                this.fileName.nativeElement.innerHTML = 'No file chosen';
                 this.errorText = 'Max file size is 5mb!';
             }
 
             if (file.type !== 'image/png' && file.type !==  'image/jpeg') {
                 reader.abort();
+                this.fileName.nativeElement.innerHTML = 'No file chosen';
                 this.errorText = 'Unsupported file format!';
             }
 
@@ -54,7 +56,7 @@ export class AdminTicketComponent {
 
             reader.onload = () => {
                 this.form.patchValue({
-                    file: reader.result
+                    file: file
                 });
 
                 this.errorText = '';
