@@ -6,13 +6,10 @@ import {HttpClient} from '@angular/common/http';
 })
 export class AdminTicketService {
 
-    constructor(private httpClient: HttpClient) {
+    constructor(private _httpClient: HttpClient) {
     }
 
-    sendReport(title: string, description: string) {
-        return this.httpClient.post('/api/tickets', {
-            description: description,
-            title: title
-        });
+    sendReport(data: FormData) {
+        return this._httpClient.post('/api/tickets', data);
     }
 }

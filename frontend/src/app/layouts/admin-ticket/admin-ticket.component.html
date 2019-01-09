@@ -1,24 +1,38 @@
 <div class="background">
     <form #formElement="ngForm" class="form" [formGroup]="form">
-        <div class="form-row">
-            <label for="titleInput">Title<sup>*</sup></label>
-            <input class="form-row__input" id="titleInput" formControlName="title">
+        <mat-form-field>
+            <input matInput placeholder="Title" formControlName="title">
+            <mat-error *ngIf="form.get('title').touched && form.get('title').hasError('required')">
+                Title is required.
+            </mat-error>
+            <mat-error *ngIf="form.get('title').hasError('maxlength')">
+                Max length is 50 symbols.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <textarea matInput placeholder="Description" formControlName="description"></textarea>
+            <mat-error *ngIf="form.get('description').hasError('maxlength')">
+                Max length is 255 symbols.
+            </mat-error>
+            <mat-error *ngIf="form.get('description').touched && form.get('description').hasError('required')">
+                Description is required.
+            </mat-error>
+        </mat-form-field>
+        <div class="file-row">
+            <label class="mat-raised-button"
+                   for="fileInput">Choose file</label>
+            <input type="file" id="fileInput"
+                   (change)="onFileChange($event)"
+                   accept=".gif, .jpg, .png"
+            >
+            <p class="file-name" #fileName>No file chosen</p>
         </div>
-        <mat-error *ngIf="form.get('title').hasError('maxlength')">
-            Max length is 50 symbols.
-        </mat-error>
-        <mat-error *ngIf="form.get('title').touched && form.get('title').hasError('required')">
-            Title is required.
-        </mat-error>
-        <div class="form-row">
-            <label for="descrInput">Description<sup>*</sup></label>
-            <textarea class="form-row__input" id="descrInput" formControlName="description"></textarea>
+        <small class="mat-small">Max file size is 5Mb. Supported formats: PNG, GIF, JPG.</small>
+        <div class="img-wrapper">
+            <img class="img-preview" [src]="imageSrc || ''" alt="">
         </div>
-        <mat-error *ngIf="form.get('description').hasError('maxlength')">
-            Max length is 255 symbols.
-        </mat-error>
-        <mat-error *ngIf="form.get('description').touched && form.get('description').hasError('required')">
-            Description is required.
+        <mat-error>
+            {{ errorText }}
         </mat-error>
         <div class="buttons">
             <button mat-raised-button
