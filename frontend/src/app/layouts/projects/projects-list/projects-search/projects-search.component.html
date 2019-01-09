@@ -1,0 +1,12 @@
+<div class="search">
+    <input class="search__input" [(ngModel)]="searchStr" type="text" (ngModelChange)="onChange(searchStr)"
+           placeholder="Search...">
+    <div class="buttons" appShowForLogged>
+        <button mat-raised-button type="button" class="margin-right" (click)="openCreateDialog()">Create project</button>
+        <button mat-raised-button type="button" (click)="openImportDialog()">
+            <i class="material-icons">
+                cloud_download
+            </i>Import from GitHub
+        </button>
+    </div>
+</div>

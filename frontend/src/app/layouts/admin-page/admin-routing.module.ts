@@ -3,17 +3,22 @@ import {Routes, RouterModule} from '@angular/router';
 import {AdminPageComponent} from './admin-page.component';
 import {AdminSidebarComponent} from './sidebar/sidebar.component';
 import {AdminFooterComponent} from './footer/footer.component';
+import {RoleGuardService} from '../../services/role-guard.service';
+import {UserListComponent} from './content/user-list/user-list.component';
 
 const routes: Routes = [
     {
-        path: '', component: AdminPageComponent,
+        path: '',
+        component: AdminPageComponent,
+        canActivate: [RoleGuardService],
+        data: {role: 'ROLE_ADMIN'},
         children: [
             {
                 path: '', component: AdminSidebarComponent,
                 data: {title: 'Admin page'}
             },
             {
-                path: 'users', component: AdminFooterComponent,
+                path: 'users', component: UserListComponent,
                 data: {title: 'User list'}
             },
             {

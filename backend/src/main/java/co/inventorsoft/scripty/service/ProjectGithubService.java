@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import co.inventorsoft.scripty.exception.ApplicationException;
 
 /**
- * @author lzabidovsky 
+ * @author lzabidovsky
  */
 @Component
 public class ProjectGithubService {
@@ -22,9 +22,9 @@ public class ProjectGithubService {
 	public void cloneGithubRepo(String githubURL, String projectPath) {
 		try {
 			Git.cloneRepository()
-				.setURI(githubURL)
-				.setDirectory(new File(projectPath))
-				.call();
+					.setURI(githubURL)
+					.setDirectory(new File(projectPath))
+					.call();
 		} catch (GitAPIException e) {
 			throw new ApplicationException("Error cloning " + githubURL, HttpStatus.FAILED_DEPENDENCY);
 		}

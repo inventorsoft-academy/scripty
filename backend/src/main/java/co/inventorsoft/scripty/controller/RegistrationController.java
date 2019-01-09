@@ -15,8 +15,7 @@ import javax.validation.Valid;
  *
  */
 @Api("Controller for user management")
-@RestController
-@RequestMapping(value="/api")
+@RestController(value = "/api")
 public class RegistrationController {
 
     private UserService userService;
@@ -51,11 +50,12 @@ public class RegistrationController {
         userService.sendResetPasswordToken(emailDto);
     }
     @ApiOperation(value = "Validates reset token and if validating is successful, updates password")
-    @PutMapping(value = "/user/resetPassword", consumes = "application/json")
+    @PutMapping(value = "/users/{email}/forgot-password/{token}", consumes = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public void updateForgottenPassword(@RequestParam("token") final String token,
+    public void updateForgottenPassword(@PathVariable final String email,
+                                        @PathVariable final String token,
                                         @Valid @RequestBody final ResetPasswordDto resetPasswordDto){
-        userService.updateForgottenPassword(token, resetPasswordDto);
+        userService.updateForgottenPassword(email, token, resetPasswordDto);
 
     }
 }

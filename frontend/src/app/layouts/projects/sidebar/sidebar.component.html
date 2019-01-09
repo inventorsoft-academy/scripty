@@ -5,9 +5,12 @@
        <textarea placeholder="No description"></textarea>
    </form>
     <ul>
-        <li>Async requests</li>
-        <li>Other (links, license)</li>
-        <li>Share</li>
+        <li>
+            <a routerLink="list">Project list</a>
+        </li>
+        <li>
+            <a routerLink="/report" appShowForLogged>Report a bug</a>
+        </li>
     </ul>
-    <div  routerLink="/mock" > Your response</div>
+    <div  routerLink="/projects/mock" class="link"> Your response</div>
 </div>

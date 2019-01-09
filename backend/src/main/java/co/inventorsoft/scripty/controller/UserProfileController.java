@@ -26,7 +26,7 @@ import java.security.Principal;
 
 @Api(description = "Operations for updating user data")
 @RestController
-@RequestMapping(value="/api")
+@RequestMapping("/api/users")
 public class UserProfileController {
     UserService userService;
 
@@ -36,7 +36,7 @@ public class UserProfileController {
     }
 
     @ApiOperation(value = "Upload picture for current user")
-    @PostMapping("/users/picture")
+    @PostMapping("/picture")
     @PreAuthorize("hasAuthority('ROLE_USER')")
     public ResponseEntity setProfilePicture(Principal user, @RequestParam MultipartFile picture) {
         userService.setPicture(user.getName(), picture);
@@ -44,7 +44,7 @@ public class UserProfileController {
     }
 
     @ApiOperation(value = "Get base64 users's picture by id in base64 string")
-    @GetMapping(value = "/users/{id}/picture", produces = "application/json")
+    @GetMapping(value = "/{id}/picture", produces = "application/json")
     public ResponseEntity getProfilePicture(@PathVariable Long id) {
         PictureDto picture = userService.getPicture(id);
 
@@ -54,7 +54,7 @@ public class UserProfileController {
     }
 
     @ApiOperation(value = "Create new password if the old one's correct.")
-    @PutMapping(value="/users/password")
+    @PutMapping(value="/password")
     @PreAuthorize("hasAuthority('ROLE_USER')")
     public ResponseEntity updatePassword(Principal user, @RequestBody @Valid UpdatePasswordDto updatePasswordDto){
         userService.updatePassword(user.getName(), updatePasswordDto);
@@ -62,10 +62,18 @@ public class UserProfileController {
     }
 
     @ApiOperation(value = "Updates user's profile info (first name, last name)")
-    @PutMapping(value="/users/info")
+    @PutMapping(value="/info")
     @PreAuthorize("hasAuthority('ROLE_USER')")
     public ResponseEntity updateProfile(Principal user, @RequestBody @Valid UpdateUserDto updateDto){
         userService.updateProfile(user.getName(), updateDto);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @ApiOperation(value = "Changes user's profile status. ")
+    @PutMapping(value="/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public ResponseEntity changeStatus(@PathVariable long id, @RequestParam(value="status") boolean status) {
+        userService.changeUserStatus(id, status);
+        return ResponseEntity.ok(new StringResponse("Status of user with id " + id + " has been changed."));
     }
 }

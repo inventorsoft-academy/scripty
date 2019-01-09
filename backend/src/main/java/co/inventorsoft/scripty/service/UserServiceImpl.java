@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(userDto.getValidPassword()));
         user.setEmail(userDto.getEmail());
         user.setEnabled(false);
-        user.setRole("User");
+        user.setRole("ROLE_USER");
         userRepository.save(user);
         final String token = UUID.randomUUID().toString();
         createVerificationTokenForUser(user, token);
@@ -179,13 +179,16 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public void updateForgottenPassword(final String token, final ResetPasswordDto resetPasswordDto){
-        final User user = findByEmail(resetPasswordDto.getEmail());
+    public void updateForgottenPassword(final String email, final String token, final ResetPasswordDto resetPasswordDto){
+        validateResetPasswordToken(token);
+        final PasswordToken passwordToken = passwordTokenRepository.findByPasswordToken(token).get();
+        final User user = passwordToken.getUser();
         if(!user.isEnabled()){
             throw new ApplicationException("Please confirm your registration first", HttpStatus.BAD_REQUEST);
         }
-        validateResetPasswordToken(token);
-        final PasswordToken passwordToken = passwordTokenRepository.findByPasswordToken(token).get();
+        if(!user.getEmail().equals(email)){
+            throw new ApplicationException("Invalid email: " + email, HttpStatus.BAD_REQUEST);
+        }
         user.setPassword(passwordEncoder.encode(resetPasswordDto.getValidPassword()));
         userRepository.save(user);
         passwordTokenRepository.delete(passwordToken);
@@ -200,5 +203,12 @@ public class UserServiceImpl implements UserService {
     public Page<User> findByEmailStartsWith(String email, Pageable pageable) {
 
         return userRepository.findByEmailStartsWith(email, pageable);
+    }
+
+    public void changeUserStatus(long id, boolean status) {
+        User user = userRepository.findById(id).orElseThrow(() ->
+                new ApplicationException("User with such identifier not found.", HttpStatus.BAD_REQUEST));
+        user.setEnabled(status);
+        userRepository.save(user);
     }
 }

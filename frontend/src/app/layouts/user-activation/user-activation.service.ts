@@ -1,15 +1,19 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpBackend, HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserActivationService {
 
-    constructor(private httpClient: HttpClient) { }
+    private myHttpClient: HttpClient;
+    constructor(private httpClient: HttpClient,
+                private handler: HttpBackend) {
+        this.myHttpClient = new HttpClient(this.handler);
+    }
 
     activateUser(token: string) {
-        return this.httpClient.get('/api/registrationConfirm?token=' + token);
+        return this.myHttpClient.get('/api/registrationConfirm?token=' + token);
     }
 
     resendEmail(email: string) {

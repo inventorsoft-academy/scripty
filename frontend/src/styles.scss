@@ -1,7 +1,8 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 @import "reset-src";
 @import "variables";
 @import '~highlight.js/styles/atelier-lakeside-dark.css';
-@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
 
 html {
   height: 100%;
@@ -31,20 +32,19 @@ html {
           height: 100%;
           box-sizing: border-box;
           width: 100%;
-          app-project, app-mock {
+          app-project {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
+            background-color: $primary-color;
             overflow-y: auto;
-            overflow-x: hidden;
-            background: $primary-color;
-            color: white;
           }
         }
       }
     }
 
     a {
+      color: #fff;
       text-decoration: none;
       font-family: 'Roboto', sans-serif;
       font-size: 16px;
@@ -76,6 +76,55 @@ html {
     }
     .mob-bars {
       display: flex;
+    }
+    //login-registration form container
+    .form-container {
+      width: 300px;
+      .form-card {
+        background: transparent;
+        box-shadow: unset;
+        .mat-card-header .mat-card-title {
+          color: white;
+        }
+        .mat-card-header-text {
+          margin: 0 auto;
+        }
+        input.mat-input-element {
+          color: white;
+          &::placeholder {
+            color: white;
+          }
+        }
+        .mat-form-field {
+          width: 100%;
+        }
+        .mat-form-field-label {
+          color: white;
+        }
+        .mat-form-field-appearance-legacy .mat-form-field-underline {
+          background-color: rgba(255, 255, 255, .42);
+        }
+        .mat-raised-button[disabled][disabled] {
+          color: white;
+          background-color: #505050;
+        }
+      }
+    }
+    .reg-link {
+      text-align: center;
+      margin: 0 auto;
+      display: block;
+      color: white;
+    }
+    //login-registration submit button
+    .submit-from-btn {
+      display: block;
+      margin: 0 auto !important;
+      //background-color: #e6e6e6;
+      color: #ffffff;
+      width: 234px;
+      height: 44px;
+      border-radius: 4px;
     }
     @media (min-width: 769px) {
       header {
@@ -118,7 +167,6 @@ html {
     display: flex;
     align-items: center;
     &__input {
-      width: 220px;
       color: #fff;
     }
   }

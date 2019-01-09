@@ -1,7 +1,6 @@
 package co.inventorsoft.scripty.model.dto;
 
 import java.io.Serializable;
-
 import lombok.NoArgsConstructor;
 
 /**

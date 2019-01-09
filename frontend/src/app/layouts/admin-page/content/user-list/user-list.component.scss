@@ -1,0 +1,17 @@
+.mat-table {
+  width: 100%;
+  background-color: transparent;
+  th, td {
+    vertical-align: middle;
+  }
+}
+
+button {
+  margin-top: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .mat-column-reg-date {
+    display: none;
+  }
+}

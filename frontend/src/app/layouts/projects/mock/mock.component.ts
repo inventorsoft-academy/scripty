@@ -31,16 +31,9 @@ export class MockComponent implements OnInit {
         ];
         this.contentTypes = [
             'application/json',
-            'application/x-www-form-urlencoded',
-            'application/xhtml+xml',
             'application/xml',
-            'multipart/form-data',
-            'text/css',
-            'text/csv',
             'text/html',
-            'text/json',
-            'text/plain',
-            'text/xml'
+            'text/plain'
         ];
         this.statusCodes = [
             {'code': 100, 'name': '100 Continue'},
@@ -146,7 +139,7 @@ export class MockComponent implements OnInit {
         });
         this.mockService.setMock(<Mock>{...this.mockForm.value, headers}).subscribe(
             data => {
-                this.url = data['response'].replace('8080', '8090');
+                this.url = data['response'];
             },
             err => {
                 return err;
