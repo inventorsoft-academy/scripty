@@ -92,6 +92,22 @@ html {
   }
 }
 
+.error {
+  background: #f44336;
+  color: white;
+}
+.warning{
+  background: #ffbe00;
+  color: white;
+}
+.info{
+  background: white;
+  color: black;
+}
+.info{
+  background: #00a441;
+  color: white;
+}
 .mat-raised-button {
   background-color: $hover-color;
   color: #fff;

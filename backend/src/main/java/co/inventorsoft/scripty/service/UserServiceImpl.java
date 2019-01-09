@@ -188,4 +188,11 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
         passwordTokenRepository.delete(passwordToken);
     }
+
+    public void changeUserStatus(long id, boolean status) {
+        User user = userRepository.findById(id).orElseThrow(() ->
+                new ApplicationException("User with such identifier not found.", HttpStatus.BAD_REQUEST));
+        user.setEnabled(status);
+        userRepository.save(user);
+    }
 }

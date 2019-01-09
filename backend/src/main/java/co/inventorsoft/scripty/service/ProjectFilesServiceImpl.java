@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -48,6 +47,31 @@ public class ProjectFilesServiceImpl implements ProjectFilesService{
             createDirectoryAndMetadata(project, metadata);
         }else {
             createFileAndMetadata(project, metadata, file);
+        }
+    }
+
+    public void deleteProjectFile(Long id, String filePath){
+        Project project = projectService.getProject(id);
+        Node deletedNode = directoryToObject.metadataToNode(Paths.get(project.getPath()), filePath);
+        File file = new File(project.getPath() + directorySeparator + filePath);
+        if(Files.exists(file.toPath())){
+            try {
+                FileUtils.forceDelete(file);
+            } catch (IOException e) {
+                throw new ApplicationException(e, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+        deleteMetadata(project.getFilesMetadata(), deletedNode);
+    }
+
+    private void deleteMetadata(DirectoryNode projectFileMetadata, Node deletedNode){
+        if(!projectFileMetadata.getName().equals(Paths.get(deletedNode.getParent()).getFileName().toString())){
+            Optional<Node> directoryNode = projectFileMetadata.getChildren().stream()
+                    .filter(x -> deletedNode.getPath().startsWith(x.getPath()))
+                    .findAny();
+            deleteMetadata((DirectoryNode)directoryNode.get(), deletedNode);
+        }else {
+            projectFileMetadata.getChildren().removeIf(x -> x.getName().equals(deletedNode.getName()));
         }
     }
 

@@ -3,6 +3,8 @@ import {RouterModule, Routes} from '@angular/router';
 
 import {ProjectsComponent} from './projects.component';
 import {ProjectComponent} from './project/project.component';
+import {RoleGuardService} from '../../services/role-guard.service';
+import {AuthGuardService} from '../../services/auth-guard.service';
 import {ProjectsListComponent} from './projects-list/projects-list.component';
 import {MockComponent} from './mock/mock.component';
 
@@ -40,6 +42,7 @@ const projectRoutes: Routes = [
     imports: [
         RouterModule.forChild(projectRoutes)
     ],
+    providers: [AuthGuardService, RoleGuardService],
     exports: [
         RouterModule
     ]

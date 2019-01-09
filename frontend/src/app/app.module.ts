@@ -1,10 +1,14 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
-import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from './material-module';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import {RoleGuardService} from './services/role-guard.service';
+import {AuthGuardService} from './services/auth-guard.service';
+import {AdminPageModule} from './layouts/admin-page/admin-page.module';
+import {HttpClientModule} from '@angular/common/http';
 import {TitleService} from './title.service';
 import {HighlightModule} from 'ngx-highlightjs';
 
@@ -12,11 +16,11 @@ import xml from 'highlight.js/lib/languages/xml';
 import scss from 'highlight.js/lib/languages/scss';
 import typescript from 'highlight.js/lib/languages/typescript';
 import javascript from 'highlight.js/lib/languages/javascript';
-import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {HttpTokenInterceptor} from './token.interceptor';
+import {ToastService} from './toast.service';
 
 
 export function HLLanguages() {
@@ -37,21 +41,24 @@ export function HLLanguages() {
         AppRoutingModule,
         BrowserAnimationsModule,
         MaterialModule,
+        AdminPageModule,
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
         HighlightModule.forRoot({
             languages: HLLanguages
         }),
-        HttpClientModule
     ],
     providers: [
         TitleService,
+        ToastService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: HttpTokenInterceptor,
             multi: true
-        }
+        },
+        AuthGuardService,
+        RoleGuardService
     ],
     bootstrap: [AppComponent]
 })
