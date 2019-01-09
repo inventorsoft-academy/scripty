@@ -2,7 +2,7 @@ import {ChangeDetectorRef, Component, ElementRef, ViewChild} from '@angular/core
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AdminTicketService} from './admin-ticket.service';
-import {ToastService} from '../../services/toast.service';
+import {ToastService} from '../../toast.service';
 
 @Component({
     selector: 'app-admin-ticket',
@@ -81,11 +81,11 @@ export class AdminTicketComponent {
         this._adminTicketService.sendReport(formData)
             .subscribe(
                 () => {
-                    this._toastService.showSuccess('Message sent!\nThank you for making us better!');
+                    this._toastService.success('Message sent!\nThank you for making us better!');
                     this._router.navigateByUrl('/');
                 },
                 (err) => {
-                    this._toastService.showError(err);
+                    this._toastService.error(err);
                     console.log(err);
                 }
             );

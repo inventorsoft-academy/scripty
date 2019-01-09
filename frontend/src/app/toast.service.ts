@@ -11,7 +11,7 @@ export class ToastService {
 
     error(message: string) {
         this.snackBar.open(message, 'Close', {
-            duration: 2000,
+            duration: 3500,
             verticalPosition: 'bottom',
             horizontalPosition: 'end',
             panelClass: 'error',
@@ -23,7 +23,7 @@ export class ToastService {
 
 
         this.snackBar.open(message, 'Close', {
-            duration: 2000,
+            duration: 3500,
             verticalPosition: 'bottom',
             horizontalPosition: 'end',
             panelClass: 'warning',
@@ -33,7 +33,7 @@ export class ToastService {
     info(message: string) {
 
         this.snackBar.open(message, 'Close', {
-            duration: 2000,
+            duration: 3500,
             verticalPosition: 'bottom',
             horizontalPosition: 'end',
             panelClass: 'info',
@@ -43,7 +43,7 @@ export class ToastService {
     success(message: string) {
 
         this.snackBar.open(message, 'Close', {
-            duration: 2000,
+            duration: 3500,
             verticalPosition: 'bottom',
             horizontalPosition: 'end',
             panelClass: 'success',

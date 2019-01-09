@@ -144,7 +144,9 @@ html {
     }
   }
 }
-
+.mat-snack-bar-handset {
+  width: 300px !important;
+}
 .error {
   background: #f44336;
   color: white;
@@ -157,7 +159,7 @@ html {
   background: white;
   color: black;
 }
-.info{
+.success{
   background: #00a441;
   color: white;
 }

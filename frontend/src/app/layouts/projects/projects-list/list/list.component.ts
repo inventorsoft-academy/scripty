@@ -58,11 +58,11 @@ export class ListComponent implements OnInit {
                         .subscribe(
                             (response) => {
                                 console.log(response);
-                                this.toastService.showSuccess(response['response']);
+                                this.toastService.success(response['response']);
                                 this.changeList.emit();
                             },
                             (error) => {
-                                this.toastService.showError(error);
+                                this.toastService.error(error);
                                 console.log(error);
                             }
                         );

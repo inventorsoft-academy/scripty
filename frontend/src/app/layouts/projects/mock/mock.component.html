@@ -39,7 +39,7 @@
                 </mat-select>
             </mat-form-field>
         </div>
-        <div *ngFor="let header of mockForm.controls.headers.controls; let i = index;" formArrayName="headers">
+        <div *ngFor="let header of mockForm['controls'].headers['controls']; let i = index;" formArrayName="headers">
             <mat-form-field [formGroupName]="i">
                 <input matInput placeholder="Custom headers kay" [formControlName]="'key' ">
             </mat-form-field>
