@@ -3,6 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {AdminPageComponent} from './admin-page.component';
 import {AdminSidebarComponent} from './sidebar/sidebar.component';
 import {AdminFooterComponent} from './footer/footer.component';
+import {TicketListComponent} from './content/ticket-list/ticket-list.component';
 import {RoleGuardService} from '../../services/role-guard.service';
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
                 path: 'users', component: AdminFooterComponent,
             },
             {
-                path: 'reports', component: AdminFooterComponent
+                path: 'reports', component: TicketListComponent,
+                data: {title: 'Reports'}
             },
         ],
     },

@@ -1,0 +1,16 @@
+.archive-btn {
+  float: right;
+}
+
+.label {
+  margin-top: 10px;
+  display: block;
+  width: 120px;
+  font-weight: bold;
+}
+
+.mat-expansion-panel {
+  &.archived {
+    background: lighten(#494949, 20);
+  }
+}
