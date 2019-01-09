@@ -10,7 +10,7 @@ import {
     NgForm,
     Validators
 } from '@angular/forms';
-import {ToastService} from '../../services/toast.service';
+import {ToastService} from '../../toast.service';
 
 /** Error when the parent is invalid */
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
@@ -35,7 +35,7 @@ export class RegisterComponent {
         private _formBuilder: FormBuilder,
         private router: Router,
         private  _auth: AuthService,
-        private _toast: ToastService
+        private toast: ToastService
     ) {
         this.initForm();
     }
@@ -119,11 +119,11 @@ export class RegisterComponent {
         this._auth.registerUser(this.registrationForm.value)
             .subscribe(
                 res => {
-                    this._toast.showInfo('Confirm your email address in the letter from us!');
+                    this.toast.info('Confirm your email address in the letter from us!');
                     this.router.navigate(['/login']);
                 },
                 err => {
-                    this._toast.showError(err);
+                    this.toast.error(err);
                 }
             );
     }

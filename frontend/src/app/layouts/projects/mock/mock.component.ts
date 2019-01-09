@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Validators, FormGroup, FormArray, FormBuilder} from '@angular/forms';
 import {MockService} from './mock.service';
 import {Mock} from './mock';
+import {ToastService} from '../../../toast.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class MockComponent implements OnInit {
     methods: string[];
     url: string;
 
-    constructor(private formBuilder: FormBuilder, private mockService: MockService) {
+    constructor(private formBuilder: FormBuilder, private mockService: MockService, private toast: ToastService) {
         this.url = '';
         this.methods = [
             'GET',
@@ -129,10 +130,6 @@ export class MockComponent implements OnInit {
     }
 
     createMock() {
-        if (this.mockForm.invalid) {
-            // todo error
-            return;
-        }
         const headers = {};
         this.mockForm.value.headers.forEach(e => {
             headers[e.key] = e.value;
@@ -141,9 +138,8 @@ export class MockComponent implements OnInit {
             data => {
                 this.url = data['response'];
             },
-            err => {
-                return err;
-                /* todo  error */
+            error => {
+                this.toast.error(error.error);
             }
         )
         ;

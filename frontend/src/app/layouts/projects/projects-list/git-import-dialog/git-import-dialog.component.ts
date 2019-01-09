@@ -3,7 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialogRef} from '@angular/material';
 import {ProjectsService} from '../projects.service';
 import {Router} from '@angular/router';
-import {ToastService} from '../../../../services/toast.service';
+import {ToastService} from '../../../../toast.service';
 
 @Component({
     selector: 'app-git-import-dialog',
@@ -15,7 +15,7 @@ export class GitImportDialogComponent {
 
     constructor(public dialogRef: MatDialogRef<GitImportDialogComponent>,
                 private projectsService: ProjectsService,
-                private toastService: ToastService,
+                private toast: ToastService,
                 private router: Router) {
         this.form = new FormGroup({
             url: new FormControl(null, [Validators.required,
@@ -28,16 +28,16 @@ export class GitImportDialogComponent {
             .subscribe(
                 (data) => {
                     console.log(data);
-                    this.toastService.showSuccess('Project was successfully imported');
+                    this.toast.success('Project was successfully imported');
                     this.dialogRef.close(true);
                 },
                 (error) => {
-                    console.log(error);
+                    this.toast.error(error);
                     if (error.status === 401) {
                         this.router.navigate(['login']);
                     }
                     if (error.status === 409) {
-                        console.log(`A project from url '${this.form.get('url').value}' already exists.`);
+                        this.toast.error(`A project from url '${this.form.get('url').value}' already exists.`);
                     }
                     this.dialogRef.close(false);
                 }

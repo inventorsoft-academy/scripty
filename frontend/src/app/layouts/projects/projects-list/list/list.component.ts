@@ -4,7 +4,7 @@ import {ProjectEditDialogComponent} from '../project-edit-dialog/project-edit-di
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
 import {ProjectsService} from '../projects.service';
-import {ToastService} from '../../../../services/toast.service';
+import {ToastService} from '../../../../toast.service';
 
 @Component({
     selector: 'app-list',
@@ -22,7 +22,7 @@ export class ListComponent implements OnInit {
 
     constructor(private dialog: MatDialog,
                 private projectsService: ProjectsService,
-                private toastService: ToastService) {
+                private toast: ToastService) {
     }
 
     ngOnInit() {
@@ -39,7 +39,7 @@ export class ListComponent implements OnInit {
                 result => {
                     if (result) {
                         this.changeList.emit();
-                        this.toastService.showSuccess(`Project '${project.name}' was updated`);
+                        this.toast.success(`Project '${project.name}' was updated`);
                     }
                 }
             );
@@ -57,10 +57,10 @@ export class ListComponent implements OnInit {
                         .subscribe(
                             () => {
                                 this.changeList.emit();
-                                this.toastService.showSuccess(`Archive status of '${project.name}' was changed`);
+                                this.toast.success(`Archive status of '${project.name}' was changed`);
                             },
                             (error) => {
-                                console.log(error);
+                                this.toast.error(error);
                             }
                         );
                 }

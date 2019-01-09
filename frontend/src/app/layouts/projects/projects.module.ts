@@ -22,6 +22,7 @@ import {MaterialModule} from '../../material-module';
         CommonModule,
         ProjectsRoutingModule,
         FormsModule,
+        DirectivesModule,
         ReactiveFormsModule,
         MaterialModule,
         ProjectsListModule,
