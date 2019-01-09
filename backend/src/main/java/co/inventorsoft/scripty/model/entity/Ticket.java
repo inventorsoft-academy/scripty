@@ -1,7 +1,10 @@
 package co.inventorsoft.scripty.model.entity;
 
 import java.time.LocalDateTime;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
+import co.inventorsoft.scripty.model.dto.PictureDto;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -41,4 +45,12 @@ public class Ticket {
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	User user;
+
+	@Embedded
+	@AttributeOverrides(value = {
+			@AttributeOverride(name = "content", column = @Column(name = "p_content", columnDefinition = "LONGTEXT")),
+			@AttributeOverride(name = "extension", column = @Column(name = "p_extension", length = 25))
+	})
+	PictureDto picture;
+
 }
