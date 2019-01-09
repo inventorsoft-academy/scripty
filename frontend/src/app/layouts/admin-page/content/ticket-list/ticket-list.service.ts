@@ -18,6 +18,6 @@ export class TicketListService {
     }
 
     getImage(id: number) {
-        return this.httpClient.get(`/tickets/${id}/picture`);
+        return this.httpClient.get(`/api/tickets/${id}/picture`);
     }
 }

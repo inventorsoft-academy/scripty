@@ -18,7 +18,8 @@ export class AdminTicketComponent {
 
     constructor(private _cd: ChangeDetectorRef,
                 private _router: Router,
-                private _adminTicketService: AdminTicketService) {
+                private _adminTicketService: AdminTicketService,
+                private _toastService: ToastService) {
         this.form = new FormGroup({
             title: new FormControl(null, [Validators.required,
                 Validators.maxLength(50)]),
@@ -39,10 +40,10 @@ export class AdminTicketComponent {
 
             if (file.size > 5242880) {
                 reader.abort();
-                this.errorText = 'No file chosen';
+                this.errorText = 'Max file size is 5mb!';
             }
 
-            if (file.type !== 'image/png' && file.type !== 'image/gif' && file.type !==  'image/jpeg') {
+            if (file.type !== 'image/png' && file.type !==  'image/jpeg') {
                 reader.abort();
                 this.errorText = 'Unsupported file format!';
             }
@@ -80,10 +81,11 @@ export class AdminTicketComponent {
         this._adminTicketService.sendReport(formData)
             .subscribe(
                 () => {
-                    console.log('Message sent!\nThank you for making us better!');
+                    this._toastService.showSuccess('Message sent!\nThank you for making us better!');
                     this._router.navigateByUrl('/');
                 },
                 (err) => {
+                    this._toastService.showError(err);
                     console.log(err);
                 }
             );

@@ -23,11 +23,11 @@
                    for="fileInput">Choose file</label>
             <input type="file" id="fileInput"
                    (change)="onFileChange($event)"
-                   accept=".gif, .jpg, .png"
+                   accept=".jpg, .png"
             >
             <p class="file-name" #fileName>No file chosen</p>
         </div>
-        <small class="mat-small">Max file size is 5Mb. Supported formats: PNG, GIF, JPG.</small>
+        <small class="mat-small">Max file size is 5Mb. Supported formats: PNG, JPG.</small>
         <div class="img-wrapper">
             <img class="img-preview" [src]="imageSrc || ''" alt="">
         </div>

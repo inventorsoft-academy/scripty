@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Project} from '../../../../models/Project';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProjectsService} from '../projects.service';
+import {ToastService} from '../../../../services/toast.service';
 
 @Component({
     selector: 'app-project-edit-dialog',
@@ -16,7 +17,8 @@ export class ProjectEditDialogComponent {
     constructor(
         public dialogRef: MatDialogRef<ProjectEditDialogComponent>,
         @Inject(MAT_DIALOG_DATA) private project: Project,
-        private projectsService: ProjectsService) {
+        private projectsService: ProjectsService,
+        private toastService: ToastService) {
         this.form = new FormGroup({
             description: new FormControl(this.project.description.includes('github.com') ? 'GitHub' : this.project.description,
                 [Validators.required]),
@@ -34,11 +36,12 @@ export class ProjectEditDialogComponent {
             this.form.value.description,
             this.form.value.visibility).subscribe(
             (response) => {
-                console.log(response['response']);
+                this.toastService.showSuccess(response['response']);
                 this.dialogRef.close(true);
             },
             (error) => {
                 console.log(error);
+                this.toastService.showError(error);
                 this.dialogRef.close(false);
             }
         );

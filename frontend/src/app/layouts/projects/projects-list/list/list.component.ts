@@ -4,6 +4,7 @@ import {ProjectEditDialogComponent} from '../project-edit-dialog/project-edit-di
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
 import {ProjectsService} from '../projects.service';
+import {ToastService} from '../../../../services/toast.service';
 
 @Component({
     selector: 'app-list',
@@ -23,7 +24,8 @@ export class ListComponent implements OnInit {
     userName: string;
 
     constructor(private dialog: MatDialog,
-                private projectsService: ProjectsService) {
+                private projectsService: ProjectsService,
+                private toastService: ToastService) {
     }
 
     ngOnInit() {
@@ -56,9 +58,11 @@ export class ListComponent implements OnInit {
                         .subscribe(
                             (response) => {
                                 console.log(response);
+                                this.toastService.showSuccess(response['response']);
                                 this.changeList.emit();
                             },
                             (error) => {
+                                this.toastService.showError(error);
                                 console.log(error);
                             }
                         );
