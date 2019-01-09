@@ -18,10 +18,11 @@ import scss from 'highlight.js/lib/languages/scss';
 import typescript from 'highlight.js/lib/languages/typescript';
 import javascript from 'highlight.js/lib/languages/javascript';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
 import {AuthInterceptor} from './services/auth.interceptor';
-import { ToastComponent } from './layouts/toast/toast.component';
-import {ToastrModule} from 'ngx-toastr';
 import {AuthService} from './services/auth.service';
+import {ToastService} from './toast.service';
+
 
 export function HLLanguages() {
     return [
@@ -34,8 +35,7 @@ export function HLLanguages() {
 
 @NgModule({
     declarations: [
-        AppComponent,
-        ToastComponent
+        AppComponent
     ],
     imports: [
         BrowserModule,
@@ -49,15 +49,11 @@ export function HLLanguages() {
         HighlightModule.forRoot({
             languages: HLLanguages
         }),
-        ToastrModule.forRoot({
-            timeOut: 3500,
-            maxOpened: 3,
-            positionClass: 'toast-bottom-right',
-            preventDuplicates: true,
-        }) // ToastrModule added
+        HttpClientModule
     ],
     providers: [
         TitleService,
+        ToastService,
         AuthGuardService,
         RoleGuardService,
         {
@@ -65,8 +61,7 @@ export function HLLanguages() {
             useClass: AuthInterceptor,
             multi: true
         },
-        AuthService,
-        TitleService,
+        AuthService
     ],
     bootstrap: [AppComponent]
 })

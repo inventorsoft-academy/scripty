@@ -4,7 +4,7 @@ import {ProjectEditDialogComponent} from '../project-edit-dialog/project-edit-di
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
 import {ProjectsService} from '../projects.service';
-import {ToastService} from '../../../../services/toast.service';
+import {ToastService} from '../../../../toast.service';
 
 @Component({
     selector: 'app-list',

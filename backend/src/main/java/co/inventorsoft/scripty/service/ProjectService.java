@@ -5,6 +5,7 @@ import co.inventorsoft.scripty.model.dto.ProjectUpdateDto;
 import co.inventorsoft.scripty.model.dto.ProjectGithub;
 import co.inventorsoft.scripty.model.entity.Project;
 import org.springframework.security.core.Authentication;
+
 import java.util.List;
 
 /**

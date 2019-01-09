@@ -3,11 +3,11 @@ import {Observable, throwError} from 'rxjs';
 import {catchError, mergeMap} from 'rxjs/operators';
 import {AuthService} from './auth.service';
 import {Injectable} from '@angular/core';
-import {TokenService} from './token.service';
 import {RefreshService} from './refresh.service';
 import {Router} from '@angular/router';
-import {ToastService} from './toast.service';
 import {environment} from '../../environments/environment';
+import {TokenService} from './token.service';
+import {ToastService} from '../toast.service';
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +17,7 @@ export class AuthInterceptor implements HttpInterceptor {
                 private _token: TokenService,
                 private _refresh: RefreshService,
                 private _router: Router,
-                private _toast: ToastService) {
+                private toast: ToastService) {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -64,7 +64,7 @@ export class AuthInterceptor implements HttpInterceptor {
             }));
         } else if (!this._token.isRefreshActive()) {
             this._auth.logOut();
-            this._toast.showError('Refresh Token Die! You need re-login');
+            this.toast.error('Refresh Token Die! You need re-login');
             this._router.navigate(['/login']);
 
             return next.handle(request).pipe(

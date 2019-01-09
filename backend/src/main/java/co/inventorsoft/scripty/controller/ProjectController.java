@@ -96,7 +96,6 @@ public class ProjectController {
         securityService.projectUserIsOwner(projectService.getProject(projectId), authentication);
         projectFilesService.uploadProjectFile(metadata, file, projectId);
     }
-
     @ApiOperation(value = "Endpoint to get list of projects.")
     @GetMapping(produces = "application/json")
     public ResponseEntity<List<Project>> getProjects(Authentication authentication) {

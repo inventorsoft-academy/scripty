@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ToastService} from '../../services/toast.service';
+import {ToastService} from '../../toast.service';
 
 @Component({
     selector: 'app-login',
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
       private _formBuilder: FormBuilder,
       private router: Router,
       private _auth: AuthService,
-      private _toast: ToastService) { }
+      private toast: ToastService) { }
 
     ngOnInit() {
         this.loginForm = this._formBuilder.group({
@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
                     console.log(localStorage.getItem('user'));
                 },
                 err => {
-                    this._toast.showError(err.error.error_description);
+                    this.toast.error(err.error.error_description);
                 }
             );
     }
