@@ -70,7 +70,6 @@ export class AdminTicketComponent {
     onSubmit() {
         const formData = new FormData();
 
-        console.log(this.form.value);
         formData.append('picture', this.form.get('file').value);
         formData.append('ticket', new Blob([JSON.stringify({
             'title': this.form.get('title').value,

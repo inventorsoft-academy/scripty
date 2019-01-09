@@ -22,6 +22,21 @@ export class AuthInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let request: HttpRequest<any> = req;
+
+        if (environment.production) {
+            if (request.url.match(/^\/public/)) {
+                request = req.clone({
+                    url: environment.apiUrl + req.url.slice(11)
+                });
+                return next.handle(request);
+            } else {
+                req = req.clone({
+                    url: req.url.slice(4)
+                });
+                request = req.clone();
+            }
+        }
+
         if (request.url.match(/^\/public/)) {
             request = req.clone({
                 url: environment.apiUrl + req.url.slice(7)
