@@ -1,0 +1,14 @@
+.modal {
+  display: flex;
+  flex-direction: column;
+}
+
+.img-wrapper {
+  max-height: 75vh;
+  max-width: 75vw;
+  text-align: center;
+  img {
+    max-height: 75vh;
+    max-width: 75vw;
+  }
+}

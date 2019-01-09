@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {TicketListService} from './ticket-list.service';
 import {Ticket} from '../../../../models/Ticket';
+import {MatDialog} from '@angular/material';
+import {ImageModalComponent} from './image-modal/image-modal.component';
 
 @Component({
     selector: 'app-ticket-list',
@@ -10,7 +12,8 @@ import {Ticket} from '../../../../models/Ticket';
 export class TicketListComponent implements OnInit {
     tickets: Array<Ticket>;
 
-    constructor(private ticketListService: TicketListService) {
+    constructor(private _ticketListService: TicketListService,
+                private _dialog: MatDialog) {
     }
 
     ngOnInit(): void {
@@ -18,12 +21,16 @@ export class TicketListComponent implements OnInit {
     }
 
     getTickets() {
-        this.ticketListService.getTickets()
+        this._ticketListService.getTickets()
             .subscribe(
                 (response: Array<Ticket>) => {
                     this.tickets = response;
-                    this.tickets = this.tickets.sort((ticket) => {
-                        return ticket.archive ? 1 : -1;
+                    this.tickets = this.tickets.sort((a, b) => {
+                        if (b.archive) {
+                            return -1;
+                        }
+
+                        return 0;
                     });
                 },
                 (error) => {
@@ -33,7 +40,7 @@ export class TicketListComponent implements OnInit {
     }
 
     archiveTicket(id: number, value: boolean) {
-        this.ticketListService.archiveTickets(id, value)
+        this._ticketListService.archiveTickets(id, value)
             .subscribe(
                 response => {
                     console.log(response['response']);
@@ -43,5 +50,33 @@ export class TicketListComponent implements OnInit {
                     console.log(error);
                 }
             );
+    }
+
+    downloadImage(ticket: Ticket) {
+        if (ticket.hasOwnProperty('hasImage')) {
+            return;
+        }
+        this._ticketListService.getImage(ticket.id)
+            .subscribe(
+                res => {
+                    if (res) {
+                        ticket['hasImage'] = true;
+                        const src = `data:${res['extension']};base64,${res['content']}`;
+                        document.getElementById('src' + ticket.id).setAttribute('src', src);
+                    } else {
+                        ticket['hasImage'] = false;
+                    }
+                },
+                err => {
+                    console.log(err);
+                }
+            );
+    }
+
+    openImage(event) {
+        event.preventDefault();
+        this._dialog.open(ImageModalComponent, {
+            data: event.target['src']
+        });
     }
 }

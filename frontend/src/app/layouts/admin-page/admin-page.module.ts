@@ -11,6 +11,7 @@ import {UserListComponent} from './content/user-list/user-list.component';
 import {MaterialModule} from '../../material-module';
 import { UserSearchComponent } from './content/user-list/user-search/user-search.component';
 import {TicketListComponent} from './content/ticket-list/ticket-list.component';
+import { ImageModalComponent } from './content/ticket-list/image-modal/image-modal.component';
 
 @NgModule({
     declarations: [
@@ -21,12 +22,16 @@ import {TicketListComponent} from './content/ticket-list/ticket-list.component';
         AdminFooterComponent,
         UserListComponent,
         UserSearchComponent,
-        TicketListComponent
+        TicketListComponent,
+        ImageModalComponent
     ],
     imports: [
         CommonModule,
         AdminRoutingModule,
         MaterialModule
+    ],
+    entryComponents: [
+        ImageModalComponent
     ]
 })
 export class AdminPageModule {
