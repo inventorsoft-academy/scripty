@@ -89,6 +89,7 @@ public class EmailServiceImpl implements EmailService{
         model.put("firstName", user.getFirstName());
         model.put("token", token);
         model.put("url", prefixUrl);
+        model.put("email", user.getEmail());
         final MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         final MimeMessageHelper helper = new MimeMessageHelper(mimeMessage,
                 MimeMessageHelper.MULTIPART_MODE_RELATED,

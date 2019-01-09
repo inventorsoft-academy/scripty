@@ -136,9 +136,9 @@ public class UserServiceImpl implements UserService {
 
     private VerificationToken generateNewVerificationToken(final User user) {
         return tokenRepository.findByUser(user)
-               .map(token -> token.updateToken(UUID.randomUUID().toString()))
-               .map(tokenRepository::save)
-               .orElseThrow(()-> new ApplicationException("Token not found", HttpStatus.OK));
+                .map(token -> token.updateToken(UUID.randomUUID().toString()))
+                .map(tokenRepository::save)
+                .orElseThrow(()-> new ApplicationException("Token not found", HttpStatus.OK));
     }
 
     private void createResetPasswordToken(final User user, final String passwordToken){
@@ -177,13 +177,16 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public void updateForgottenPassword(final String token, final ResetPasswordDto resetPasswordDto){
-        final User user = findByEmail(resetPasswordDto.getEmail());
+    public void updateForgottenPassword(final String email, final String token, final ResetPasswordDto resetPasswordDto){
+        validateResetPasswordToken(token);
+        final PasswordToken passwordToken = passwordTokenRepository.findByPasswordToken(token).get();
+        final User user = passwordToken.getUser();
         if(!user.isEnabled()){
             throw new ApplicationException("Please confirm your registration first", HttpStatus.BAD_REQUEST);
         }
-        validateResetPasswordToken(token);
-        final PasswordToken passwordToken = passwordTokenRepository.findByPasswordToken(token).get();
+        if(!user.getEmail().equals(email)){
+            throw new ApplicationException("Invalid email: " + email, HttpStatus.BAD_REQUEST);
+        }
         user.setPassword(passwordEncoder.encode(resetPasswordDto.getValidPassword()));
         userRepository.save(user);
         passwordTokenRepository.delete(passwordToken);
