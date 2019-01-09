@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
-
 const routes: Routes = [
     {
         path: 'projects',
@@ -19,12 +18,12 @@ const routes: Routes = [
     },
     {
         path: '',
-        redirectTo: '/projects', pathMatch: 'full'
+        redirectTo: '/projects',
+        pathMatch: 'full'
     },
     {
         path: 'admin',
-        loadChildren: './layouts/admin-page/admin-page.module#AdminPageModule',
-        data: {title: 'Admin page'}
+        loadChildren: './layouts/admin-page/admin-page.module#AdminPageModule'
     },
     {
         path: 'userActivation',
@@ -32,7 +31,8 @@ const routes: Routes = [
         data: {title: 'User activation'}
     },
     {
-        path: '**', redirectTo: '/projects'
+        path: '**',
+        redirectTo: '/projects'
     }
 ];
 

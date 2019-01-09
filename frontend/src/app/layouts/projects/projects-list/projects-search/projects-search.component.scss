@@ -1,0 +1,29 @@
+@import "variables";
+
+.search {
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  .inputs {
+    &__search {
+      margin-right: 20px;
+    }
+  }
+  .buttons {
+    .margin-right {
+      margin-right: 10px;
+    }
+    .material-icons {
+      padding-right: 5px;
+    }
+  }
+}
+
+@media screen and (max-width: 498px){
+  .search__group {
+    margin-left: 0;
+    margin-bottom: 10px;
+  }
+}

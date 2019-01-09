@@ -4,18 +4,20 @@ import {AdminPageComponent} from './admin-page.component';
 import {AdminSidebarComponent} from './sidebar/sidebar.component';
 import {AdminFooterComponent} from './footer/footer.component';
 import {TicketListComponent} from './content/ticket-list/ticket-list.component';
+import {RoleGuardService} from '../../services/role-guard.service';
 
 const routes: Routes = [
     {
-        path: '', component: AdminPageComponent,
+        path: '',
+        component: AdminPageComponent,
+        canActivate: [RoleGuardService],
+        data: {role: 'ROLE_ADMIN'},
         children: [
             {
-                path: '', component: AdminSidebarComponent,
-                data: {title: 'Admin page'}
+                path: '', component: AdminSidebarComponent
             },
             {
                 path: 'users', component: AdminFooterComponent,
-                data: {title: 'User list'}
             },
             {
                 path: 'reports', component: TicketListComponent,

@@ -1,13 +1,13 @@
 {
-  "/api/*": {
-    "target": {
-      "host": "localhost",
-      "protocol": "http:",
-      "port": 8090
-    },
-    "pathRewrite": {"^/api" : ""},
-    "changeOrigin": true,
-    "secure": false,
-    "logLevel": "debug"
-  }
+    "/api/*": {
+        "target": {
+            "host": "localhost",
+            "protocol": "http:",
+            "port": 8090
+        },
+        "pathRewrite": {"^/api" : ""},
+        "changeOrigin": true,
+        "secure": false,
+        "logLevel": "debug"
+    }
 }
