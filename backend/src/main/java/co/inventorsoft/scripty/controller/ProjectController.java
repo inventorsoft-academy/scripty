@@ -102,4 +102,14 @@ public class ProjectController {
     public ResponseEntity<List<Project>> getProjects(Authentication authentication) {
         return ResponseEntity.ok(projectService.getProjects(authentication));
     }
+
+    @ApiOperation(value = "Endpoint to delete project file")
+    @DeleteMapping(value = "/{projectId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteProjectFile(Authentication authentication,
+                                  @PathVariable Long projectId,
+                                  @RequestParam String filePath){
+        securityService.projectUserIsOwner(projectService.getProject(projectId), authentication);
+        projectFilesService.deleteProjectFile(projectId, filePath);
+    }
 }
