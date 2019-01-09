@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {ProjectCreateDialogComponent} from '../project-create-dialog/project-create-dialog.component';
 import {GitImportDialogComponent} from '../git-import-dialog/git-import-dialog.component';
@@ -9,15 +9,17 @@ import {GitImportDialogComponent} from '../git-import-dialog/git-import-dialog.c
     styleUrls: ['./projects-search.component.scss']
 })
 export class ProjectsSearchComponent {
-    searchStr = '';
+    @ViewChild('searchInput') searchInput: ElementRef;
     @Output() search = new EventEmitter<string>();
+    @Output() filterOptionsChanged = new EventEmitter<object>();
     @Output() changeList = new EventEmitter();
 
     createDialogRef: MatDialogRef<ProjectCreateDialogComponent>;
     importDialogRef: MatDialogRef<GitImportDialogComponent>;
+    selectedOptions: Array<any>;
 
-    onChange() {
-        this.search.emit(this.searchStr);
+    onChangeSearchStr(str: string) {
+        this.search.emit(str);
     }
 
     constructor(private dialog: MatDialog) {
@@ -43,5 +45,12 @@ export class ProjectsSearchComponent {
                 }
                 this.importDialogRef = null;
             });
+    }
+
+    onChangeFilterOptions() {
+        this.filterOptionsChanged.emit({
+            'onlyMy': this.selectedOptions.includes('onlyMy'),
+            'archived': this.selectedOptions.includes('archived')
+        });
     }
 }

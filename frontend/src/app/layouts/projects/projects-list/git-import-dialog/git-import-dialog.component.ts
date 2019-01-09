@@ -3,7 +3,6 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialogRef} from '@angular/material';
 import {ProjectsService} from '../projects.service';
 import {Router} from '@angular/router';
-import {ToastService} from '../../../../services/toast.service';
 
 @Component({
     selector: 'app-git-import-dialog',
@@ -15,7 +14,6 @@ export class GitImportDialogComponent {
 
     constructor(public dialogRef: MatDialogRef<GitImportDialogComponent>,
                 private projectsService: ProjectsService,
-                private toastService: ToastService,
                 private router: Router) {
         this.form = new FormGroup({
             url: new FormControl(null, [Validators.required,
@@ -28,7 +26,6 @@ export class GitImportDialogComponent {
             .subscribe(
                 (data) => {
                     console.log(data);
-                    this.toastService.showSuccess('Project was successfully imported');
                     this.dialogRef.close(true);
                 },
                 (error) => {

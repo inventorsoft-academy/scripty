@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="projects | filter:searchStr">
+<table mat-table [dataSource]="projects | filter:searchStr:filterOptions">
 
     <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Name</th>
@@ -34,9 +34,6 @@
                 <button *ngIf="project.archive" mat-menu-item (click)="openArchiveDialog(project, false)">
                     Unarchive
                 </button>
-                <!--<button mat-menu-item (click)="openDeleteDialog(project.name)">
-                    Delete
-                </button>-->
             </mat-menu>
         </td>
     </ng-container>

@@ -10,11 +10,16 @@ import {Project} from '../../../models/Project';
 export class ProjectsListComponent implements OnInit {
     activeProjects: Array<Project>;
     searchStr = '';
+    filterOptions: object;
 
     constructor(private projectsService: ProjectsService) {
     }
 
     ngOnInit() {
+        this.filterOptions = {
+            onlyMy: false,
+            archived: false
+        };
         this.updateList();
     }
 
@@ -37,5 +42,9 @@ export class ProjectsListComponent implements OnInit {
                     return 0;
                 });
             });
+    }
+
+    onFilterOptionsChange(e: object) {
+        this.filterOptions = e;
     }
 }

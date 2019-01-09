@@ -23,6 +23,11 @@ const projectRoutes: Routes = [
                 data: {title: 'Your project'}
             },
             {
+                path: 'list',
+                component: ProjectsListComponent,
+                data: {title: 'Projects list'}
+            },
+            {
                 path: 'mock',
                 component: MockComponent,
                 data: {title: 'Your mock'}

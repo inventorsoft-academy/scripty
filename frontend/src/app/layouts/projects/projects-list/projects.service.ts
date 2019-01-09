@@ -28,10 +28,6 @@ export class ProjectsService {
         return this.httpClient.put(`/api/projects/${id}`, body);
     }
 
-    deleteProject(projectId: number) {
-        return this.httpClient.delete('/api/url/' + projectId);
-    }
-
     archiveProject(projectId: number, value: boolean) {
         return this.httpClient.put(`/api/projects/${projectId}?archive=${value}`, null);
     }

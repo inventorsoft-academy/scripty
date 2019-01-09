@@ -1,4 +1,4 @@
-import {Component, Inject, Output} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Project} from '../../../../models/Project';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -12,13 +12,11 @@ import {ProjectsService} from '../projects.service';
 export class ProjectEditDialogComponent {
     form: FormGroup;
     projectTypes = ['JavaScript', 'jQuery', 'Vue', 'GitHub'];
-    project: Project;
 
     constructor(
         public dialogRef: MatDialogRef<ProjectEditDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) project: Project,
+        @Inject(MAT_DIALOG_DATA) private project: Project,
         private projectsService: ProjectsService) {
-        this.project = project;
         this.form = new FormGroup({
             description: new FormControl(this.project.description.includes('github.com') ? 'GitHub' : this.project.description,
                 [Validators.required]),
