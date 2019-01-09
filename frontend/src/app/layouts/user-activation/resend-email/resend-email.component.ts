@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserActivationService} from '../user-activation.service';
 import {Router} from '@angular/router';
+import {ToastService} from '../../../toast.service';
 
 @Component({
   selector: 'app-resend-email',
@@ -12,6 +13,7 @@ export class ResendEmailComponent {
     form: FormGroup;
 
     constructor(private userActivationService: UserActivationService,
+                private toast: ToastService,
                 private router: Router) {
         this.form = new FormGroup({
             email: new FormControl(null, [Validators.required, Validators.email])
@@ -29,7 +31,7 @@ export class ResendEmailComponent {
                     }
                 },
                 (error) => {
-                    console.log(error);
+                    this.toast.error(error);
                 }
             );
     }
