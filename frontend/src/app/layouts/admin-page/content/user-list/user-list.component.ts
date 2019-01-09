@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UsersService} from './users.service';
+import {User} from '../../../../models/user.model';
 
 @Component({
     selector: 'app-user-list',
@@ -43,5 +44,17 @@ export class UserListComponent implements OnInit {
         this.currentPage = 0;
         this.users = [];
         this.getUsers(this.currentPage, this.searchEmail);
+    }
+
+    changeUserStatus(user: User) {
+        this.usersService.changeUserStatus(user.id, !user.enabled)
+            .subscribe(
+                () => {
+                    user.enabled = !user.enabled;
+                },
+                (err) => {
+                    console.log(err);
+                }
+            );
     }
 }

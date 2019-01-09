@@ -35,12 +35,12 @@ export class HttpTokenInterceptor implements HttpInterceptor {
             // todo for developer
             /* tslint:disable */
             tokenData = {
-                "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiand0cmVzb3VyY2VpZCJdLCJ1c2VyX25hbWUiOiJ1c2VyQHRlc3QuY28iLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNTQ2MDA1NDk2LCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiNjQ0MmI5MzMtOWZkOC00MTU5LWJhNjQtYzEyMDhkYjQ5YTk1IiwiY2xpZW50X2lkIjoiand0Y2xpZW50aWQifQ.Hj7IeHnCAZo1GZ8-SsiKvab0K_7kjXz9-l7PStBywv4",
+                "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiand0cmVzb3VyY2VpZCJdLCJ1c2VyX25hbWUiOiJhZG1pbkB0ZXN0LmNvIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU0NzA0MzQ2NSwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiJdLCJqdGkiOiIzNjE4ZmVmMC1kNzE5LTQyMzItOWVhYy0zNWViMDYyM2U2OTQiLCJjbGllbnRfaWQiOiJqd3RjbGllbnRpZCJ9.CfSkS1nJNd1EaODPNJtN99JaY1B1XLXjG9THu6ew75U",
                 "token_type": "bearer",
-                "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiand0cmVzb3VyY2VpZCJdLCJ1c2VyX25hbWUiOiJ1c2VyQHRlc3QuY28iLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiYXRpIjoiNjQ0MmI5MzMtOWZkOC00MTU5LWJhNjQtYzEyMDhkYjQ5YTk1IiwiZXhwIjoxNTQ2MDE4OTk2LCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiYzY0OWE3Y2UtNWZkYy00MmM4LTk1ZjQtNGE3MWMxODhiMGU2IiwiY2xpZW50X2lkIjoiand0Y2xpZW50aWQifQ.XVdk_rh8fZaQTa8y57rqf_mP3irxjk0cC_smn1l5zjU",
+                "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiand0cmVzb3VyY2VpZCJdLCJ1c2VyX25hbWUiOiJhZG1pbkB0ZXN0LmNvIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImF0aSI6IjM2MThmZWYwLWQ3MTktNDIzMi05ZWFjLTM1ZWIwNjIzZTY5NCIsImV4cCI6MTU0NzA1Njk2NSwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiJdLCJqdGkiOiI4Yzg0NDdhMC0zOTIzLTQ5ZTAtYWZiMC0wNzhhZmJmZjY0M2UiLCJjbGllbnRfaWQiOiJqd3RjbGllbnRpZCJ9.GHjzbO7D5M0iprQ_t5tFAaV3eTNm4VQMbWf0jXEOW6E",
                 "expires_in": 899,
                 "scope": "read write",
-                "jti": "6442b933-9fd8-4159-ba64-c1208db49a95"
+                "jti": "3618fef0-d719-4232-9eac-35eb0623e694"
             };
             TokenService.setTokenData(
                 tokenData

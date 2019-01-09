@@ -1,3 +1,5 @@
+@import "variables";
+
 .page {
   display: flex;
   background-color: #edf4f8;
@@ -30,4 +32,5 @@ app-admin-sidebar {
 app-admin-content {
   height: 100%;
   padding: 50px 15px;
+  background: $primary-color;
 }
