@@ -19,6 +19,7 @@ export class ProjectsComponent implements OnInit {
 
     onSidebarIsOpen(isOpen: boolean) {
         this.isOpen = isOpen;
+
     }
 
 
